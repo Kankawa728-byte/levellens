@@ -19,12 +19,12 @@ English: [A-framework-integration.md](A-framework-integration.md)
 |---|---|---|---|---|
 | A1 | 代码包骨架、配置、命令行、从环境变量读取设备和路径、带占位模型的 Predictor API | `python -m levellens.run data=math model=majority` 在笔记本电脑和 GPU 机器上都能向 `results/runs.jsonl` 写入一行，代码不用改。`Predictor.load("stub")` 能返回概率。 | 4 | 11 月 11 日（周三）12:00 |
 | A2 | 统一格式，以及 RACE++、ARC、MATH、ScienceQA（纯文本）的适配器。保存好的数据划分。每个数据集一个固定的 1,000 题分层测试子集。检查 ARC 的年级标签。 | 题数和 [docs/design.zh-CN.md](../docs/design.zh-CN.md) 一致，或者在 issue 里说明差异。数据划分只写一次，所有模型读取同一批文件。 | 5 | RACE++ 和 MATH：11 月 11 日（周三）12:00。ARC 和 ScienceQA：11 月 11 日（周三）18:00 |
-| A3 | 指标模块：准确率、宏平均 F1、相邻准确率、QWK、MAE、RMSE、Spearman、平衡 DRPS、ECE。配对 bootstrap 区间。多数类测试。 | 在我们的数据划分上，多数类基线能复现 [docs/design.zh-CN.md](../docs/design.zh-CN.md) 里已发表的那一行数字：RACE++ 的，以及 ARC 用平衡训练子集时的。 | 3.5 | 11 月 11 日（周三）23:59 |
+| A3 | 指标模块：准确率、宏平均 F1、相邻准确率、QWK、MAE、RMSE、Spearman、平衡 DRPS、ECE。配对 bootstrap 区间。多数类基线对照测试。 | 在我们的数据划分上，多数类基线能复现 [docs/design.zh-CN.md](../docs/design.zh-CN.md) 里已发表的那一行数字：RACE++ 的，以及 ARC 用平衡训练子集时的。 | 3.5 | 11 月 11 日（周三）23:59 |
 | A4 | 结果库和表格生成器 | 一条命令就能从 `results/runs.jsonl` 重建所有表格。 | 2 | 11 月 12 日（周四）12:00 |
 | A5 | 冻结规格（R1–R8）、审阅和合并、每天整合、决定做不做 | 规格在 11 月 12 日（周四）12:00 冻结。pull request 在 12 小时内审阅。Tier 2 的决定在 11 月 12 日（周四）21:00 发出。11 月 13 日（周五）12:00 宣布结果冻结。 | 2 | 每天 |
 | A6 | README、带讲解的主 notebook、检查文档字符串 | 新读者只看 README，就能安装代码包、跑通小的端到端示例并重建表格。 | 2 | 11 月 14 日（周六）18:00 |
 | A7 | 拼接视频 | 六段录制按分镜顺序接好，视频不超过 9:40，并发给大家用于 20:00 的审看。 | 2 | 11 月 14 日（周六）20:00 |
-| A8 | 最终打包和上传 | 提交记录里每个文件都在。11 月 15 日（周日）12:00 前上传，最晚 18:00。 | 0.5 | 11 月 15 日（周日） |
+| A8 | 最终打包和上传 | 课程提交页面上能看到每个文件。11 月 15 日（周日）12:00 前上传，最晚 18:00。 | 0.5 | 11 月 15 日（周日） |
 
 ## Tier 2
 

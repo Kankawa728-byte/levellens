@@ -42,7 +42,7 @@ English: [README.md](README.md)
 |---|---|---|
 | A1 | 代码包骨架、配置、命令行、带占位模型的 Predictor API | 4 |
 | A2 | 统一格式、数据集适配器、保存好的数据划分、固定的 1,000 题测试子集、检查 ARC 的年级标签 | 5 |
-| A3 | 指标模块、bootstrap 区间、多数类测试 | 3.5 |
+| A3 | 指标模块、bootstrap 区间、多数类基线对照测试 | 3.5 |
 | A4 | 结果库和表格生成器 | 2 |
 | A5 | 冻结规格、审阅和合并、每天整合、决定做不做 | 2 |
 | A6 | README、带讲解的主 notebook、检查文档字符串 | 2 |
@@ -169,7 +169,7 @@ English: [README.md](README.md)
 | Experiment design（实验设计） | 九项指标、已发表的基线、我们自己的基线 | A、B、D |
 | Interpretation（解释） | 全局 SHAP、LIME 和 SHAP、迁移、外推、物理意义、人工核对 | D、F、B |
 | Readability（可读性） | 一个代码包、文档字符串、主 notebook、README、审阅过的 pull request | 所有人、A |
-| Efficiency（效率） | 分词结果缓存、剪枝、截短的训练集、效率表 | E、C |
+| Efficiency（效率） | 分词结果缓存、剪枝、限定规模的数据集、效率表 | E、C |
 | Reusability（可复用性） | 共用的统一格式、Predictor API、配置 | A |
 | Presentation（展示） | Streamlit 应用 | F |
 | Video（视频） | 六个人都讲；分镜；拼接 | 所有人、B、A |

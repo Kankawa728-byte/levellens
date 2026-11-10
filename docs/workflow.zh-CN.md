@@ -6,7 +6,7 @@ English: [workflow.md](workflow.md)
 
 - 这个仓库是公开的，所以不用账号也能看。
 - 要推送代码，在群里把你的 GitHub 用户名发给组长。你会收到一封邀请邮件，接受它。
-- 在那之前，可以 fork 这个仓库，从你的 fork 发 pull request。
+- 在那之前，先 fork 这个仓库，再从你的 fork 发 pull request。
 
 ## 分支和 pull request
 

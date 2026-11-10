@@ -28,7 +28,7 @@ English: [E-neural-models.md](E-neural-models.md)
 | E7 | DeBERTa-v3 上的 Optuna：TPE 采样器、中位数剪枝器，每个数据集 12 次试验。RACE++ 的试验用 1 万条子集。最好的设置在完整训练集上重新训练。 | 11 月 12 日（周四）：搜索已启动。到结果冻结时，重新训练的结果行已到位。 | 3 | 启动：11 月 12 日（周四）20:00。结果行：11 月 13 日（周五）12:00 |
 | E8 | 把最终模型导出到 Predictor API：每个数据集最好的模型，以及演示用的 DistilBERT | `Predictor.load(...)` 给出的测试集预测和训练那次运行的一样。DistilBERT 在笔记本电脑 CPU 上每道题不超过 1 秒。 | 1.5 | 11 月 13 日（周五）15:00 |
 
-已知的坑：DeBERTa-v3 在 fp16 下可能出现 NaN 损失。改用 bf16 或 fp32；如果要把 RoBERTa 改成主模型，告诉组长。
+已知的坑：DeBERTa-v3 在 fp16 下可能出现 NaN 损失。改用 bf16 或 fp32；如果需要改用 RoBERTa 作主干，告诉组长。
 
 建议用的库：PyTorch、transformers、datasets、optuna、提供 CORN 损失的 coral-pytorch。用什么由你定。
 

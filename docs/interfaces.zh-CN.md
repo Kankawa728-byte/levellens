@@ -81,7 +81,7 @@ result = predictor.predict(["What is the main idea of the passage? A. ... B. ...
 # result["level_names"]     names of the K levels
 ```
 
-`"stub"` 不需要训练好的模型。它返回编造的概率，所以应用从第一天就能开始做。真实模型在 11 月 13 日（周五）替换它（任务 E8）。
+`"stub"` 不需要训练好的模型。它返回随意生成的概率，所以应用从第一天就能开始做。真实模型在 11 月 13 日（周五）替换它（任务 E8）。
 
 ## 路径
 
