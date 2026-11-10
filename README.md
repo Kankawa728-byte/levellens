@@ -4,7 +4,7 @@ LevelLens estimates the target difficulty level of an exam question from its tex
 
 Group project of Table 38, six members. Hard deadline: **Sun 15 Nov 2026, 23:59**. All times on these pages are Singapore time.
 
-中文版：[README.zh-CN.md](README.zh-CN.md)
+中文版：[README.zh-CN.md](README.zh-CN.md). Every page has a Chinese version; the link is at the top of the page.
 
 ## Start here
 

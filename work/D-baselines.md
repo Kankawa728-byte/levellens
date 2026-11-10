@@ -1,5 +1,7 @@
 # Share D · Baselines: classical, feature models, open LLM
 
+中文版：[D-baselines.zh-CN.md](D-baselines.zh-CN.md)
+
 **Owner:** open · **Buddy:** B · **Size:** 24 h Tier 1 + 4 h Tier 2
 
 Everything that is not a fine-tuned neural network: the floors, the classical models, the feature-based models, and the open LLM used without training. These numbers show how much the neural models really add. The feature model also gives the first answer to "what makes a question hard".

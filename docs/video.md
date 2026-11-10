@@ -1,5 +1,7 @@
 # Video, slides and reflection
 
+中文版：[video.zh-CN.md](video.zh-CN.md)
+
 All times are Singapore time.
 
 ## What we hand in

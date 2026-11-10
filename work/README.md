@@ -1,5 +1,7 @@
 # The six shares
 
+中文版：[README.zh-CN.md](README.zh-CN.md)
+
 The project is cut into six shares of the same size. This page shows the count, so that everyone can check that it is fair.
 
 - **Tier 1** is what we must ship. Every share has 24 hours of it.

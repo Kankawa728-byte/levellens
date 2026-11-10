@@ -1,5 +1,7 @@
 # Share C · Compute, runs and efficiency
 
+中文版：[C-compute-runs-efficiency.zh-CN.md](C-compute-runs-efficiency.zh-CN.md)
+
 **Owner:** Qiutian · **Buddy:** E · **Size:** 24 h Tier 1 + 4 h Tier 2
 
 Every GPU run of the project goes through this share: the environment, the job scripts, the queue of runs, the returned results and the efficiency numbers.

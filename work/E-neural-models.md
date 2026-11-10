@@ -1,5 +1,7 @@
 # Share E · Neural models: BiLSTM and transformers
 
+中文版：[E-neural-models.zh-CN.md](E-neural-models.zh-CN.md)
+
 **Owner:** open · **Buddy:** C · **Size:** 24 h Tier 1 + 4 h Tier 2
 
 The trained neural models and the improvements on top of them: ordinal output heads, Bayesian tuning with Optuna, and stable training on the small science set.

@@ -1,5 +1,7 @@
 # Schedule
 
+中文版：[schedule.zh-CN.md](schedule.zh-CN.md)
+
 All times are Singapore time. The hard deadline is **Sun 15 Nov 2026, 23:59**.
 
 ## Milestones

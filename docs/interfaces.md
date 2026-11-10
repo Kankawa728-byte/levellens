@@ -1,5 +1,7 @@
 # Interfaces (draft v0)
 
+中文版：[interfaces.zh-CN.md](interfaces.zh-CN.md)
+
 This page lets everyone start before the skeleton is merged. When the skeleton is in `main` (Wed 11 Nov 12:00), the code is the reference, and the lead updates this page to match it.
 
 ## One item

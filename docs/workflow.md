@@ -1,5 +1,7 @@
 # How we work
 
+中文版：[workflow.zh-CN.md](workflow.zh-CN.md)
+
 ## Access
 
 - This repository is public, so everyone can read it without an account.
@@ -20,6 +22,7 @@
 - No data, model weights, recordings or slides in this repository. Data and weights come from `scripts/download_data.py`.
 - No personal details: no matriculation numbers, emails, phone numbers, signatures or photos. No access tokens.
 - No hard-coded paths. Use the environment variables in [interfaces.md](interfaces.md).
+- Every page has a Chinese version next to it (`name.zh-CN.md`). English is the reference. If you add or change a page, tell the lead, who keeps the Chinese version in step.
 
 ## Runs and results
 

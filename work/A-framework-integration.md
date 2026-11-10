@@ -1,5 +1,7 @@
 # Share A · Framework and integration
 
+中文版：[A-framework-integration.zh-CN.md](A-framework-integration.zh-CN.md)
+
 **Owner:** Xingyang (lead) · **Buddy:** F · **Size:** 24 h Tier 1 + 4 h Tier 2
 
 The shared code that every other share plugs into, and putting the pieces together at the end: tables, package, video and upload.
@@ -45,5 +47,5 @@ The shared code that every other share plugs into, and putting the pieces togeth
 
 ## Video part
 
-Opening, 0:00–1:00: the teacher's problem, the "target level" wording, the research questions, our specifications.
-Closing, 8:50–9:40: pass or fail for each specification, limitations, future work, references.
+- Opening, 0:00–1:00: the teacher's problem, the "target level" wording, the research questions, our specifications.
+- Closing, 8:50–9:40: pass or fail for each specification, limitations, future work, references.

@@ -1,5 +1,7 @@
 # Design
 
+中文版：[design.zh-CN.md](design.zh-CN.md)
+
 All times are Singapore time. The tiers (Tier 1, Tier 2) are explained in [work/README.md](../work/README.md).
 
 ## Problem and users
@@ -140,7 +142,7 @@ Draft. The lead freezes them on Thu 12 Nov at 12:00. The video reports pass or f
 | Risk | What we do |
 |---|---|
 | ARC grade labels cannot be read, or too few items remain. | See "If ARC fails the first check" above. |
-| GPU access is late or slow. | Run on the RTX 5090; cap RACE++ at 20–30k; stage the cache offline. |
+| GPU access is late or slow. | Run on the RTX 5090; cap RACE++ at 20k–30k; stage the cache offline. |
 | DeBERTa-v3 gives NaN losses in fp16. | Use bf16 or fp32, or RoBERTa as the main backbone. |
 | We run out of time. | Tier 1 first. Tier 2 only after the go on Thu 12 Nov at 21:00. No new experiments after the results freeze. |
 | A member is unavailable. | The buddy covers that day; the lead re-plans in the group chat. |
