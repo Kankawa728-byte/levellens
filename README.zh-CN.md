@@ -1,0 +1,126 @@
+# LevelLens
+
+LevelLens 根据考题的文字，估计这道题面向的目标难度等级。老师贴进一道新题，就能看到它对应哪个等级，以及原因。
+
+第 38 桌的小组项目，共六人。硬截止时间：**2026 年 11 月 15 日（周日）23:59**。本仓库里的时间都是新加坡时间。
+
+English: [README.md](README.md)。本页是英文版 README 的翻译，如有出入，以英文版为准。六份工作的任务页和其他文档只有英文版。
+
+## 从这里开始
+
+1. 把本页读完，大约五分钟。
+2. 在下面的表里找到自己的那一份，点开它的任务页。
+3. 还没有分工的同学：今天就认领一份空着的工作，步骤见“怎样认领”。
+4. 在群里把你的 GitHub 用户名发给组长。推送代码要用到它。
+
+## 六份工作
+
+全部工作分成大小相同的六份。每一份都是 24 小时的 Tier 1 工作加 4 小时的 Tier 2 工作。小时数是估算，已经包含各自的 slides 和录制。逐项的小时数见 [work/README.md](work/README.md)。
+
+| 分工 | 内容 | 负责人 | Tier 1 | Tier 2 | 状态 |
+|---|---|---|---|---|---|
+| [A](work/A-framework-integration.md) | 代码框架与整合 | Xingyang（组长） | 24 小时 | 4 小时 | 已分配 |
+| [B](work/B-literature-data-audit.md) | 文献、数据检查与人工核对 | Wenyue | 24 小时 | 4 小时 | 已分配 |
+| [C](work/C-compute-runs-efficiency.md) | 算力、跑实验与效率 | Qiutian | 24 小时 | 4 小时 | 已分配 |
+| [D](work/D-baselines.md) | 基线：传统模型、特征模型、开源大模型 | **待认领** | 24 小时 | 4 小时 | [在 issue 4 认领](https://github.com/Kankawa728-byte/levellens/issues/4) |
+| [E](work/E-neural-models.md) | 神经网络模型：BiLSTM 和 Transformer | **待认领** | 24 小时 | 4 小时 | [在 issue 5 认领](https://github.com/Kankawa728-byte/levellens/issues/5) |
+| [F](work/F-interpretation-demo.md) | 模型解释、外推与演示应用 | **待认领** | 24 小时 | 4 小时 | [在 issue 6 认领](https://github.com/Kankawa728-byte/levellens/issues/6) |
+
+- **Tier 1**：必须完成的部分。
+- **Tier 2**：Tier 1 按时完成后再加的部分。组长在 11 月 12 日（周四）21:00 决定做不做。
+
+三份待认领的工作各适合谁：
+
+- **D** 适合熟悉 scikit-learn 的同学，大部分在笔记本电脑的 CPU 上就能跑。
+- **E** 在关键路径上，适合微调过 Transformer 的同学。
+- **F** 适合喜欢画图和做前端的同学，应用用 Streamlit 写。
+
+## 怎样认领
+
+1. 读 D、E、F 三份工作的任务页。
+2. 打开你想要的那一份的 issue，评论 “I take this”，并写上你的名字。先评论的人得到这一份。没有 GitHub 账号的同学，直接在群里告诉组长。
+3. 组长把你的名字写进上面的表。
+
+认领截止：**11 月 10 日（周二）23:59**。到 11 月 11 日（周三）09:00 还没人认领的，由组长指定。
+
+## 关键日期
+
+| 时间 | 事项 |
+|---|---|
+| 11 月 10 日（周二）23:59 | 待认领的工作认领完 |
+| 11 月 11 日（周三）12:00 | 代码骨架进入 `main` |
+| 11 月 11 日（周三）23:59 | 每一类模型都写出了第一行结果 |
+| 11 月 12 日（周四）12:00 | 指标要求冻结；Tier 1 的实验交给 GPU 跑 |
+| 11 月 12 日（周四）21:00 | 决定做不做 Tier 2 |
+| 11 月 13 日（周五）12:00 | **结果冻结**：之后不做新实验 |
+| 11 月 13 日（周五）23:59 | 所有表格和图定稿 |
+| 11 月 14 日（周六）10:00 | slides 定稿；10:30 计时彩排 |
+| 11 月 14 日（周六）16:00 | 每个人的录制文件交给组长 |
+| 11 月 14 日（周六）22:00 | 定稿确认：视频、反思文档、代码 |
+| 11 月 15 日（周日）12:00 | 上传，最晚 18:00 |
+| 11 月 15 日（周日）23:59 | 硬截止 |
+
+按天、按分工排的完整日程见 [docs/schedule.md](docs/schedule.md)。
+
+## 我们要做什么
+
+- **任务**：预测一道题的目标等级，也就是考试阶段、年级或竞赛级别。等级有先后顺序。
+- **数据**：三个用来训练的数据集：RACE++（英语阅读，3 级）、ARC（中小学科学，7 个年级）、MATH（竞赛数学，5 级）。ScienceQA 用来检验科学模型能外推多远。
+- **模型**：最低基线、传统模型和特征模型、BiLSTM、带有序输出头的 DeBERTa-v3 和 DistilBERT，以及不经训练直接使用的开源大模型。
+- **评估**：九项指标、同一测试集上已发表的基线，以及八条可度量的要求，逐条给出通过或不通过。
+- **解释**：SHAP 和 LIME、对最严重错误的人工核对、学科之间的迁移，以及把模型分数读成题目难度参数。
+- **演示**：一个 Streamlit 应用。老师给一道题打分，看它难在哪里，改题后再打一次分。
+
+细节见 [docs/design.md](docs/design.md)。
+
+## 仓库结构
+
+字母表示这个文件归哪一份工作。每个文件只有一个负责人。
+
+```text
+levellens/                    Python 包
+  data/                 A     race.py  arc.py  math.py  scienceqa.py   -> 统一的数据格式
+  features/             D     tfidf.py  linguistic.py
+                        E     glove.py  latex.py
+  models/               D     classic.py  llm.py
+                        E     recurrent.py  transformer.py
+  heads/                E     ce.py  corn.py
+  explain/              D     global_shap.py
+                        F     local.py  errors.py
+  evaluate.py           A     全部指标、bootstrap 置信区间
+  figures.py            F     结果图和错误分析图
+  predictor.py          A     实验和应用共用的 Predictor 接口
+  results.py            A     runs.jsonl -> 表格
+  run.py                A     python -m levellens.run data=arc model=deberta-v3 head=corn seed=0
+configs/                A     目录结构；各人添加自己模型的配置
+scripts/                C     download_data.py、stage_cache、作业模板
+notebooks/main.ipynb    A     小规模的完整流程，然后重建所有表格
+app/                    F     streamlit_app.py、pages/
+tests/                  A     公共测试；各人为自己的模块加测试
+results/                      runs.jsonl、表格、图
+docs/                   A、B  设计、接口、日程、协作规则、视频；B 添加数据集卡片、相关工作、人工核对
+work/                   A     六份工作
+```
+
+代码骨架在 11 月 11 日（周三）12:00 进入仓库。在那之前，按 [docs/interfaces.md](docs/interfaces.md) 写代码。
+
+## 规则摘要
+
+- 每项工作开一个分支，由组长合并进 `main`。
+- 每次运行向 `results/runs.jsonl` 写一行。slides 上的每个数字都来自这里。
+- 测试集只用来出最终数字。
+- 本仓库是公开的。不要提交数据、模型权重、录制文件、学号、邮箱、签名和访问令牌。
+- 卡住超过一小时，就在群里说。
+
+完整规则见 [docs/workflow.md](docs/workflow.md)。
+
+## 文档
+
+| 页面 | 内容 |
+|---|---|
+| [work/README.md](work/README.md) | 六份工作逐项的小时数；谁在等谁 |
+| [docs/design.md](docs/design.md) | 数据集、模型、指标、要求、范围、参考文献 |
+| [docs/interfaces.md](docs/interfaces.md) | 数据字段、模型接口、结果行、Predictor |
+| [docs/schedule.md](docs/schedule.md) | 里程碑和按天的日程 |
+| [docs/workflow.md](docs/workflow.md) | 分支、pull request、文件、运行 |
+| [docs/video.md](docs/video.md) | 视频分段、slides、录制、反思文档 |

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Data, caches and model weights: fetched by scripts/download_data.py, never committed
+data/
+cache/
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.zip
+*.tar.gz
+
+# Experiment trackers and job logs
+wandb/
+optuna_storage/
+logs/
+*.log
+slurm-*.out
+
+# Slides, recordings and personal documents live on the shared drive
+*.mp4
+*.mov
+*.mkv
+*.pptx
+*.key
+*.docx
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
