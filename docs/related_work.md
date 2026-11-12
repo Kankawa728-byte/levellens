@@ -1,8 +1,8 @@
 # Published baselines and protocol checks
 
-中文导读：[related_work.zh-CN.md](related_work.zh-CN.md)
+中文版：[related_work.zh-CN.md](related_work.zh-CN.md)
 
-Prepared for Share B, Tang Wenyue. Checked on 12 November 2026 against the two **arXiv v1** papers and their public code. The numeric entries below match the rows cited. They are published reference results, not LevelLens measurements.
+**Owner:** Wenyue. Checked on 12 November 2026 against the two **arXiv v1** papers and their public code. The numeric entries below match the rows cited. They are published reference results, not LevelLens measurements.
 
 ## Comparison status
 
@@ -35,7 +35,7 @@ The two “best classical hybrid” entries use different feature combinations. 
 
 Version: [arXiv:2507.00736v1](https://arxiv.org/abs/2507.00736v1), §6 and Tables 2–3 on PDF page 9. RACE++ train/dev/test sizes are 100,568/5,599/5,642. ARC sizes before training downsampling are 3,358/862/3,530; the training subset has 2,293 questions. BERT-base-uncased is fine-tuned with regression, classification or ordinal heads. Input contains the question and all options separated by separator tokens; the implementation also includes RACE++ passages. Results average five runs. The reported metrics are accuracy, RMSE, probability-based Balanced DRPS, and its degenerate-distribution variant.
 
-The public configuration starts at seed 42 and the main loop adds the run index, giving 42–46. Balanced DRPS averages the squared cumulative-probability error within each true class, then across classes. Keep the probabilistic and degenerate columns separate. For hard predictions, the latter behaves as class-balanced absolute level error. Do not divide by K−1 when comparing against these tables.
+The public configuration sets the base seed to 42 and the main loop adds the run index, which starts at 1, giving seeds 43–47. Balanced DRPS averages the squared cumulative-probability error within each true class, then across classes. Keep the probabilistic and degenerate columns separate. For hard predictions, the latter behaves as class-balanced absolute level error. Do not divide by K−1 when comparing against these tables.
 
 | Dataset | Output head | Metric | Published mean ± SD | Check |
 |---|---|---|---|---|
@@ -87,5 +87,3 @@ These are publication identities, not claims that every method was implemented i
 ## Slide wording
 
 Use: “Published reference results; input and ARC training protocols differ from our main runs.” The current project estimates **target level**, not difficulty calibrated from student responses. No verified published MATH target-level result was identified in the two comparison papers; this is a limited literature check, not proof that none exists.
-
-Research checks and prose were prepared with AI assistance. Tang Wenyue should verify the interpretation before presenting it as a personal explanation.

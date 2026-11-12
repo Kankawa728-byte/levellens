@@ -95,6 +95,7 @@ levellens/                    Python 代码包
 configs/                A     目录结构；每个负责人添加自己模型的配置
 scripts/                C     download_data.py、stage_cache、作业模板
 notebooks/main.ipynb    A     先跑一个小的端到端示例，再重建所有表格
+notebooks/data_checks.* B     docs/datasets.md 背后的数据检查
 app/                    F     streamlit_app.py、pages/
 tests/                  A     公共测试；每个负责人为自己的模块加测试
 results/                      runs.jsonl、表格、图
@@ -124,3 +125,6 @@ work/                   A     六份工作
 | [docs/schedule.zh-CN.md](docs/schedule.zh-CN.md) | 里程碑和逐日安排 |
 | [docs/workflow.zh-CN.md](docs/workflow.zh-CN.md) | 分支、pull request、文件、运行 |
 | [docs/video.zh-CN.md](docs/video.zh-CN.md) | 视频分段、slides、录制、反思文档 |
+| [docs/datasets.zh-CN.md](docs/datasets.zh-CN.md) | 数据集卡片：各等级题数、长度、完全重复、许可证 |
+| [docs/related_work.zh-CN.md](docs/related_work.zh-CN.md) | 已发表的基线结果，已对照论文和公开代码核对 |
+| [docs/audit.zh-CN.md](docs/audit.zh-CN.md) | 15 个最严重错误的人工核对：规则和记录表 |

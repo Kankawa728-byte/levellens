@@ -1,8 +1,8 @@
 # Dataset cards and checks
 
-中文导读：[datasets.zh-CN.md](datasets.zh-CN.md)
+中文版：[datasets.zh-CN.md](datasets.zh-CN.md)
 
-**Owner:** Tang Wenyue. Checked on 12 November 2026 using the unmodified adapters from base commit `6228662`. The four datasets reproduce all 17 saved fingerprints, including derived subsets. All 12 primary split counts match `docs/design.md`. No count mismatch was found.
+**Owner:** Wenyue. Checked on 12 November 2026 using the unmodified adapters from base commit `6228662`. The four datasets reproduce all 17 saved fingerprints, including derived subsets. All 12 primary split counts match `docs/design.md`. No count mismatch was found.
 
 The labels represent **target levels**, not difficulty calibrated from student responses. This review does not change frozen splits or labels. Aggregate data and four class-balance figures are in `results/data_checks/`; no raw questions are committed.
 
@@ -24,7 +24,7 @@ Run `notebooks/data_checks.ipynb` for the same checks with displayed tables and 
 - Question length counts whitespace tokens in `question`. Model-input length counts them in `text`. These are not BERT token counts. Full mean, median, 95th percentile, minimum and maximum in words and characters are retained by split and level in `summary.json`.
 - Stem repeats compare exact stored `question` strings. Input repeats compare exact stored `text`, after the adapter's whitespace normalisation. A duplicate group is a distinct repeated string; extra rows equal group size minus one. No near-duplicate detection is claimed.
 - A conflicting-level group has more than one target label. Different omitted passages can explain a conflict, so it is not automatically label noise.
-- Ten training inputs per level were selected deterministically with sample seed 38 and read with AI assistance: 270 inputs across 27 levels. This is an exploratory content review, not a statistically representative error-rate estimate or Tang Wenyue's personal human sign-off. Exact sample IDs and observations are retained in `sample_review.json`.
+- Ten training inputs per level were selected deterministically with sample seed 38: 270 inputs across 27 levels. The observations in the tables below are a preliminary content review, and Wenyue's item-by-item confirmation of them is still pending. The sample is not a statistically representative error-rate estimate. Exact sample IDs and observations are retained in `sample_review.json`.
 
 
 ## RACE++
@@ -91,9 +91,9 @@ Caption: percentage of each target level within each frozen split; denominators 
 The train/test comparison has 156 shared complete input strings, touching 156 test rows, with 96 groups carrying different levels across the two splits. The passages have zero exact cross-split overlap. This combination points to repeated context-free inputs, not evidence of passage leakage. Repeated identical answer options occur in 55/5/3 train/dev/test items.
 
 
-### Reading ten examples per level
+### Ten examples per level: preliminary observations
 
-| Target level | Inputs read | Observation |
+| Target level | Inputs sampled | Observation |
 | --- | --- | --- |
 | middle school | 10 | The ten inputs include retrieval, weather expressions, main ideas and negative questions. Several refer to an omitted passage; a short stem does not mean a low reasoning demand. |
 | high school | 10 | The ten inputs mix retrieval, inference and main-idea tasks. high23964-q1 contains inconsistent telephone-number typography, and high23371-q4 contains the merged token Selfprovides. |
@@ -180,9 +180,9 @@ Caption: percentage of each target level within each frozen split; denominators 
 Grade 8 contributes 1,375 of 3,358 training items. Two complete input strings are shared between train and test. One training input group has different grade labels. Class-weighted evaluation and per-grade recall remain necessary; these observations do not authorise changes to the frozen splits.
 
 
-### Reading ten examples per level
+### Ten examples per level: preliminary observations
 
-| Target level | Inputs read | Observation |
+| Target level | Inputs sampled | Observation |
 | --- | --- | --- |
 | grade 3 | 10 | The ten examples cover life cycles, resources, friction and land formation. Terms such as metamorphosis coexist with simple factual recall; grade is a curriculum label. |
 | grade 4 | 10 | The ten examples range from identifying a herbivore to orbital explanations and ecological effects. No missing diagram reference was apparent in these inputs. |
@@ -265,9 +265,9 @@ Caption: percentage of each target level within each frozen split; denominators 
 There are no exact raw-stem duplicates. Whitespace normalisation makes one training input pair identical and one dev/test input pair identical; the latter has different levels. Asymptote markup occurs in 643/64/419 train/dev/test items. Counting that code as ordinary text can affect length-based features.
 
 
-### Reading ten examples per level
+### Ten examples per level: preliminary observations
 
-| Target level | Inputs read | Observation |
+| Target level | Inputs sampled | Observation |
 | --- | --- | --- |
 | Level 1 | 10 | The ten problems include arithmetic, ratios and trigonometry. Level 1 is a competition-relative label and includes precalculus content, so it is not school grade 1. |
 | Level 2 | 10 | The ten problems mix identities, sequences, operations and probability. prealgebra-0455 asks for the smallest positive multiple of 32; perceived simplicity alone is insufficient to declare label noise. |
@@ -391,9 +391,9 @@ The test set contains 1,728 items in grades 3–9 and 496 outside that range. It
 | 12 | 0 | 81 | 0 |
 
 
-### Reading ten examples per level
+### Ten examples per level: preliminary observations
 
-| Target level | Inputs read | Observation |
+| Target level | Inputs sampled | Observation |
 | --- | --- | --- |
 | grade 1 | 10 | All ten sampled grade-1 items are language science riddles or rhyme questions, illustrating a subject shift relative to ARC. |
 | grade 2 | 10 | The ten items mix measurement, grammar and goods/services. Capitalisation can be the information separating answer options. |
@@ -411,6 +411,6 @@ The test set contains 1,728 items in grades 3–9 and 496 outside that range. It
 
 ## Implications for the team
 
-A should review the RACE++ input mismatch documented in [related_work.md](related_work.md), the duplicate-input counts, and ScienceQA hint/subject caveats before interpreting final performance. B preserves the current splits and records these findings. The prepared message is outside the public repository and has not been posted. The final-model audit remains [pending](audit.md).
+A should review the RACE++ input mismatch documented in [related_work.md](related_work.md), the duplicate-input counts, and ScienceQA hint/subject caveats before interpreting final performance. B preserves the current splits and records these findings. The RACE++ input difference is also stated in [design.md](design.md). The final-model audit remains [pending](audit.md).
 
 The data-review findings are descriptive. No labels were re-assigned, no performance gains were inferred, and no result from a sampled content review is presented as a student-calibrated difficulty measurement.

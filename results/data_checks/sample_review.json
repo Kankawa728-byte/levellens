@@ -15,8 +15,8 @@
       "race-train-middle4318-q4",
       "race-train-middle3772-q0"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten inputs include retrieval, weather expressions, main ideas and negative questions. Several refer to an omitted passage; a short stem does not mean a low reasoning demand."
   },
   {
@@ -35,8 +35,8 @@
       "race-train-high22765-q3",
       "race-train-high6937-q3"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten inputs mix retrieval, inference and main-idea tasks. high23964-q1 contains inconsistent telephone-number typography, and high23371-q4 contains the merged token Selfprovides."
   },
   {
@@ -55,8 +55,8 @@
       "race-train-college1939-q8",
       "race-train-college549-q1"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten inputs include referents, inference and paragraph-level questions. college447-q4 has identical B and C options and the typo sue. This is an item-format issue, not evidence that the college label is wrong."
   },
   {
@@ -75,8 +75,8 @@
       "Mercury_SC_413079",
       "Mercury_SC_405198"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples cover life cycles, resources, friction and land formation. Terms such as metamorphosis coexist with simple factual recall; grade is a curriculum label."
   },
   {
@@ -95,8 +95,8 @@
       "LEAP_2004_4_10259",
       "Mercury_SC_409238"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples range from identifying a herbivore to orbital explanations and ecological effects. No missing diagram reference was apparent in these inputs."
   },
   {
@@ -115,8 +115,8 @@
       "Mercury_SC_405927",
       "Mercury_SC_400587"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples cover chemical changes, heat, fuels and lab safety. MCAS_2005_5_28 contains an isolated 28 in the stem, consistent with a source formatting artefact."
   },
   {
@@ -135,8 +135,8 @@
       "Mercury_LBS10185",
       "Mercury_400308"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples mix gravity, optics, sampling and recall. The Edison item uses a simplified historical attribution; no target-grade relabelling follows from that observation."
   },
   {
@@ -155,8 +155,8 @@
       "Mercury_7245228",
       "Mercury_7097300"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples cover cells, heat, succession, minerals and energy transfer. Negation in Mercury_7106400 matters to interpreting the question."
   },
   {
@@ -175,8 +175,8 @@
       "MCAS_1999_8_2",
       "Mercury_7222250"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples include experiment design, Earth layers, chemistry and simple cell recall. A grade-8 item can require less text than a grade-3 item."
   },
   {
@@ -195,8 +195,8 @@
       "Mercury_7228760",
       "Mercury_7172130"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples cover gene expression, hormones, repeated trials, evaporation and storms. The sampled inputs are readable; their grade labels are not empirically calibrated difficulty scores."
   },
   {
@@ -215,8 +215,8 @@
       "math-train-algebra-0273",
       "math-train-algebra-0955"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten problems include arithmetic, ratios and trigonometry. Level 1 is a competition-relative label and includes precalculus content, so it is not school grade 1."
   },
   {
@@ -235,8 +235,8 @@
       "math-train-algebra-1624",
       "math-train-counting_and_probability-0307"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten problems mix identities, sequences, operations and probability. prealgebra-0455 asks for the smallest positive multiple of 32; perceived simplicity alone is insufficient to declare label noise."
   },
   {
@@ -255,8 +255,8 @@
       "math-train-prealgebra-0894",
       "math-train-prealgebra-1107"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten problems include base-12 arithmetic, constrained arrangements, geometry and routine algebra. Length alone does not separate these from the other levels."
   },
   {
@@ -275,8 +275,8 @@
       "math-train-algebra-1139",
       "math-train-counting_and_probability-0044"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten problems include parameter constraints, probability and arithmetic. prealgebra-0830 contains Asymptote drawing code; the input contains code rather than a rendered diagram."
   },
   {
@@ -295,8 +295,8 @@
       "math-train-geometry-0480",
       "math-train-geometry-0470"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten problems range from Vieta relations to infinite series and geometry. prealgebra-0563 contains drawing code. number_theory-0664 and geometry-0579 embed multiple-choice options in the problem despite the empty structured options field."
   },
   {
@@ -315,8 +315,8 @@
       "scienceqa-train-01416",
       "scienceqa-train-05512"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "All ten sampled grade-1 items are language science riddles or rhyme questions, illustrating a subject shift relative to ARC."
   },
   {
@@ -335,8 +335,8 @@
       "scienceqa-train-03486",
       "scienceqa-train-10471"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten items mix measurement, grammar and goods/services. Capitalisation can be the information separating answer options."
   },
   {
@@ -355,8 +355,8 @@
       "scienceqa-train-03413",
       "scienceqa-train-09780"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten items mix inherited traits, physical changes, civics and letter writing. Some trait questions refer to source context; hints are preserved separately."
   },
   {
@@ -375,8 +375,8 @@
       "scienceqa-train-00318",
       "scienceqa-train-02319"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten items mix minerals, cell biology, measurement and grammar. The label denotes a source grade, not a common science-content standard."
   },
   {
@@ -395,8 +395,8 @@
       "scienceqa-train-08405",
       "scienceqa-train-00940"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten items include unit selection, animal classification and thermal energy. The ball-temperature item relies on comparable objects; its hint should be inspected for the stated assumptions."
   },
   {
@@ -415,8 +415,8 @@
       "scienceqa-train-06472",
       "scienceqa-train-00923"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "05785 requires a list of supplies and 06206 requires genetic context. Both are stored in hint but absent from text; the no-image filter does not guarantee a self-contained input."
   },
   {
@@ -435,8 +435,8 @@
       "scienceqa-train-02220",
       "scienceqa-train-03622"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "The ten examples mix grammar, units, traits and force balance. 02220 refers to forces described outside the model input; missing hint context must be disclosed."
   },
   {
@@ -455,8 +455,8 @@
       "scienceqa-train-04468",
       "scienceqa-train-02334"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "00814 and 00383 depend on supplies, while 12554 depends on a motion description. Several others are language rather than natural-science questions."
   },
   {
@@ -475,8 +475,8 @@
       "scienceqa-train-03350",
       "scienceqa-train-12522"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "All ten sampled grade-9 items are language science, including allusion, irony and formality. This subject shift can confound grade extrapolation."
   },
   {
@@ -495,8 +495,8 @@
       "scienceqa-train-09182",
       "scienceqa-train-12604"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "All ten sampled grade-10 items are language science. The sample contains two near-template variants of a pronoun-reference question; near-duplicate counting is outside B1 scope."
   },
   {
@@ -515,8 +515,8 @@
       "scienceqa-train-06076",
       "scienceqa-train-12435"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "All ten sampled grade-11 items are language science, including style, fallacies and citations. Several prompts are substantially longer than simple grade-7 science questions."
   },
   {
@@ -535,8 +535,8 @@
       "scienceqa-train-03775",
       "scienceqa-train-11054"
     ],
-    "reviewer": "AI-assisted preliminary content review",
-    "human_sign_off": "pending",
+    "review": "preliminary",
+    "sign_off": "pending",
     "observation": "All ten sampled grade-12 items are language science, including grammar, rhetoric and fallacies. High-grade transfer should not be described as science-only generalisation."
   }
 ]

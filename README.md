@@ -95,6 +95,7 @@ levellens/                    the Python package
 configs/                A     layout; every owner adds the configs of their own models
 scripts/                C     download_data.py, stage_cache, job templates
 notebooks/main.ipynb    A     small end-to-end run, then rebuilds every table
+notebooks/data_checks.* B     data checks behind docs/datasets.md
 app/                    F     streamlit_app.py, pages/
 tests/                  A     shared tests; every owner adds tests for their own modules
 results/                      runs.jsonl, tables, figures
@@ -124,3 +125,6 @@ The full rules are in [docs/workflow.md](docs/workflow.md).
 | [docs/schedule.md](docs/schedule.md) | Milestones and the day-by-day plan |
 | [docs/workflow.md](docs/workflow.md) | Branches, pull requests, files, runs |
 | [docs/video.md](docs/video.md) | Video parts, slides, recording, reflection document |
+| [docs/datasets.md](docs/datasets.md) | Dataset cards: counts per level, lengths, exact repeats, licences |
+| [docs/related_work.md](docs/related_work.md) | Published baselines, checked against the papers and their code |
+| [docs/audit.md](docs/audit.md) | Human audit of the 15 worst errors: rules and worksheet |

@@ -1,8 +1,8 @@
 # Final-model error audit
 
-中文导读：[audit.zh-CN.md](audit.zh-CN.md)
+中文版：[audit.zh-CN.md](audit.zh-CN.md)
 
-**Owner:** Tang Wenyue. **Status on 12 November 2026:** protocol and worksheet prepared; final-model cases not yet supplied by F. No case has been adjudicated. Counts of model error, label noise and unclear are **not available**, rather than zero. This document must not be cited as a completed human audit.
+**Owner:** Wenyue. **Status on 12 November 2026:** protocol and worksheet prepared; final-model cases not yet supplied by F. No case has been adjudicated. Counts of model error, label noise and unclear are **not available**, rather than zero. This document must not be cited as a completed human audit.
 
 ## Handoff required from F
 
@@ -20,7 +20,7 @@ The list should be ordered by descending absolute difference between predicted a
 
 These categories are operational judgements, not causal proof. Use a secondary flag for omitted passage, omitted hint, duplicated options, markup, or conflicting identical inputs. Missing input context alone is not proof of label noise. Since labels are target levels, a reviewer cannot infer a student's success probability from the text alone.
 
-Tang Wenyue reads each full case and writes a specific one-sentence reason. A second member checks disputed cases if available. Record the actual reviewer and date; do not name a reviewer who has not reviewed the case.
+Wenyue reads each full case and writes a specific one-sentence reason. A second member checks disputed cases if available. Record the actual reviewer and date; do not name a reviewer who has not reviewed the case.
 
 ## Fifteen-case worksheet
 
@@ -28,21 +28,21 @@ Tang Wenyue reads each full case and writes a specific one-sentence reason. A se
 
 | Slot | Dataset | Item ID | Run ID | True / predicted level | Category | Reason / evidence | Reviewer / date |
 |---|---|---|---|---|---|---|---|
-| R1 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| R2 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| R3 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| R4 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| R5 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| A1 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| A2 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| A3 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| A4 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| A5 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| M1 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| M2 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| M3 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| M4 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
-| M5 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| RACE-1 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| RACE-2 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| RACE-3 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| RACE-4 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| RACE-5 | RACE++ | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| ARC-1 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| ARC-2 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| ARC-3 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| ARC-4 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| ARC-5 | ARC | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| MATH-1 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| MATH-2 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| MATH-3 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| MATH-4 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
+| MATH-5 | MATH | Pending | Pending | Pending | Pending | Awaiting F | Pending |
 
 | Category | Count |
 |---|---|
