@@ -1,0 +1,13 @@
+# DistilBERT: the fast transformer, used in the demo. Needs head=ce or head=corn.
+# Every setting and its default: DEFAULTS in levellens/models/transformer.py and COMMON_DEFAULTS in levellens/models/neural.py.
+name: distilbert
+target: levellens.models.transformer.Transformer
+params:
+  backbone: distilbert/distilbert-base-uncased
+  max_length: 256
+  lr: 5.0e-5
+  batch_size: 16
+  epochs: 5
+  patience: 2           # early stopping on dev QWK
+  class_weights: true
+  max_minutes: 50       # R6: every fine-tune stays under 1 GPU-hour

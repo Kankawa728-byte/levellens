@@ -15,6 +15,11 @@ pytest>=8.0
 # D
 
 # E
+torch>=2.2
+transformers>=4.44
+sentencepiece>=0.2      # tokeniser of DeBERTa-v3
+protobuf>=4.25
+optuna>=3.6
 
 # F
 
