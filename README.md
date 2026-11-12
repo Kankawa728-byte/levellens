@@ -22,7 +22,7 @@ The work is cut into six shares of the same size. Each share has 24 hours of Tie
 | [A](work/A-framework-integration.md) | Framework and integration | Xingyang (lead) | 24 h | 4 h | Assigned |
 | [B](work/B-literature-data-audit.md) | Literature, data checks and audit | Wenyue | 24 h | 4 h | Assigned |
 | [C](work/C-compute-runs-efficiency.md) | Compute, runs and efficiency | Qiutian | 24 h | 4 h | Assigned |
-| [D](work/D-baselines.md) | Baselines: classical, feature models, open LLM | **open** | 24 h | 4 h | [Claim in issue 4](https://github.com/Kankawa728-byte/levellens/issues/4) |
+| [D](work/D-baselines.md) | Baselines: classical, feature models, open LLM | Hailing | 24 h | 4 h | Assigned |
 | [E](work/E-neural-models.md) | Neural models: BiLSTM and transformers | **open** | 24 h | 4 h | [Claim in issue 5](https://github.com/Kankawa728-byte/levellens/issues/5) |
 | [F](work/F-interpretation-demo.md) | Interpretation, extrapolation and demo app | **open** | 24 h | 4 h | [Claim in issue 6](https://github.com/Kankawa728-byte/levellens/issues/6) |
 

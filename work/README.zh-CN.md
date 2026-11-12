@@ -17,7 +17,7 @@ English: [README.md](README.md)
 | [A](A-framework-integration.zh-CN.md) | 代码框架与整合 | Xingyang（组长） | 24 小时 | 4 小时 | 开场和结尾 | F |
 | [B](B-literature-data-audit.zh-CN.md) | 文献、数据检查与人工核对 | Wenyue | 24 小时 | 4 小时 | 数据集、已发表的基线、人工核对 | D |
 | [C](C-compute-runs-efficiency.zh-CN.md) | 算力、跑实验与效率 | Qiutian | 24 小时 | 4 小时 | 实验运行和效率 | E |
-| [D](D-baselines.zh-CN.md) | 基线：传统模型、特征模型、开源大模型 | 待认领 | 24 小时 | 4 小时 | 基线 | B |
+| [D](D-baselines.zh-CN.md) | 基线：传统模型、特征模型、开源大模型 | Hailing | 24 小时 | 4 小时 | 基线 | B |
 | [E](E-neural-models.zh-CN.md) | 神经网络模型：BiLSTM 和 Transformer | 待认领 | 24 小时 | 4 小时 | 神经网络模型和调参 | C |
 | [F](F-interpretation-demo.zh-CN.md) | 模型解释、外推与演示应用 | 待认领 | 24 小时 | 4 小时 | 模型解释和现场演示 | A |
 
