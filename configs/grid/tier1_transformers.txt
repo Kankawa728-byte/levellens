@@ -1,0 +1,36 @@
+# Tier 1 grid, transformers (task E6): 20 runs. One run per line; a line is the arguments of `python -m levellens.run`.
+#
+#   python -m levellens.grid configs/grid/tier1_transformers.txt --list        # print the commands, numbered
+#   python -m levellens.grid configs/grid/tier1_transformers.txt               # run all, one after the other
+#   python -m levellens.grid configs/grid/tier1_transformers.txt --only 3      # run line 3 only (one job per run); --only 3,7 for several
+#
+# 2 backbones x 2 heads x 3 datasets, seed 0 = 12 runs. ARC also with seeds 1 and 2 = 8 more (R3, R5).
+# ARC uses all 3,358 training questions (data=arc), with the class-weighted loss.
+# Every run stops by itself after 50 minutes of training (model.params.max_minutes), so a job fits in 1 hour.
+# Run ids: <dataset>-<model>-<head>-s<seed>. Models are saved to <LEVELLENS_CACHE>/models/<run id>/.
+
+# RACE++: 100,568 training questions, 3 epochs, dev QWK twice per epoch
+data=race model=deberta-v3 head=ce   seed=0 owner=E save_model=true model.params.epochs=3 model.params.batch_size=32 model.params.evals_per_epoch=2
+data=race model=deberta-v3 head=corn seed=0 owner=E save_model=true model.params.epochs=3 model.params.batch_size=32 model.params.evals_per_epoch=2
+data=race model=distilbert head=ce   seed=0 owner=E save_model=true model.params.epochs=3 model.params.batch_size=32 model.params.evals_per_epoch=2
+data=race model=distilbert head=corn seed=0 owner=E save_model=true model.params.epochs=3 model.params.batch_size=32 model.params.evals_per_epoch=2
+
+# MATH: 6,748 training questions, up to 8 epochs
+data=math model=deberta-v3 head=ce   seed=0 owner=E save_model=true model.params.epochs=8 model.params.patience=3
+data=math model=deberta-v3 head=corn seed=0 owner=E save_model=true model.params.epochs=8 model.params.patience=3
+data=math model=distilbert head=ce   seed=0 owner=E save_model=true model.params.epochs=8 model.params.patience=3
+data=math model=distilbert head=corn seed=0 owner=E save_model=true model.params.epochs=8 model.params.patience=3
+
+# ARC: 3,358 training questions, up to 10 epochs, seeds 0, 1 and 2
+data=arc model=deberta-v3 head=ce   seed=0 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=deberta-v3 head=corn seed=0 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=ce   seed=0 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=corn seed=0 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=deberta-v3 head=ce   seed=1 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=deberta-v3 head=corn seed=1 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=ce   seed=1 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=corn seed=1 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=deberta-v3 head=ce   seed=2 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=deberta-v3 head=corn seed=2 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=ce   seed=2 owner=E save_model=true model.params.epochs=10 model.params.patience=3
+data=arc model=distilbert head=corn seed=2 owner=E save_model=true model.params.epochs=10 model.params.patience=3
