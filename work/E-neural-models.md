@@ -17,22 +17,26 @@ This share is on the critical path. The interpretation work and the demo wait fo
 
 ## Tier 1
 
+Re-plan of Thu 12 Nov: the dates are new, and a task marked "Cut" is not done. The hours are the first estimates. The whole re-plan is in [docs/schedule.md](../docs/schedule.md).
+
 | Id | Task | Done when | Hours | Due |
 |---|---|---|---|---|
-| E1 | Output heads: cross-entropy and CORN (conditional ordinal regression). Each head returns a loss and the probability of every level. | A test shows that the CORN probabilities are between 0 and 1 and sum to 1. | 1.5 | Wed 11 Nov 18:00 |
-| E2 | Two-layer BiLSTM (BiGRU as a flag) with GloVe 300d and attention pooling, with both heads | It trains on MATH on Wed 11 Nov. Rows for all three datasets on Thu 12 Nov. | 5.5 | MATH: Wed 11 Nov 23:59. All: Thu 12 Nov 20:00 |
-| E3 | LaTeX-aware tokeniser for MATH | Commands such as `\frac`, the symbols `^` and `_`, and numbers stay whole tokens. A test covers five problems. | 1.5 | Wed 11 Nov 23:59 |
-| E4 | BiLSTM grid: 4 configurations on all three datasets | Rows in `results/runs.jsonl`, and the best configuration is named. | 1 | Thu 12 Nov 23:59 |
-| E5 | Transformer trainer wrapper: any backbone with any head, class-weighted loss, early stopping on dev QWK, cached tokenisation, dynamic padding, checkpoint and resume, each run 1 GPU-hour or less | A DistilBERT run with cross-entropy on a small subset writes a row on Wed 11 Nov. The wrapper is complete on Thu 12 Nov. | 5.5 | Smoke run: Wed 11 Nov 23:59. Complete: Thu 12 Nov 12:00 |
-| E6 | Tier 1 grid configs for C: `microsoft/deberta-v3-base` and `distilbert/distilbert-base-uncased`, two heads, three datasets, seed 0. On ARC also seeds 1 and 2, with all 3,358 training items. | C has the 20 configs and the command to run them. | 1.5 | Thu 12 Nov 12:00 |
-| E7 | Optuna on DeBERTa-v3: TPE sampler, median pruner, 12 trials per dataset. The RACE++ trials use a 10k subset. The best setting is re-trained on the full training split. | The search is launched on Thu 12 Nov. The re-trained rows are in at the results freeze. | 3 | Launch: Thu 12 Nov 20:00. Rows: Fri 13 Nov 12:00 |
-| E8 | Export of the final models to the Predictor API: the best model for each dataset, and DistilBERT for the demo | `Predictor.load(...)` returns the same test predictions as the training run. DistilBERT answers in 1 second or less per question on a laptop CPU. | 1.5 | Fri 13 Nov 15:00 |
+| E1 | Output heads: cross-entropy and CORN (conditional ordinal regression). Each head returns a loss and the probability of every level. | A test shows that the CORN probabilities are between 0 and 1 and sum to 1. | 1.5 | Thu 12 Nov 23:59 |
+| E2 | Two-layer BiLSTM with GloVe 300d and attention pooling, with both heads, one configuration | It trains on MATH on Fri 13 Nov at 12:00. Rows for all three datasets at 20:00. | 5.5 | MATH: Fri 13 Nov 12:00. All: Fri 13 Nov 20:00 |
+| E3 | Cut: LaTeX-aware tokeniser for MATH | Commands such as `\frac`, the symbols `^` and `_`, and numbers stay whole tokens. A test covers five problems. | 1.5 | Cut on Thu 12 Nov |
+| E4 | Cut: BiLSTM grid: 4 configurations on all three datasets | Rows in `results/runs.jsonl`, and the best configuration is named. | 1 | Cut on Thu 12 Nov |
+| E5 | Transformer trainer wrapper: any backbone with any head, class-weighted loss, early stopping on dev QWK, cached tokenisation, dynamic padding, each run 1 GPU-hour or less | A DistilBERT run with cross-entropy on a small subset writes a row on Thu 12 Nov. The wrapper is complete on Fri 13 Nov. | 5.5 | Smoke run: Thu 12 Nov 23:59. Complete: Fri 13 Nov 12:00 |
+| E6 | Tier 1 grid configs for C: `microsoft/deberta-v3-base` and `distilbert/distilbert-base-uncased`, two heads, three datasets, seed 0. On ARC also seeds 1 and 2, with all 3,358 training items. | C has the 20 configs and the command to run them. | 1.5 | Fri 13 Nov 12:00 |
+| E7 | Optuna on ARC with DistilBERT: TPE sampler, median pruner, 12 trials. The best setting is re-trained on the full training split. | The search is launched on Fri 13 Nov. The re-trained row is in at the results freeze. | 3 | Launch: Fri 13 Nov 15:00. Row: Fri 13 Nov 23:59 |
+| E8 | Export of the final models to the Predictor API: the best model for each dataset, and DistilBERT for the demo | `Predictor.load(...)` returns the same test predictions as the training run. DistilBERT answers in 1 second or less per question on a laptop CPU. | 1.5 | Sat 14 Nov 10:00 |
 
 Known trap: DeBERTa-v3 can give NaN losses in fp16. Use bf16 or fp32, or tell the lead if RoBERTa should become the main backbone.
 
 Suggested libraries: PyTorch, transformers, datasets, optuna, coral-pytorch for the CORN loss. You decide.
 
 ## Tier 2
+
+Cancelled on Thu 12 Nov. None of these tasks is done.
 
 | Id | Task | Done when | Hours |
 |---|---|---|---|
@@ -42,14 +46,14 @@ Suggested libraries: PyTorch, transformers, datasets, optuna, coral-pytorch for 
 
 ## Others wait for you
 
-- C: the Tier 1 grid configs on Thu 12 Nov at 12:00.
-- F: the DistilBERT smoke checkpoint on Thu 12 Nov, and the final models behind the Predictor API on Fri 13 Nov at 15:00.
+- C: the Tier 1 grid configs on Fri 13 Nov at 12:00.
+- F: the DistilBERT smoke checkpoint on Fri 13 Nov at 12:00, and the final models behind the Predictor API on Sat 14 Nov at 10:00.
 - A: your rows for the tables, at the results freeze.
 
 ## You wait for
 
-- A: skeleton v0 on Wed 11 Nov at 12:00, the ARC adapter at 18:00. Until then, code against [docs/interfaces.md](../docs/interfaces.md).
-- C: the smoke job on Wed 11 Nov at 20:00, then the result rows and checkpoints.
+- A: the skeleton and the adapters. They are in `main` since Thu 12 Nov. Start with "First run" in [docs/interfaces.md](../docs/interfaces.md).
+- C: the smoke job on Fri 13 Nov at 12:00, then the result rows and checkpoints.
 
 ## Video part
 

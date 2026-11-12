@@ -29,7 +29,7 @@ Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC sp
 | **ARC with school grade** | School science | 3,358 / 862 / 3,530 | 7: grades 3–9, very imbalanced | AI2 `ARC-V1-Feb2018.zip` (681 MB, of which we read only the six question files, 2.3 MB; the Hugging Face copy has no grade field) | CC BY-SA 4.0 | trained |
 | **MATH** | Competition maths | 6,748 / 750 / 5,000 | 5: Level 1–5 | `EleutherAI/hendrycks_math`; 10% of train held out as dev | MIT | trained |
 | **ScienceQA, text only** | Science, social, language | 6,508 / 2,144 / 2,224, from 12,726 / 4,241 / 4,241 | Grades 1–12 | `derek-thomas/ScienceQA` | CC BY-NC-SA 4.0 (original release; the mirror is tagged CC BY-SA 4.0) | extrapolation |
-| **GSM8K** (Tier 2) | Grade-school maths | 7,473 / 1,319 | None; number of solution steps as a proxy | `openai/gsm8k` | MIT | extrapolation |
+| **GSM8K** (cancelled with Tier 2) | Grade-school maths | 7,473 / 1,319 | None; number of solution steps as a proxy | `openai/gsm8k` | MIT | extrapolation |
 
 - RACE++ levels come from the config name, because the `all` config has no level column. The splits are passage-disjoint.
 - ARC keeps 4-option, text-only multiple-choice questions, as the published papers do. Main runs use all 3,358 training items with a class-weighted loss. The papers' balanced subset (2,293 items) is used only for replication runs and for the majority-row test.
@@ -44,12 +44,12 @@ Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC sp
 | Family | Models | Runs on | Share |
 |---|---|---|---|
 | Floors | Majority class, stratified random, subject prior (most common level per MATH problem type) | CPU | D |
-| Classical | TF-IDF word 1–2-grams and character 3–5-grams with Logistic Regression, Linear SVM, Complement Naive Bayes. R2DE, the TF-IDF + Random Forest difficulty regressor used as a baseline by Benedetto (2023). Readability, word rarity, length, POS ratios, dependency depth, clause count, numbers, negations and LaTeX operators fed to LightGBM and to an ordinal logistic regression. | CPU | D |
-| Recurrent | Two-layer BiLSTM (BiGRU as a flag) with GloVe 300d and attention pooling; a LaTeX-aware tokeniser for MATH | GPU | E |
-| Transformers | `microsoft/deberta-v3-base` (main), `distilbert/distilbert-base-uncased` (fast, used in the demo). Tier 2: `google-bert/bert-base-uncased` (replication), `FacebookAI/roberta-base` (best head only). | GPU | E |
-| Open LLM | `Qwen/Qwen3-4B-Instruct-2507`, zero-shot (Tier 2: few-shot), scored from the probabilities of the level labels. No paid API. | GPU | D |
+| Classical | TF-IDF word 1–2-grams and character 3–5-grams with Logistic Regression, Linear SVM, Complement Naive Bayes. R2DE, the TF-IDF + Random Forest difficulty regressor used as a baseline by Benedetto (2023). Readability, word rarity, length, numbers, negations and LaTeX operators fed to LightGBM. | CPU | D |
+| Recurrent | Two-layer BiLSTM with GloVe 300d and attention pooling | GPU | E |
+| Transformers | `microsoft/deberta-v3-base` (main), `distilbert/distilbert-base-uncased` (fast, used in the demo). | GPU | E |
+| Open LLM | `Qwen/Qwen3-4B-Instruct-2507`, zero-shot, scored from the probabilities of the level labels. No paid API. | GPU | D |
 
-**Output heads.** The levels are ordered, so predicting "high school" for a college question is a smaller error than predicting "middle school". Tier 1 compares two heads on the same backbone: plain cross-entropy, and CORN (conditional ordinal regression). Tier 2 adds regression with rounding, and an ordered-logit head with learned cut-points between levels.
+**Output heads.** The levels are ordered, so predicting "high school" for a college question is a smaller error than predicting "middle school". We compare two heads on the same backbone: plain cross-entropy, and CORN (conditional ordinal regression).
 
 ## Published baselines
 
@@ -67,7 +67,7 @@ The majority rows double as a unit test: our splits and metric code must reprodu
 
 - Accuracy, macro-F1 with per-class precision and recall, and adjacent accuracy (within one level).
 - Quadratic weighted kappa (QWK): agreement that punishes far misses more than near misses.
-- MAE and RMSE on the level index, and Spearman rank correlation.
+- MAE and RMSE on the level index, and the Spearman rank correlation between the true level and the predicted level. The published numbers are computed the same way: the code of Benedetto (2023) maps each prediction to a level before the correlation. We also store the correlation with the continuous score as `spearman_score`.
 - Balanced DRPS (discrete ranked probability score): an ordinal probability error, balanced across levels.
 - Expected calibration error (15 bins), training time, CPU and GPU latency per question, parameter count.
 - Mean ± standard deviation over 3 seeds where we run 3 seeds, and paired bootstrap 95% confidence intervals for the best model against the runner-up.
@@ -75,34 +75,44 @@ The majority rows double as a unit test: our splits and metric code must reprodu
 
 ## Our specifications
 
-Draft. The lead freezes them on Thu 12 Nov at 12:00. The video reports pass or fail for each one.
+Frozen by the lead on Thu 12 Nov. The video reports pass or fail for each one. Spearman is the `spearman` metric: the true level against the predicted level.
 
 | Id | Specification |
 |---|---|
 | R1 | Three trained datasets with more than 3,000 labelled training questions each, plus at least one extrapolation set. |
 | R2 | At least four model families (classical, recurrent, transformer, open LLM; the floors come on top) and three output types (classification, regression, ordinal), all on identical splits. |
-| R3 | RACE++ Spearman ≥ 0.79 on the full training set (≥ 0.77 if the GPU forces a 20k–30k cap, and we say so). ARC mean Spearman ≥ 0.50 over 3 seeds. MATH: the best transformer beats the best classical model on QWK, with the 95% bootstrap interval of the difference above zero. |
+| R3 | RACE++ Spearman ≥ 0.79 on the full training set (≥ 0.77 if the GPU forces a 20k–30k cap, and we say so). ARC: mean Spearman ≥ 0.50 over 3 seeds, for the setting with the best mean QWK on dev. MATH: the best transformer beats the best classical model on QWK, with the 95% bootstrap interval of the difference above zero. |
 | R4 | An ordinal head has lower Balanced DRPS than cross-entropy on at least two of the three datasets (same backbone, same split). |
-| R5 | ARC stability: standard deviation of Spearman over 3 seeds ≤ 0.05 (published BERT, balanced training set: 0.139). |
+| R5 | ARC stability: for the same setting as in R3, the standard deviation of Spearman over 3 seeds ≤ 0.05 (published BERT, balanced training set: 0.139). |
 | R6 | Every fine-tune ≤ 1 GPU-hour; the whole project ≤ 20 GPU-hours on an Ampere-class card, logged per run. On another card we report the actual hours. |
 | R7 | Demo: ≤ 1 second per question on a laptop CPU (DistilBERT, timed over 100 items). |
 | R8 | Every run starts from one config, and every table and figure is rebuilt from the results store with one command. |
 
 ## Scope
 
+The lead cut the scope on Thu 12 Nov, because the work started late. The dates are in [schedule.md](schedule.md).
+
 **Tier 1, must ship**
 
-- Floors; TF-IDF models tuned by 5-fold search; R2DE; the feature model with LightGBM and ordinal logistic regression; global SHAP.
-- BiLSTM with cross-entropy and CORN heads, a 4-configuration grid.
+- Floors; TF-IDF models tuned by 5-fold search; R2DE; the feature model with LightGBM on surface features; global SHAP.
+- BiLSTM with cross-entropy and CORN heads, one configuration.
 - DeBERTa-v3 and DistilBERT with both heads on all three datasets, one seed.
 - ARC stability: full training set, class weights, early stopping on dev QWK, 3 seeds.
-- Optuna (TPE with a median pruner), 12 trials per dataset on DeBERTa-v3. RACE++ trials use a 10k subset.
+- Optuna (TPE with a median pruner), 12 trials, on ARC with DistilBERT.
 - Open LLM, zero-shot, on the 1,000-item subsets.
-- LIME and SHAP on the final transformer; error figures; human audit of the 30 worst errors; transfer matrix; ScienceQA extrapolation; ARC Easy against Challenge; the physical-meaning plot.
-- Streamlit app: Calibrate and Results pages.
+- LIME on the final DistilBERT, 20 test items per dataset; error figures; human audit of the 15 worst errors; transfer matrix; ScienceQA extrapolation.
+- Streamlit app: the Calibrate page, and a Results page with the leaderboards and the confusion matrices.
 - Efficiency table.
 
-**Tier 2, after the go on Thu 12 Nov at 21:00**
+**Cut from Tier 1 on Thu 12 Nov**
+
+- Ordinal logistic regression, and the features that need a parser: part-of-speech ratios, dependency depth, clause count.
+- The BiLSTM grid, the BiGRU flag and the LaTeX-aware tokeniser.
+- Optuna on RACE++, on MATH and on DeBERTa-v3.
+- SHAP on the transformer; ARC Easy against Challenge; the physical-meaning plot; the feature gauges in the app.
+- Checkpoint and resume: every run is short enough to start again.
+
+**Tier 2, cancelled on Thu 12 Nov**
 
 - Regression and ordered-logit heads in the grid, so that four heads are compared.
 - BERT replication runs next to the published numbers; RoBERTa with the best head.
@@ -116,25 +126,25 @@ Draft. The lead freezes them on Thu 12 Nov at 12:00. The video reports pass or f
 
 ## Interpretation and extrapolation
 
-- **Global.** SHAP on the feature LightGBM, per subject: how much difficulty comes from language load (readability, rare words, length) and how much from reasoning load (dependency depth, clauses, numbers, negation, LaTeX operators). Share D.
-- **Local.** LIME (explains one prediction by removing words and watching the output change) and SHAP on the fine-tuned transformer for 50 test items per dataset, summarised as the top cue words per level. The app shows the same view. Share F.
-- **Errors.** Ordinal confusion matrices, recall per level, breakdowns by MATH type, ARC grade and length (share F), and a human audit of the 30 worst errors to separate model errors from label noise (share B).
+- **Global.** SHAP on the feature LightGBM, per subject: how much difficulty comes from language load (readability, rare words, length) and how much from reasoning load (numbers, negation, LaTeX operators). Share D.
+- **Local.** LIME (explains one prediction by removing words and watching the output change) on the fine-tuned DistilBERT for 20 test items per dataset, summarised as the top cue words per level. The app shows the same view. Share F.
+- **Errors.** Ordinal confusion matrices and recall per level (share F), and a human audit of the 15 worst errors to separate model errors from label noise (share B).
 - **Transfer.** Each subject's model scores the other subjects' test sets (a 3 × 3 matrix, Spearman). Share F.
-- **Extrapolation.** The ARC model on ScienceQA grades inside and outside 3–9; ARC Easy against Challenge items of the same grade. Tier 2: the MATH model on GSM8K against the number of solution steps. Share F.
+- **Extrapolation.** The ARC model on ScienceQA grades inside and outside 3–9. Share F.
 - **Physical meaning.** The ordinal head's score is on a logit scale, like the item difficulty *b* in the Rasch model, where the chance of a correct answer is sigmoid(ability − *b*). The cut-points mark where one level ends and the next begins. A true *b* needs student responses to anchor it; we say so.
 - **Beyond this application.** School question banks, MOOC quizzes, certification items, reading levels of passages, ordering items for adaptive practice, and other languages through a multilingual encoder. Each needs the same anchoring caveat.
 
 ## Streamlit app
 
-- **Calibrate.** A teacher pastes a question, its options and, for reading, the passage. The page shows the probability of each level, the expected level, a "why is it hard" panel with highlighted words and feature gauges, and a what-if editor that re-scores an edited copy side by side.
-- **Results.** Leaderboards with confidence intervals, confusion matrices, the transfer heatmap and the extrapolation plots, all read from the results store.
-- **Audit a quiz** (Tier 2). Upload a CSV or paste about ten questions. Every item gets a level, the quiz profile is drawn against a blueprint the teacher sets (for example 30 / 50 / 20), mismatched items are flagged, and the tagged CSV can be exported.
+- **Calibrate.** A teacher pastes a question, its options and, for reading, the passage. The page shows the probability of each level, the expected level, a "why is it hard" panel with highlighted words, and a what-if editor that re-scores an edited copy side by side.
+- **Results.** Leaderboards and confusion matrices, read from the results store.
+- **Audit a quiz** (cancelled with Tier 2). Upload a CSV or paste about ten questions. Every item gets a level, the quiz profile is drawn against a blueprint the teacher sets (for example 30 / 50 / 20), mismatched items are flagged, and the tagged CSV can be exported.
 
 ## Compute
 
 - GPU runs go through share C. The fallback is the lead's workstation with an RTX 5090 (32 GB). The code picks the device from the config.
 - Compute nodes may have no internet, so data and model weights are staged in a cache first.
-- Each job stays under 1 hour, with checkpoint and resume.
+- Each job stays under 1 hour.
 - Estimate for the whole grid: about 12–14 GPU-hours on an Ampere-class 16 GB+ card.
 
 ## Risks
@@ -144,7 +154,7 @@ Draft. The lead freezes them on Thu 12 Nov at 12:00. The video reports pass or f
 | ARC grade labels cannot be read, or too few items remain. | See "If ARC fails the first check" above. |
 | GPU access is late or slow. | Run on the RTX 5090; cap RACE++ at 20k–30k; stage the cache offline. |
 | DeBERTa-v3 gives NaN losses in fp16. | Use bf16 or fp32, or RoBERTa as the main backbone. |
-| We run out of time. | Tier 1 first. Tier 2 only after the go on Thu 12 Nov at 21:00. No new experiments after the results freeze. |
+| We run out of time. | Done on Thu 12 Nov: Tier 2 cancelled, Tier 1 cut. If a share is still late on Fri 13 Nov at 15:00, the lead cuts in this order: Optuna, the open LLM, DeBERTa-v3 (the grid then uses DistilBERT only), the BiLSTM. No new experiments after the results freeze. |
 | A member is unavailable. | The buddy covers that day; the lead re-plans in the group chat. |
 | The video runs over 10 minutes. | Fixed time per part; timed dry run on Sat 14 Nov; cut content, not speakers. |
 | Late upload. | Upload on Sun 15 Nov by 12:00, latest 18:00; only the lead submits; nobody creates an attempt after 23:59. |

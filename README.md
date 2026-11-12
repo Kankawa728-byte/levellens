@@ -10,7 +10,7 @@ Group project of Table 38, six members. Hard deadline: **Sun 15 Nov 2026, 23:59*
 
 1. Read this page to the end. It takes five minutes.
 2. Open the page of your share from the table below.
-3. No share yet? Claim one of the three open shares today. The steps are under "How to claim a share".
+3. No share yet? Shares E and F are still open. The lead assigns them on Thu 12 Nov.
 4. Send your GitHub username to the lead in the group chat. You need it to push code.
 
 ## The six shares
@@ -27,40 +27,37 @@ The work is cut into six shares of the same size. Each share has 24 hours of Tie
 | [F](work/F-interpretation-demo.md) | Interpretation, extrapolation and demo app | **open** | 24 h | 4 h | [Claim in issue 6](https://github.com/Kankawa728-byte/levellens/issues/6) |
 
 - **Tier 1** is what we must ship.
-- **Tier 2** is what we add if Tier 1 is on time. The lead decides on Thu 12 Nov at 21:00.
+- **Tier 2** was what we would add if Tier 1 was on time. The lead cancelled it on Thu 12 Nov and also cut part of Tier 1. The re-plan is in [docs/schedule.md](docs/schedule.md). The hours in the table are the first estimates and were not counted again.
 
 Which open share suits you:
 
-- **D** suits someone who is comfortable with scikit-learn. Most of it runs on a laptop CPU.
 - **E** is on the critical path. It suits someone who has fine-tuned a transformer before.
 - **F** suits someone who likes plots and front ends. The app uses Streamlit.
 
 ## How to claim a share
 
-1. Read the pages of shares D, E and F.
+1. Read the pages of shares E and F.
 2. Open the issue of the share you want and write the comment "I take this", with your name. The first comment gets the share. If you have no GitHub account, tell the lead in the group chat instead.
 3. The lead writes your name in the table above.
 
-Claim by **Tue 10 Nov 23:59**. The lead assigns any share that is still open on Wed 11 Nov at 09:00.
+The claim deadline was Tue 10 Nov 23:59. Shares E and F were still open on Thu 12 Nov, so the lead assigns them that day.
 
 ## Key dates
 
 | When | What |
 |---|---|
-| Tue 10 Nov 23:59 | Open shares claimed |
-| Wed 11 Nov 12:00 | Code skeleton in `main` |
-| Wed 11 Nov 23:59 | Every model family has written one result row |
-| Thu 12 Nov 12:00 | Specifications frozen; Tier 1 grid handed to the GPU |
-| Thu 12 Nov 21:00 | Go or no-go for Tier 2 |
-| Fri 13 Nov 12:00 | **Results freeze**: no new experiments |
-| Fri 13 Nov 23:59 | All tables and figures final |
-| Sat 14 Nov 10:00 | Final slides; dry run at 10:30 |
-| Sat 14 Nov 16:00 | Everyone's recording is with the lead |
-| Sat 14 Nov 22:00 | Sign-off: video, reflection, code |
-| Sun 15 Nov 12:00 | Upload, latest 18:00 |
+| Thu 12 Nov 16:00 | Code skeleton in `main`; specifications frozen; Tier 2 cancelled and Tier 1 cut |
+| Thu 12 Nov 23:59 | Everyone has done the first run; first result rows from D, E and F |
+| Fri 13 Nov 12:00 | Transformer trainer complete; grid handed to the GPU |
+| Fri 13 Nov 23:59 | **Results freeze**: no new experiments |
+| Sat 14 Nov 12:00 | All tables and figures final |
+| Sat 14 Nov 16:00 | Final slides; dry run at 16:30 |
+| Sat 14 Nov 23:59 | Everyone's recording is with the lead |
+| Sun 15 Nov 14:00 | Sign-off: video, reflection, code |
+| Sun 15 Nov 15:00 | Upload, latest 18:00 |
 | Sun 15 Nov 23:59 | Hard deadline |
 
-The full schedule, day by day and share by share, is in [docs/schedule.md](docs/schedule.md).
+These are the dates of the re-plan of Thu 12 Nov. The full schedule, day by day and share by share, is in [docs/schedule.md](docs/schedule.md).
 
 ## What we build
 
@@ -68,7 +65,7 @@ The full schedule, day by day and share by share, is in [docs/schedule.md](docs/
 - **Data.** Three trained datasets: RACE++ (English reading, 3 levels), ARC (school science, 7 grades), MATH (competition maths, 5 levels). ScienceQA tests how far the science model extrapolates.
 - **Models.** Floors, classical and feature models, a BiLSTM, DeBERTa-v3 and DistilBERT with ordinal output heads, and an open LLM without training.
 - **Evaluation.** Nine metrics, published baselines on the same test splits, and eight measurable specifications with pass or fail.
-- **Interpretation.** SHAP and LIME, an audit of the worst errors, transfer between subjects, and the reading of the score as an item difficulty.
+- **Interpretation.** SHAP and LIME, an audit of the worst errors, and transfer between subjects.
 - **Demo.** A Streamlit app in which a teacher scores a question, sees why it is hard, edits it and scores it again.
 
 The details are in [docs/design.md](docs/design.md).

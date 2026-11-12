@@ -17,18 +17,22 @@ Most of this share runs on a laptop CPU. It suits someone who is comfortable wit
 
 ## Tier 1
 
+Re-plan of Thu 12 Nov: the dates are new, and a task marked "Cut" is not done. The hours are the first estimates. The whole re-plan is in [docs/schedule.md](../docs/schedule.md).
+
 | Id | Task | Done when | Hours | Due |
 |---|---|---|---|---|
-| D1 | Floors: majority class, stratified random, subject prior (the most common level for each MATH problem type) | Rows for all three datasets are in `results/runs.jsonl`. | 1 | Wed 11 Nov 23:59 |
-| D2 | TF-IDF with word 1–2-grams and character 3–5-grams, with Logistic Regression, Linear SVM and Complement Naive Bayes. Settings chosen by 5-fold search on the training split. | First rows (TF-IDF with Logistic Regression, default settings) on all three datasets on Wed 11 Nov. The tuned table for all three models on Thu 12 Nov. | 5 | First rows: Wed 11 Nov 23:59. Tuned: Thu 12 Nov 20:00 |
-| D3 | R2DE: the TF-IDF and Random Forest difficulty regressor used as a baseline by Benedetto (2023) | Rows for all three datasets. | 2 | Thu 12 Nov 20:00 |
-| D4 | Linguistic feature extractor: readability, word rarity, length, part-of-speech ratios, dependency depth, clause count, numbers, negations, LaTeX operators. The features go to LightGBM and to an ordinal logistic regression. | The features are cached on disk. Rows for both models on all three datasets. | 6.5 | Thu 12 Nov 23:59 |
-| D5 | Global SHAP on the LightGBM model, for each subject: how much comes from language load (readability, rare words, length) and how much from reasoning load (dependency depth, clauses, numbers, negation, LaTeX operators) | One figure per subject, and three sentences on what each one shows. | 2 | Fri 13 Nov 12:00 |
-| D6 | Open LLM, zero-shot: `Qwen/Qwen3-4B-Instruct-2507` on the fixed 1,000-item test subsets. The level is read from the probabilities of the level labels. The prompt is tuned on dev only. No paid API. | The scoring script is with C on Thu 12 Nov at 18:00. Rows for all three datasets at the results freeze. | 4.5 | Script: Thu 12 Nov 18:00. Rows: Fri 13 Nov 12:00 |
+| D1 | Floors: majority class, stratified random, subject prior (the most common level for each MATH problem type). The majority class is already in `levellens/models/floors.py`; write the two others in `levellens/models/classic.py`. | Rows for all three datasets are in `results/runs.jsonl`. | 1 | Thu 12 Nov 23:59 |
+| D2 | TF-IDF with word 1–2-grams and character 3–5-grams, with Logistic Regression, Linear SVM and Complement Naive Bayes. Settings chosen by 5-fold search on the training split. | First rows (TF-IDF with Logistic Regression, default settings) on all three datasets on Thu 12 Nov. The tuned table for all three models on Fri 13 Nov. | 5 | First rows: Thu 12 Nov 23:59. Tuned: Fri 13 Nov 15:00 |
+| D3 | R2DE: the TF-IDF and Random Forest difficulty regressor used as a baseline by Benedetto (2023) | Rows for all three datasets. | 2 | Fri 13 Nov 15:00 |
+| D4 | Surface feature extractor: readability, word rarity, length, numbers, negations, LaTeX operators. No parser. The features go to LightGBM. | The features are cached on disk. Rows on all three datasets. | 6.5 | Fri 13 Nov 20:00 |
+| D5 | Global SHAP on the LightGBM model, for each subject: how much comes from language load (readability, rare words, length) and how much from reasoning load (numbers, negation, LaTeX operators) | One figure per subject, and three sentences on what each one shows. | 2 | Sat 14 Nov 10:00 |
+| D6 | Open LLM, zero-shot: `Qwen/Qwen3-4B-Instruct-2507` on the fixed 1,000-item test subsets. The level is read from the probabilities of the level labels. The prompt is tuned on dev only. No paid API. | The scoring script is with C on Fri 13 Nov at 12:00. Rows for all three datasets at the results freeze. | 4.5 | Script: Fri 13 Nov 12:00. Rows: Fri 13 Nov 23:59 |
 
-Suggested libraries: scikit-learn, LightGBM, spaCy, textstat, wordfreq, statsmodels or mord for the ordinal regression, shap, transformers. You decide.
+Suggested libraries: scikit-learn, LightGBM, textstat, wordfreq, shap, transformers. You decide.
 
 ## Tier 2
+
+Cancelled on Thu 12 Nov. None of these tasks is done.
 
 | Id | Task | Done when | Hours |
 |---|---|---|---|
@@ -38,13 +42,12 @@ Suggested libraries: scikit-learn, LightGBM, spaCy, textstat, wordfreq, statsmod
 
 ## Others wait for you
 
-- C: the open LLM scoring script on Thu 12 Nov at 18:00.
-- F: the feature extractor, for the feature gauges on the Calibrate page.
+- C: the open LLM scoring script on Fri 13 Nov at 12:00.
 - A: your rows for the tables, at the results freeze.
 
 ## You wait for
 
-- A: skeleton v0 on Wed 11 Nov at 12:00, the ARC adapter and the 1,000-item subsets at 18:00. Until then, code against [docs/interfaces.md](../docs/interfaces.md).
+- A: the skeleton, the adapters and the 1,000-item subsets. They are in `main` since Thu 12 Nov. Start with "First run" in [docs/interfaces.md](../docs/interfaces.md).
 
 ## Video part
 

@@ -14,19 +14,23 @@ The evidence around the models: what the data really look like, what has been pu
 
 ## Tier 1
 
+Re-plan of Thu 12 Nov: the dates are new, and a task marked "Cut" is not done. The hours are the first estimates. The whole re-plan is in [docs/schedule.md](../docs/schedule.md).
+
 | Id | Task | Done when | Hours | Due |
 |---|---|---|---|---|
-| B1 | Data checks and dataset cards for RACE++, ARC, MATH and ScienceQA (text only). For each dataset: items per split and per level against [docs/design.md](../docs/design.md); question length per level; exact and near-duplicate questions inside a split and across splits; 20 items read per level; source and licence. | `docs/datasets.md` has one card per dataset with one class-balance figure. Every mismatch with the published counts is reported in the issue of share A. | 5.5 | Counts: Wed 11 Nov 23:59. Cards: Thu 12 Nov 20:00 |
-| B2 | Published baselines and related work. Protocol notes for Benedetto (2023) and Thuy et al. (2025): splits, the balanced ARC subset, input format, metrics, number of seeds. The baseline table checked number by number against the arXiv versions. References with confirmed venues. | `docs/related_work.md` has the protocol notes and the checked table. The reference slide is in the deck. | 4 | Thu 12 Nov 23:59 |
-| B3 | Human audit of the 30 worst errors of the final models, 10 per dataset. For each one: read the question, decide "model error", "label noise" or "unclear", and write one line why. | `docs/audit.md` has the table, the count per category and three example cases for the slides. | 3.5 | Sat 14 Nov 09:00 |
-| B4 | Slide template, storyboard, recording guide and recording schedule | The template is shared on Thu 12 Nov at 12:00. Storyboard v1 lists every slide with its speaker, content and seconds on Fri 13 Nov at 12:00. The recording guide in [docs/video.md](../docs/video.md) is checked and completed. | 3.5 | Fri 13 Nov 12:00 |
-| B5 | Proofreading of all slides and figure captions; the limitations slide | Every slide says "target level" and never claims difficulty measured on students. Every number on a slide matches the tables. | 2 | Sat 14 Nov 12:00 |
-| B6 | Reflection document: collect each member's lines, build the contribution table, collect the signatures | One document, signed by all six. It is kept outside this public repository. | 1.5 | Sat 14 Nov 22:00 |
+| B1 | Data checks and dataset cards for RACE++, ARC, MATH and ScienceQA (text only). For each dataset: items per split and per level against [docs/design.md](../docs/design.md); question length per level; exact duplicate questions inside a split and across splits; 10 items read per level; source and licence. | `docs/datasets.md` has one card per dataset with one class-balance figure. Every mismatch with the published counts is reported in the issue of share A. | 5.5 | Counts: Thu 12 Nov 23:59. Cards: Fri 13 Nov 20:00 |
+| B2 | Published baselines and related work. Protocol notes for Benedetto (2023) and Thuy et al. (2025): splits, the balanced ARC subset, input format, metrics, number of seeds. The baseline table checked number by number against the arXiv versions. References with confirmed venues. | `docs/related_work.md` has the protocol notes and the checked table. The reference slide is in the deck. | 4 | Fri 13 Nov 23:59 |
+| B3 | Human audit of the 15 worst errors of the final models, 5 per dataset. For each one: read the question, decide "model error", "label noise" or "unclear", and write one line why. | `docs/audit.md` has the table, the count per category and three example cases for the slides. | 3.5 | Sat 14 Nov 15:00 |
+| B4 | Slide template, storyboard, recording guide and recording schedule | The template is shared on Fri 13 Nov at 12:00. Storyboard v1 lists every slide with its speaker, content and seconds on Sat 14 Nov at 10:00. The recording guide in [docs/video.md](../docs/video.md) is checked and completed. | 3.5 | Sat 14 Nov 10:00 |
+| B5 | Proofreading of all slides and figure captions; the limitations slide | Every slide says "target level" and never claims difficulty measured on students. Every number on a slide matches the tables. | 2 | Sat 14 Nov 18:00 |
+| B6 | Reflection document: collect each member's lines, build the contribution table, collect the signatures | One document, signed by all six. It is kept outside this public repository. | 1.5 | Sun 15 Nov 14:00 |
 | B7 | Submission checklist and peer-evaluation reminders | The checklist is run with the lead before the upload. Everyone is reminded when the peer evaluation opens. | 1 | Sun 15 Nov |
 
-For B1 the lead provides the loading code (task A2). You do not write the adapters.
+For B1 the lead provides the loading code (task A2). You do not write the adapters. The code is in `main`: use `load_split` and `load_frame` from `levellens.data`.
 
 ## Tier 2
+
+Cancelled on Thu 12 Nov. None of these tasks is done.
 
 | Id | Task | Done when | Hours |
 |---|---|---|---|
@@ -36,15 +40,15 @@ For B1 the lead provides the loading code (task A2). You do not write the adapte
 
 ## Others wait for you
 
-- Everyone: the slide template on Thu 12 Nov at 12:00, so that slides can be drafted early.
+- Everyone: the slide template on Fri 13 Nov at 12:00, so that slides can be drafted early.
 - A: mismatches in the data counts, as soon as you see them.
 - A: the storyboard order for the video assembly.
 
 ## You wait for
 
-- A: adapters for the data checks. RACE++ and MATH on Wed 11 Nov at 12:00, ARC and ScienceQA at 18:00.
-- F: the list of the 30 worst errors on Fri 13 Nov at 15:00.
-- Everyone: final slides on Sat 14 Nov at 10:00 and reflection lines at 18:00.
+- A: adapters for the data checks. They are in `main` since Thu 12 Nov.
+- F: the list of the 15 worst errors on Sat 14 Nov at 10:00.
+- Everyone: final slides on Sat 14 Nov at 16:00 and reflection lines on Sun 15 Nov at 10:00.
 
 ## Video part
 
