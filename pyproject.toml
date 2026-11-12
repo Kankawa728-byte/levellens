@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "levellens"
+version = "0.1.0"
+description = "Estimate the target level of an exam question from its text"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["levellens*"]
+
+[tool.setuptools.package-data]
+levellens = ["data/manifest.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["data: needs the prepared datasets (python -m levellens.data.prepare)"]

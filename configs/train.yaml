@@ -1,0 +1,20 @@
+# Settings shared by every run. Override any of them on the command line:
+#   python -m levellens.run data=arc model=majority seed=1 owner=D
+
+defaults:          # which file to load from configs/data, configs/model and configs/head
+  data: toy
+  model: majority
+  head: none
+
+seed: 0
+owner: A           # the share that starts the run: A, B, C, D, E or F
+tier: 1            # 1 or 2, as in work/README.md
+variant: ""        # a short label for runs that differ only in their settings, e.g. "h256"
+run_id: null       # default: <dataset>-<model>-<head>[-<variant>]-s<seed>
+
+device: auto       # auto, cpu, cuda or cuda:0. The environment variable LEVELLENS_DEVICE wins.
+limit_train: null  # train on a stratified subset of this many items, e.g. 20000 for RACE++
+eval_splits: [dev, test, test_1k]   # the open LLM uses [test_1k] only
+
+save_predictions: true   # results/preds/<run_id>.npz
+save_model: false        # <LEVELLENS_CACHE>/models/<run_id>/, loaded by Predictor.load("<run_id>")

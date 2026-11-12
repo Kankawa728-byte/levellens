@@ -1,0 +1,3 @@
+# Main ARC runs: all 3,358 training questions.
+name: arc
+train_split: train

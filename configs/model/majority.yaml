@@ -1,0 +1,4 @@
+# Floor: always the most common level of the training set.
+name: majority
+target: levellens.models.floors.Majority
+params: {}

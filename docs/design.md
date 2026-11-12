@@ -21,14 +21,14 @@ All times are Singapore time. The tiers (Tier 1, Tier 2) are explained in [work/
 
 ## Datasets
 
-Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC split from the two published papers. Two counts are taken when the data are first loaded: the ScienceQA text-only items, and the few MATH items labelled "Level ?", which we drop.
+Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC split from the two published papers. Two counts were taken when the data were first loaded on Thu 12 Nov: ScienceQA has 6,508 / 2,144 / 2,224 text-only items, and 2 MATH training items are labelled "Level ?", which we drop.
 
 | Dataset | Subject | Train / dev / test | Levels | Source | Licence | Role |
 |---|---|---|---|---|---|---|
 | **RACE++** (RACE middle + high, RACE-C) | English reading | 100,568 / 5,599 / 5,642 | 3: middle school, high school, college | `ehovy/race` + `tasksource/race-c` | RACE: non-commercial research. RACE-C: no licence stated. | trained |
-| **ARC with school grade** | School science | 3,358 / 862 / 3,530 | 7: grades 3–9, very imbalanced | AI2 `ARC-V1-Feb2018.zip` (681 MB; the Hugging Face copy has no grade field) | CC BY-SA 4.0 | trained |
-| **MATH** | Competition maths | 6,750 / 750 / 5,000 | 5: Level 1–5 | `EleutherAI/hendrycks_math`; 10% of train held out as dev | MIT | trained |
-| **ScienceQA, text only** | Science, social, language | from 12,726 / 4,241 / 4,241 | Grades 1–12 | `derek-thomas/ScienceQA` | CC BY-NC-SA 4.0 (original release; the mirror is tagged CC BY-SA 4.0) | extrapolation |
+| **ARC with school grade** | School science | 3,358 / 862 / 3,530 | 7: grades 3–9, very imbalanced | AI2 `ARC-V1-Feb2018.zip` (681 MB, of which we read only the six question files, 2.3 MB; the Hugging Face copy has no grade field) | CC BY-SA 4.0 | trained |
+| **MATH** | Competition maths | 6,748 / 750 / 5,000 | 5: Level 1–5 | `EleutherAI/hendrycks_math`; 10% of train held out as dev | MIT | trained |
+| **ScienceQA, text only** | Science, social, language | 6,508 / 2,144 / 2,224, from 12,726 / 4,241 / 4,241 | Grades 1–12 | `derek-thomas/ScienceQA` | CC BY-NC-SA 4.0 (original release; the mirror is tagged CC BY-SA 4.0) | extrapolation |
 | **GSM8K** (Tier 2) | Grade-school maths | 7,473 / 1,319 | None; number of solution steps as a proxy | `openai/gsm8k` | MIT | extrapolation |
 
 - RACE++ levels come from the config name, because the `all` config has no level column. The splits are passage-disjoint.
@@ -37,7 +37,7 @@ Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC sp
 - Input format follows the published work: question plus all options by default.
 - We ship download scripts, not data. RACE and ScienceQA are for non-commercial use only.
 
-**If ARC fails the first check.** If the ARC grade labels cannot be read, or the filtered ARC training split has 3,000 items or fewer, we use ScienceQA text-only as the trained science set, provided it has more than 3,000 training items. If the counts only differ from 3,358 / 862 / 3,530, we align our filter with the data preparation of the qde-ordinality repository and keep ARC. The lead decides on Wed 11 Nov after the check.
+**If ARC fails the first check.** If the ARC grade labels cannot be read, or the filtered ARC training split has 3,000 items or fewer, we use ScienceQA text-only as the trained science set, provided it has more than 3,000 training items. If the counts only differ from 3,358 / 862 / 3,530, we align our filter with the data preparation of the qde-ordinality repository and keep ARC. The lead decides on Wed 11 Nov after the check. Result of the check on Thu 12 Nov: the grade labels are read, our filter gives exactly 3,358 / 862 / 3,530 items and 2,293 in the balanced subset, and the majority baseline on our splits reproduces the published rows for RACE++ and ARC.
 
 ## Models
 

@@ -11,8 +11,8 @@ venv/
 .mypy_cache/
 
 # Data, caches and model weights: fetched by scripts/download_data.py, never committed
-data/
-cache/
+/data/
+/cache/
 checkpoints/
 *.pt
 *.pth
@@ -42,3 +42,6 @@ slurm-*.out
 .idea/
 .DS_Store
 Thumbs.db
+
+# Try-out runs on the toy dataset
+results/scratch/

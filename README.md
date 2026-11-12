@@ -79,10 +79,12 @@ The letter is the share that owns the file. Each file has one owner.
 
 ```text
 levellens/                    the Python package
-  data/                 A     race.py  arc.py  math.py  scienceqa.py   -> one schema
+  data/                 A     race.py  arc.py  math_.py  scienceqa.py  toy.py   -> one schema
+                              prepare.py writes the split files that every model loads
   features/             D     tfidf.py  linguistic.py
                         E     glove.py  latex.py
-  models/               D     classic.py  llm.py
+  models/               A     base.py (the model contract)  floors.py (majority, the worked example)
+                        D     classic.py  llm.py
                         E     recurrent.py  transformer.py
   heads/                E     ce.py  corn.py
   explain/              D     global_shap.py
@@ -92,6 +94,7 @@ levellens/                    the Python package
   predictor.py          A     one Predictor API for the experiments and the app
   results.py            A     runs.jsonl -> tables
   run.py                A     python -m levellens.run data=arc model=deberta-v3 head=corn seed=0
+  config.py  paths.py   A     the config of a run; the data, cache and results folders
 configs/                A     layout; every owner adds the configs of their own models
 scripts/                C     download_data.py, stage_cache, job templates
 notebooks/main.ipynb    A     small end-to-end run, then rebuilds every table
@@ -102,7 +105,7 @@ docs/                   A, B  design, interfaces, schedule, workflow, video; B a
 work/                   A     the six shares
 ```
 
-The code skeleton arrives on Wed 11 Nov at 12:00. Until then, code against [docs/interfaces.md](docs/interfaces.md).
+The code skeleton is in `main`. Start with "First run" in [docs/interfaces.md](docs/interfaces.md).
 
 ## Rules in short
 

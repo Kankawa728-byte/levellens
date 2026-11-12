@@ -79,10 +79,12 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 
 ```text
 levellens/                    Python 代码包
-  data/                 A     race.py  arc.py  math.py  scienceqa.py   -> 统一格式
+  data/                 A     race.py  arc.py  math_.py  scienceqa.py  toy.py   -> 统一格式
+                              prepare.py 写出所有模型读取的数据划分文件
   features/             D     tfidf.py  linguistic.py
                         E     glove.py  latex.py
-  models/               D     classic.py  llm.py
+  models/               A     base.py（模型约定）  floors.py（多数类，完整的例子）
+                        D     classic.py  llm.py
                         E     recurrent.py  transformer.py
   heads/                E     ce.py  corn.py
   explain/              D     global_shap.py
@@ -92,6 +94,7 @@ levellens/                    Python 代码包
   predictor.py          A     实验和应用共用的 Predictor API
   results.py            A     runs.jsonl -> 表格
   run.py                A     python -m levellens.run data=arc model=deberta-v3 head=corn seed=0
+  config.py  paths.py   A     一次运行的配置；数据、缓存和结果文件夹
 configs/                A     目录结构；每个负责人添加自己模型的配置
 scripts/                C     download_data.py、stage_cache、作业模板
 notebooks/main.ipynb    A     先跑一个小的端到端示例，再重建所有表格
@@ -102,7 +105,7 @@ docs/                   A、B  设计、接口、日程、协作规则、视频�
 work/                   A     六份工作
 ```
 
-代码骨架在 11 月 11 日（周三）12:00 进入仓库。在那之前，按 [docs/interfaces.zh-CN.md](docs/interfaces.zh-CN.md) 写代码。
+代码骨架已经在 `main` 里。从 [docs/interfaces.zh-CN.md](docs/interfaces.zh-CN.md) 的“第一次运行”开始。
 
 ## 规则摘要
 

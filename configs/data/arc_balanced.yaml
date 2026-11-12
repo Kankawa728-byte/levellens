@@ -1,0 +1,4 @@
+# Replication runs: the papers' balanced training subset (grades 5 and 8 cut to 500 each, 2,293 questions).
+# Dev and test are the same as for data=arc.
+name: arc
+train_split: train_balanced

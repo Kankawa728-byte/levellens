@@ -1,0 +1,3 @@
+# Extrapolation set. No model is trained on it in the plan; share F scores the ARC model on it.
+name: scienceqa
+train_split: train

@@ -1,0 +1,22 @@
+# Install:  pip install -r requirements.txt
+# Tested with Python 3.12, numpy 2.5, pandas 3.1, scikit-learn 1.9, datasets 5.2.
+
+# Core: needed by every share
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+scikit-learn>=1.4
+omegaconf>=2.3
+datasets>=2.19
+remotezip>=0.12
+pytest>=8.0
+
+# Each owner adds the packages of their share under their letter.
+# D
+
+# E
+
+# F
+
+# The levellens package itself, so that `import levellens` works from anywhere
+-e .
