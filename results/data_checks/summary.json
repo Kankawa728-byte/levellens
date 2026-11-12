@@ -1,0 +1,3600 @@
+{
+  "python": "3.12.14",
+  "numpy": "2.5.4",
+  "manifest_sha256": "f026d76eef0e60f26e678198ddd6c2489a905b88a21734a1e534d27c4b43f41f",
+  "definition": "Exact raw question strings and exact prepared model-input strings; only primary splits compared.",
+  "datasets": {
+    "race": {
+      "dataset": "race",
+      "level_names": [
+        "middle school",
+        "high school",
+        "college"
+      ],
+      "splits": {
+        "train": {
+          "shape": [
+            100568,
+            10
+          ],
+          "nulls": {},
+          "valid": true,
+          "n": 100568,
+          "per_level": [
+            25421,
+            62445,
+            12702
+          ],
+          "sha256": "48274fd43424f5cfd8168d90b7cdb212f6720b54f30763ec97f1994e6bee785d",
+          "expected_n": 100568,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 25421,
+              "question_words": {
+                "mean": 9.05,
+                "median": 9.0,
+                "p95": 15.0,
+                "min": 1,
+                "max": 63
+              },
+              "question_chars": {
+                "mean": 45.75,
+                "median": 43.0,
+                "p95": 78.0,
+                "min": 1,
+                "max": 325
+              },
+              "text_words": {
+                "mean": 30.68,
+                "median": 29.0,
+                "p95": 53.0,
+                "min": 9,
+                "max": 105
+              },
+              "text_chars": {
+                "mean": 153.1,
+                "median": 141.0,
+                "p95": 276.0,
+                "min": 33,
+                "max": 558
+              }
+            },
+            {
+              "level": 1,
+              "n": 62445,
+              "question_words": {
+                "mean": 10.4,
+                "median": 10.0,
+                "p95": 16.0,
+                "min": 1,
+                "max": 63
+              },
+              "question_chars": {
+                "mean": 55.43,
+                "median": 53.0,
+                "p95": 89.0,
+                "min": 1,
+                "max": 380
+              },
+              "text_words": {
+                "mean": 39.34,
+                "median": 39.0,
+                "p95": 60.0,
+                "min": 9,
+                "max": 309
+              },
+              "text_chars": {
+                "mean": 211.93,
+                "median": 209.0,
+                "p95": 334.0,
+                "min": 40,
+                "max": 1596
+              }
+            },
+            {
+              "level": 2,
+              "n": 12702,
+              "question_words": {
+                "mean": 11.81,
+                "median": 11.0,
+                "p95": 20.0,
+                "min": 2,
+                "max": 56
+              },
+              "question_chars": {
+                "mean": 66.55,
+                "median": 62.0,
+                "p95": 117.0,
+                "min": 11,
+                "max": 354
+              },
+              "text_words": {
+                "mean": 42.85,
+                "median": 42.0,
+                "p95": 72.0,
+                "min": 11,
+                "max": 148
+              },
+              "text_chars": {
+                "mean": 246.81,
+                "median": 238.0,
+                "p95": 434.0,
+                "min": 58,
+                "max": 887
+              }
+            }
+          ]
+        },
+        "dev": {
+          "shape": [
+            5599,
+            10
+          ],
+          "nulls": {},
+          "valid": true,
+          "n": 5599,
+          "per_level": [
+            1436,
+            3451,
+            712
+          ],
+          "sha256": "7aa8d53633af6d3207623fcf06622ca32eb517fe050b433814a22015ffcee803",
+          "expected_n": 5599,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 1436,
+              "question_words": {
+                "mean": 8.94,
+                "median": 8.0,
+                "p95": 15.0,
+                "min": 2,
+                "max": 26
+              },
+              "question_chars": {
+                "mean": 45.31,
+                "median": 42.0,
+                "p95": 75.0,
+                "min": 11,
+                "max": 142
+              },
+              "text_words": {
+                "mean": 30.8,
+                "median": 28.0,
+                "p95": 53.0,
+                "min": 11,
+                "max": 84
+              },
+              "text_chars": {
+                "mean": 153.38,
+                "median": 139.0,
+                "p95": 281.0,
+                "min": 44,
+                "max": 420
+              }
+            },
+            {
+              "level": 1,
+              "n": 3451,
+              "question_words": {
+                "mean": 10.24,
+                "median": 10.0,
+                "p95": 16.0,
+                "min": 3,
+                "max": 27
+              },
+              "question_chars": {
+                "mean": 54.63,
+                "median": 52.0,
+                "p95": 88.0,
+                "min": 15,
+                "max": 154
+              },
+              "text_words": {
+                "mean": 39.01,
+                "median": 39.0,
+                "p95": 59.0,
+                "min": 11,
+                "max": 97
+              },
+              "text_chars": {
+                "mean": 209.98,
+                "median": 207.0,
+                "p95": 329.0,
+                "min": 59,
+                "max": 568
+              }
+            },
+            {
+              "level": 2,
+              "n": 712,
+              "question_words": {
+                "mean": 11.73,
+                "median": 11.0,
+                "p95": 20.0,
+                "min": 3,
+                "max": 60
+              },
+              "question_chars": {
+                "mean": 65.99,
+                "median": 59.5,
+                "p95": 119.45,
+                "min": 15,
+                "max": 330
+              },
+              "text_words": {
+                "mean": 42.97,
+                "median": 43.0,
+                "p95": 73.0,
+                "min": 14,
+                "max": 141
+              },
+              "text_chars": {
+                "mean": 248.21,
+                "median": 237.0,
+                "p95": 448.45,
+                "min": 68,
+                "max": 897
+              }
+            }
+          ]
+        },
+        "test": {
+          "shape": [
+            5642,
+            10
+          ],
+          "nulls": {},
+          "valid": true,
+          "n": 5642,
+          "per_level": [
+            1436,
+            3498,
+            708
+          ],
+          "sha256": "38601992bc21163ea1bf7c13e4a84c9fcbb7c2f0932448bde36130f9c48c3ece",
+          "expected_n": 5642,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 1436,
+              "question_words": {
+                "mean": 8.94,
+                "median": 8.0,
+                "p95": 15.0,
+                "min": 1,
+                "max": 29
+              },
+              "question_chars": {
+                "mean": 45.35,
+                "median": 42.0,
+                "p95": 76.0,
+                "min": 1,
+                "max": 147
+              },
+              "text_words": {
+                "mean": 30.93,
+                "median": 29.0,
+                "p95": 53.25,
+                "min": 11,
+                "max": 91
+              },
+              "text_chars": {
+                "mean": 154.63,
+                "median": 143.0,
+                "p95": 277.75,
+                "min": 39,
+                "max": 511
+              }
+            },
+            {
+              "level": 1,
+              "n": 3498,
+              "question_words": {
+                "mean": 10.42,
+                "median": 10.0,
+                "p95": 16.0,
+                "min": 2,
+                "max": 33
+              },
+              "question_chars": {
+                "mean": 55.43,
+                "median": 53.0,
+                "p95": 88.0,
+                "min": 14,
+                "max": 168
+              },
+              "text_words": {
+                "mean": 39.61,
+                "median": 40.0,
+                "p95": 60.15,
+                "min": 13,
+                "max": 103
+              },
+              "text_chars": {
+                "mean": 212.77,
+                "median": 211.0,
+                "p95": 334.0,
+                "min": 57,
+                "max": 559
+              }
+            },
+            {
+              "level": 2,
+              "n": 708,
+              "question_words": {
+                "mean": 11.7,
+                "median": 11.0,
+                "p95": 20.0,
+                "min": 4,
+                "max": 31
+              },
+              "question_chars": {
+                "mean": 65.78,
+                "median": 62.0,
+                "p95": 113.65,
+                "min": 15,
+                "max": 198
+              },
+              "text_words": {
+                "mean": 43.03,
+                "median": 42.0,
+                "p95": 70.65,
+                "min": 14,
+                "max": 125
+              },
+              "text_chars": {
+                "mean": 248.36,
+                "median": 242.5,
+                "p95": 421.65,
+                "min": 81,
+                "max": 726
+              }
+            }
+          ]
+        }
+      },
+      "shared_ids": {
+        "train:dev": 0,
+        "train:test": 0,
+        "dev:test": 0
+      },
+      "duplicates": {
+        "question": {
+          "within": {
+            "train": {
+              "groups": 4253,
+              "rows": 21278,
+              "extra_rows": 17025,
+              "conflicting_level_groups": 1508
+            },
+            "dev": {
+              "groups": 130,
+              "rows": 543,
+              "extra_rows": 413,
+              "conflicting_level_groups": 57
+            },
+            "test": {
+              "groups": 142,
+              "rows": 611,
+              "extra_rows": 469,
+              "conflicting_level_groups": 70
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 773,
+              "rows_left": 10672,
+              "rows_right": 1180,
+              "pairs": 61427,
+              "conflicting_level_groups": 352
+            },
+            "train:test": {
+              "groups": 729,
+              "rows_left": 11001,
+              "rows_right": 1190,
+              "pairs": 67482,
+              "conflicting_level_groups": 356
+            },
+            "dev:test": {
+              "groups": 221,
+              "rows_left": 593,
+              "rows_right": 633,
+              "pairs": 3439,
+              "conflicting_level_groups": 110
+            }
+          }
+        },
+        "text": {
+          "within": {
+            "train": {
+              "groups": 1275,
+              "rows": 2594,
+              "extra_rows": 1319,
+              "conflicting_level_groups": 810
+            },
+            "dev": {
+              "groups": 2,
+              "rows": 4,
+              "extra_rows": 2,
+              "conflicting_level_groups": 2
+            },
+            "test": {
+              "groups": 5,
+              "rows": 10,
+              "extra_rows": 5,
+              "conflicting_level_groups": 3
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 146,
+              "rows_left": 154,
+              "rows_right": 146,
+              "pairs": 154,
+              "conflicting_level_groups": 100
+            },
+            "train:test": {
+              "groups": 156,
+              "rows_left": 169,
+              "rows_right": 156,
+              "pairs": 169,
+              "conflicting_level_groups": 96
+            },
+            "dev:test": {
+              "groups": 11,
+              "rows_left": 11,
+              "rows_right": 11,
+              "pairs": 11,
+              "conflicting_level_groups": 9
+            }
+          }
+        }
+      },
+      "repeated_options": {
+        "train": 55,
+        "dev": 5,
+        "test": 3
+      },
+      "passage_duplicates": {
+        "within": {
+          "train": {
+            "groups": 26991,
+            "rows": 99994,
+            "extra_rows": 73003,
+            "conflicting_level_groups": 6
+          },
+          "dev": {
+            "groups": 1494,
+            "rows": 5568,
+            "extra_rows": 4074,
+            "conflicting_level_groups": 0
+          },
+          "test": {
+            "groups": 1499,
+            "rows": 5599,
+            "extra_rows": 4100,
+            "conflicting_level_groups": 0
+          }
+        },
+        "across": {
+          "train:dev": {
+            "groups": 0,
+            "rows_left": 0,
+            "rows_right": 0,
+            "pairs": 0,
+            "conflicting_level_groups": 0
+          },
+          "train:test": {
+            "groups": 0,
+            "rows_left": 0,
+            "rows_right": 0,
+            "pairs": 0,
+            "conflicting_level_groups": 0
+          },
+          "dev:test": {
+            "groups": 0,
+            "rows_left": 0,
+            "rows_right": 0,
+            "pairs": 0,
+            "conflicting_level_groups": 0
+          }
+        }
+      },
+      "derived_splits": {
+        "test_1k": {
+          "n": 1000,
+          "per_level": [
+            255,
+            620,
+            125
+          ],
+          "sha256": "139c79b5f05eceb7b9610829509398152f76aa6cb857100b5bb591dbef351492",
+          "matches_manifest": true,
+          "exact_subset_of_parent": true
+        }
+      },
+      "review_sample_per_level": [
+        10,
+        10,
+        10
+      ]
+    },
+    "arc": {
+      "dataset": "arc",
+      "level_names": [
+        "grade 3",
+        "grade 4",
+        "grade 5",
+        "grade 6",
+        "grade 7",
+        "grade 8",
+        "grade 9"
+      ],
+      "splits": {
+        "train": {
+          "shape": [
+            3358,
+            10
+          ],
+          "nulls": {
+            "passage": 3358
+          },
+          "valid": true,
+          "n": 3358,
+          "per_level": [
+            115,
+            379,
+            690,
+            99,
+            406,
+            1375,
+            294
+          ],
+          "sha256": "7f1542ee9ca55bfc6003e855e7330f6d4a92b14e32bb7908e31f4642f7b69595",
+          "expected_n": 3358,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 115,
+              "question_words": {
+                "mean": 14.54,
+                "median": 13.0,
+                "p95": 29.3,
+                "min": 4,
+                "max": 40
+              },
+              "question_chars": {
+                "mean": 77.41,
+                "median": 67.0,
+                "p95": 149.3,
+                "min": 22,
+                "max": 206
+              },
+              "text_words": {
+                "mean": 32.09,
+                "median": 30.0,
+                "p95": 59.0,
+                "min": 12,
+                "max": 70
+              },
+              "text_chars": {
+                "mean": 166.73,
+                "median": 157.0,
+                "p95": 309.3,
+                "min": 67,
+                "max": 364
+              }
+            },
+            {
+              "level": 1,
+              "n": 379,
+              "question_words": {
+                "mean": 16.59,
+                "median": 14.0,
+                "p95": 34.1,
+                "min": 4,
+                "max": 65
+              },
+              "question_chars": {
+                "mean": 91.87,
+                "median": 77.0,
+                "p95": 188.1,
+                "min": 21,
+                "max": 395
+              },
+              "text_words": {
+                "mean": 35.35,
+                "median": 32.0,
+                "p95": 65.1,
+                "min": 12,
+                "max": 105
+              },
+              "text_chars": {
+                "mean": 191.79,
+                "median": 168.0,
+                "p95": 364.0,
+                "min": 59,
+                "max": 579
+              }
+            },
+            {
+              "level": 2,
+              "n": 690,
+              "question_words": {
+                "mean": 19.58,
+                "median": 16.0,
+                "p95": 42.0,
+                "min": 4,
+                "max": 83
+              },
+              "question_chars": {
+                "mean": 110.72,
+                "median": 92.0,
+                "p95": 234.55,
+                "min": 27,
+                "max": 494
+              },
+              "text_words": {
+                "mean": 39.52,
+                "median": 36.0,
+                "p95": 71.0,
+                "min": 13,
+                "max": 114
+              },
+              "text_chars": {
+                "mean": 219.36,
+                "median": 199.0,
+                "p95": 407.1,
+                "min": 68,
+                "max": 595
+              }
+            },
+            {
+              "level": 3,
+              "n": 99,
+              "question_words": {
+                "mean": 14.57,
+                "median": 12.0,
+                "p95": 33.0,
+                "min": 4,
+                "max": 51
+              },
+              "question_chars": {
+                "mean": 83.59,
+                "median": 65.0,
+                "p95": 175.7,
+                "min": 20,
+                "max": 315
+              },
+              "text_words": {
+                "mean": 34.02,
+                "median": 30.0,
+                "p95": 64.1,
+                "min": 15,
+                "max": 82
+              },
+              "text_chars": {
+                "mean": 190.88,
+                "median": 177.0,
+                "p95": 348.6,
+                "min": 72,
+                "max": 451
+              }
+            },
+            {
+              "level": 4,
+              "n": 406,
+              "question_words": {
+                "mean": 21.23,
+                "median": 18.0,
+                "p95": 43.0,
+                "min": 5,
+                "max": 84
+              },
+              "question_chars": {
+                "mean": 124.6,
+                "median": 106.0,
+                "p95": 251.0,
+                "min": 27,
+                "max": 463
+              },
+              "text_words": {
+                "mean": 43.41,
+                "median": 41.5,
+                "p95": 78.0,
+                "min": 14,
+                "max": 106
+              },
+              "text_chars": {
+                "mean": 249.14,
+                "median": 239.5,
+                "p95": 429.25,
+                "min": 64,
+                "max": 595
+              }
+            },
+            {
+              "level": 5,
+              "n": 1375,
+              "question_words": {
+                "mean": 20.38,
+                "median": 16.0,
+                "p95": 44.0,
+                "min": 4,
+                "max": 111
+              },
+              "question_chars": {
+                "mean": 119.72,
+                "median": 96.0,
+                "p95": 256.3,
+                "min": 17,
+                "max": 683
+              },
+              "text_words": {
+                "mean": 41.33,
+                "median": 38.0,
+                "p95": 76.0,
+                "min": 13,
+                "max": 155
+              },
+              "text_chars": {
+                "mean": 238.51,
+                "median": 223.0,
+                "p95": 440.0,
+                "min": 62,
+                "max": 850
+              }
+            },
+            {
+              "level": 6,
+              "n": 294,
+              "question_words": {
+                "mean": 25.5,
+                "median": 23.5,
+                "p95": 52.7,
+                "min": 4,
+                "max": 84
+              },
+              "question_chars": {
+                "mean": 156.24,
+                "median": 148.0,
+                "p95": 315.75,
+                "min": 31,
+                "max": 517
+              },
+              "text_words": {
+                "mean": 46.95,
+                "median": 45.0,
+                "p95": 82.7,
+                "min": 12,
+                "max": 102
+              },
+              "text_chars": {
+                "mean": 282.63,
+                "median": 267.5,
+                "p95": 492.7,
+                "min": 83,
+                "max": 608
+              }
+            }
+          ]
+        },
+        "dev": {
+          "shape": [
+            862,
+            10
+          ],
+          "nulls": {
+            "passage": 862
+          },
+          "valid": true,
+          "n": 862,
+          "per_level": [
+            25,
+            72,
+            162,
+            10,
+            115,
+            377,
+            101
+          ],
+          "sha256": "534dedb3a63cbdc22133ea38d280d195ee5fc8b2bb9ec67f8042d803ce4acab5",
+          "expected_n": 862,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 25,
+              "question_words": {
+                "mean": 12.52,
+                "median": 10.0,
+                "p95": 23.8,
+                "min": 6,
+                "max": 28
+              },
+              "question_chars": {
+                "mean": 66.76,
+                "median": 55.0,
+                "p95": 128.6,
+                "min": 32,
+                "max": 164
+              },
+              "text_words": {
+                "mean": 30.08,
+                "median": 27.0,
+                "p95": 50.0,
+                "min": 16,
+                "max": 60
+              },
+              "text_chars": {
+                "mean": 157.88,
+                "median": 156.0,
+                "p95": 277.8,
+                "min": 74,
+                "max": 329
+              }
+            },
+            {
+              "level": 1,
+              "n": 72,
+              "question_words": {
+                "mean": 18.57,
+                "median": 17.0,
+                "p95": 33.0,
+                "min": 5,
+                "max": 49
+              },
+              "question_chars": {
+                "mean": 102.93,
+                "median": 96.5,
+                "p95": 202.4,
+                "min": 34,
+                "max": 257
+              },
+              "text_words": {
+                "mean": 35.08,
+                "median": 33.5,
+                "p95": 63.35,
+                "min": 13,
+                "max": 85
+              },
+              "text_chars": {
+                "mean": 192.39,
+                "median": 177.5,
+                "p95": 341.85,
+                "min": 69,
+                "max": 484
+              }
+            },
+            {
+              "level": 2,
+              "n": 162,
+              "question_words": {
+                "mean": 20.46,
+                "median": 17.0,
+                "p95": 44.95,
+                "min": 5,
+                "max": 100
+              },
+              "question_chars": {
+                "mean": 115.51,
+                "median": 88.0,
+                "p95": 249.75,
+                "min": 29,
+                "max": 560
+              },
+              "text_words": {
+                "mean": 42.48,
+                "median": 38.0,
+                "p95": 78.85,
+                "min": 14,
+                "max": 125
+              },
+              "text_chars": {
+                "mean": 235.58,
+                "median": 207.5,
+                "p95": 435.6,
+                "min": 69,
+                "max": 690
+              }
+            },
+            {
+              "level": 3,
+              "n": 10,
+              "question_words": {
+                "mean": 18.6,
+                "median": 15.0,
+                "p95": 43.5,
+                "min": 7,
+                "max": 48
+              },
+              "question_chars": {
+                "mean": 103.5,
+                "median": 80.0,
+                "p95": 234.95,
+                "min": 43,
+                "max": 257
+              },
+              "text_words": {
+                "mean": 34.1,
+                "median": 31.0,
+                "p95": 57.1,
+                "min": 20,
+                "max": 58
+              },
+              "text_chars": {
+                "mean": 188.7,
+                "median": 178.0,
+                "p95": 307.1,
+                "min": 114,
+                "max": 317
+              }
+            },
+            {
+              "level": 4,
+              "n": 115,
+              "question_words": {
+                "mean": 22.66,
+                "median": 19.0,
+                "p95": 50.3,
+                "min": 5,
+                "max": 65
+              },
+              "question_chars": {
+                "mean": 133.56,
+                "median": 113.0,
+                "p95": 293.4,
+                "min": 29,
+                "max": 374
+              },
+              "text_words": {
+                "mean": 42.85,
+                "median": 39.0,
+                "p95": 76.3,
+                "min": 13,
+                "max": 131
+              },
+              "text_chars": {
+                "mean": 250.1,
+                "median": 231.0,
+                "p95": 449.7,
+                "min": 79,
+                "max": 672
+              }
+            },
+            {
+              "level": 5,
+              "n": 377,
+              "question_words": {
+                "mean": 19.76,
+                "median": 16.0,
+                "p95": 42.0,
+                "min": 4,
+                "max": 76
+              },
+              "question_chars": {
+                "mean": 115.54,
+                "median": 95.0,
+                "p95": 244.2,
+                "min": 24,
+                "max": 473
+              },
+              "text_words": {
+                "mean": 40.08,
+                "median": 37.0,
+                "p95": 70.0,
+                "min": 12,
+                "max": 115
+              },
+              "text_chars": {
+                "mean": 230.95,
+                "median": 217.0,
+                "p95": 408.4,
+                "min": 67,
+                "max": 709
+              }
+            },
+            {
+              "level": 6,
+              "n": 101,
+              "question_words": {
+                "mean": 26.99,
+                "median": 22.0,
+                "p95": 54.0,
+                "min": 6,
+                "max": 80
+              },
+              "question_chars": {
+                "mean": 165.19,
+                "median": 137.0,
+                "p95": 308.0,
+                "min": 40,
+                "max": 497
+              },
+              "text_words": {
+                "mean": 49.32,
+                "median": 45.0,
+                "p95": 87.0,
+                "min": 15,
+                "max": 110
+              },
+              "text_chars": {
+                "mean": 296.69,
+                "median": 275.0,
+                "p95": 517.0,
+                "min": 89,
+                "max": 689
+              }
+            }
+          ]
+        },
+        "test": {
+          "shape": [
+            3530,
+            10
+          ],
+          "nulls": {
+            "passage": 3530
+          },
+          "valid": true,
+          "n": 3530,
+          "per_level": [
+            130,
+            355,
+            751,
+            154,
+            408,
+            1444,
+            288
+          ],
+          "sha256": "645636413a8103dc0cd09f42338c343422c860e13c7a87e052ac476822f23f18",
+          "expected_n": 3530,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 130,
+              "question_words": {
+                "mean": 14.71,
+                "median": 13.0,
+                "p95": 27.0,
+                "min": 4,
+                "max": 36
+              },
+              "question_chars": {
+                "mean": 78.51,
+                "median": 66.0,
+                "p95": 140.95,
+                "min": 25,
+                "max": 192
+              },
+              "text_words": {
+                "mean": 33.42,
+                "median": 32.0,
+                "p95": 56.1,
+                "min": 12,
+                "max": 80
+              },
+              "text_chars": {
+                "mean": 173.15,
+                "median": 165.0,
+                "p95": 285.75,
+                "min": 65,
+                "max": 415
+              }
+            },
+            {
+              "level": 1,
+              "n": 355,
+              "question_words": {
+                "mean": 17.06,
+                "median": 14.0,
+                "p95": 35.3,
+                "min": 2,
+                "max": 103
+              },
+              "question_chars": {
+                "mean": 94.61,
+                "median": 79.0,
+                "p95": 190.0,
+                "min": 13,
+                "max": 628
+              },
+              "text_words": {
+                "mean": 36.8,
+                "median": 32.0,
+                "p95": 66.9,
+                "min": 13,
+                "max": 149
+              },
+              "text_chars": {
+                "mean": 199.36,
+                "median": 176.0,
+                "p95": 357.3,
+                "min": 63,
+                "max": 864
+              }
+            },
+            {
+              "level": 2,
+              "n": 751,
+              "question_words": {
+                "mean": 18.73,
+                "median": 16.0,
+                "p95": 43.0,
+                "min": 3,
+                "max": 120
+              },
+              "question_chars": {
+                "mean": 106.57,
+                "median": 89.0,
+                "p95": 235.0,
+                "min": 18,
+                "max": 779
+              },
+              "text_words": {
+                "mean": 38.49,
+                "median": 35.0,
+                "p95": 74.0,
+                "min": 11,
+                "max": 142
+              },
+              "text_chars": {
+                "mean": 214.21,
+                "median": 195.0,
+                "p95": 408.5,
+                "min": 63,
+                "max": 921
+              }
+            },
+            {
+              "level": 3,
+              "n": 154,
+              "question_words": {
+                "mean": 17.71,
+                "median": 14.0,
+                "p95": 38.7,
+                "min": 4,
+                "max": 51
+              },
+              "question_chars": {
+                "mean": 101.04,
+                "median": 84.5,
+                "p95": 209.05,
+                "min": 19,
+                "max": 282
+              },
+              "text_words": {
+                "mean": 36.99,
+                "median": 34.0,
+                "p95": 68.0,
+                "min": 13,
+                "max": 95
+              },
+              "text_chars": {
+                "mean": 208.14,
+                "median": 198.5,
+                "p95": 373.35,
+                "min": 67,
+                "max": 529
+              }
+            },
+            {
+              "level": 4,
+              "n": 408,
+              "question_words": {
+                "mean": 21.84,
+                "median": 18.0,
+                "p95": 47.65,
+                "min": 4,
+                "max": 75
+              },
+              "question_chars": {
+                "mean": 127.58,
+                "median": 111.0,
+                "p95": 270.3,
+                "min": 20,
+                "max": 398
+              },
+              "text_words": {
+                "mean": 43.64,
+                "median": 40.0,
+                "p95": 81.65,
+                "min": 13,
+                "max": 127
+              },
+              "text_chars": {
+                "mean": 250.09,
+                "median": 229.5,
+                "p95": 455.0,
+                "min": 68,
+                "max": 685
+              }
+            },
+            {
+              "level": 5,
+              "n": 1444,
+              "question_words": {
+                "mean": 21.47,
+                "median": 17.0,
+                "p95": 48.0,
+                "min": 4,
+                "max": 128
+              },
+              "question_chars": {
+                "mean": 126.12,
+                "median": 102.0,
+                "p95": 283.7,
+                "min": 18,
+                "max": 831
+              },
+              "text_words": {
+                "mean": 42.16,
+                "median": 38.0,
+                "p95": 79.0,
+                "min": 12,
+                "max": 163
+              },
+              "text_chars": {
+                "mean": 244.11,
+                "median": 223.0,
+                "p95": 458.7,
+                "min": 65,
+                "max": 967
+              }
+            },
+            {
+              "level": 6,
+              "n": 288,
+              "question_words": {
+                "mean": 27.7,
+                "median": 25.0,
+                "p95": 58.0,
+                "min": 4,
+                "max": 99
+              },
+              "question_chars": {
+                "mean": 169.2,
+                "median": 156.0,
+                "p95": 331.2,
+                "min": 24,
+                "max": 551
+              },
+              "text_words": {
+                "mean": 50.36,
+                "median": 48.0,
+                "p95": 84.65,
+                "min": 16,
+                "max": 130
+              },
+              "text_chars": {
+                "mean": 303.78,
+                "median": 290.0,
+                "p95": 505.95,
+                "min": 93,
+                "max": 727
+              }
+            }
+          ]
+        }
+      },
+      "shared_ids": {
+        "train:dev": 0,
+        "train:test": 0,
+        "dev:test": 0
+      },
+      "duplicates": {
+        "question": {
+          "within": {
+            "train": {
+              "groups": 8,
+              "rows": 17,
+              "extra_rows": 9,
+              "conflicting_level_groups": 4
+            },
+            "dev": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            },
+            "test": {
+              "groups": 8,
+              "rows": 16,
+              "extra_rows": 8,
+              "conflicting_level_groups": 2
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 2,
+              "rows_left": 2,
+              "rows_right": 2,
+              "pairs": 2,
+              "conflicting_level_groups": 1
+            },
+            "train:test": {
+              "groups": 15,
+              "rows_left": 16,
+              "rows_right": 16,
+              "pairs": 17,
+              "conflicting_level_groups": 3
+            },
+            "dev:test": {
+              "groups": 2,
+              "rows_left": 2,
+              "rows_right": 2,
+              "pairs": 2,
+              "conflicting_level_groups": 1
+            }
+          }
+        },
+        "text": {
+          "within": {
+            "train": {
+              "groups": 1,
+              "rows": 2,
+              "extra_rows": 1,
+              "conflicting_level_groups": 1
+            },
+            "dev": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            },
+            "test": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            },
+            "train:test": {
+              "groups": 2,
+              "rows_left": 2,
+              "rows_right": 2,
+              "pairs": 2,
+              "conflicting_level_groups": 0
+            },
+            "dev:test": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            }
+          }
+        }
+      },
+      "repeated_options": {
+        "train": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "derived_splits": {
+        "test_1k": {
+          "n": 1000,
+          "per_level": [
+            37,
+            100,
+            213,
+            44,
+            115,
+            409,
+            82
+          ],
+          "sha256": "a6bc14456c0cbbd7fe0a232162a5f4baf7ddccac57f8b757bbfbd26ef9420c3c",
+          "matches_manifest": true,
+          "exact_subset_of_parent": true
+        },
+        "train_balanced": {
+          "n": 2293,
+          "per_level": [
+            115,
+            379,
+            500,
+            99,
+            406,
+            500,
+            294
+          ],
+          "sha256": "574a1a44c80a93f9ab4ce3b0ae127d89e00b1036b6b1593b10c28a68695018f5",
+          "matches_manifest": true,
+          "exact_subset_of_parent": true
+        }
+      },
+      "review_sample_per_level": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ]
+    },
+    "math": {
+      "dataset": "math",
+      "level_names": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Level 5"
+      ],
+      "splits": {
+        "train": {
+          "shape": [
+            6748,
+            10
+          ],
+          "nulls": {
+            "passage": 6748
+          },
+          "valid": true,
+          "n": 6748,
+          "per_level": [
+            508,
+            1213,
+            1433,
+            1521,
+            2073
+          ],
+          "sha256": "7aa794294d79ee5b0f97717c5173205aedd5d9d94a4fd6de39c97123e0d67843",
+          "expected_n": 6748,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 508,
+              "question_words": {
+                "mean": 20.92,
+                "median": 16.0,
+                "p95": 52.0,
+                "min": 2,
+                "max": 258
+              },
+              "question_chars": {
+                "mean": 136.15,
+                "median": 80.0,
+                "p95": 390.25,
+                "min": 18,
+                "max": 1889
+              },
+              "text_words": {
+                "mean": 20.92,
+                "median": 16.0,
+                "p95": 52.0,
+                "min": 2,
+                "max": 258
+              },
+              "text_chars": {
+                "mean": 135.19,
+                "median": 80.0,
+                "p95": 388.9,
+                "min": 18,
+                "max": 1851
+              }
+            },
+            {
+              "level": 1,
+              "n": 1213,
+              "question_words": {
+                "mean": 24.44,
+                "median": 20.0,
+                "p95": 57.0,
+                "min": 2,
+                "max": 244
+              },
+              "question_chars": {
+                "mean": 155.12,
+                "median": 111.0,
+                "p95": 439.2,
+                "min": 17,
+                "max": 2021
+              },
+              "text_words": {
+                "mean": 24.44,
+                "median": 20.0,
+                "p95": 57.0,
+                "min": 2,
+                "max": 244
+              },
+              "text_chars": {
+                "mean": 154.59,
+                "median": 110.0,
+                "p95": 438.4,
+                "min": 17,
+                "max": 2014
+              }
+            },
+            {
+              "level": 2,
+              "n": 1433,
+              "question_words": {
+                "mean": 28.66,
+                "median": 23.0,
+                "p95": 70.0,
+                "min": 2,
+                "max": 258
+              },
+              "question_chars": {
+                "mean": 177.63,
+                "median": 126.0,
+                "p95": 506.0,
+                "min": 20,
+                "max": 1954
+              },
+              "text_words": {
+                "mean": 28.66,
+                "median": 23.0,
+                "p95": 70.0,
+                "min": 2,
+                "max": 258
+              },
+              "text_chars": {
+                "mean": 176.87,
+                "median": 125.0,
+                "p95": 503.4,
+                "min": 20,
+                "max": 1887
+              }
+            },
+            {
+              "level": 3,
+              "n": 1521,
+              "question_words": {
+                "mean": 32.69,
+                "median": 27.0,
+                "p95": 75.0,
+                "min": 2,
+                "max": 218
+              },
+              "question_chars": {
+                "mean": 203.61,
+                "median": 151.0,
+                "p95": 569.0,
+                "min": 22,
+                "max": 2197
+              },
+              "text_words": {
+                "mean": 32.69,
+                "median": 27.0,
+                "p95": 75.0,
+                "min": 2,
+                "max": 218
+              },
+              "text_chars": {
+                "mean": 202.81,
+                "median": 150.0,
+                "p95": 563.0,
+                "min": 22,
+                "max": 2156
+              }
+            },
+            {
+              "level": 4,
+              "n": 2073,
+              "question_words": {
+                "mean": 44.55,
+                "median": 37.0,
+                "p95": 102.0,
+                "min": 2,
+                "max": 279
+              },
+              "question_chars": {
+                "mean": 292.37,
+                "median": 211.0,
+                "p95": 731.0,
+                "min": 35,
+                "max": 4309
+              },
+              "text_words": {
+                "mean": 44.55,
+                "median": 37.0,
+                "p95": 102.0,
+                "min": 2,
+                "max": 279
+              },
+              "text_chars": {
+                "mean": 291.11,
+                "median": 210.0,
+                "p95": 729.0,
+                "min": 35,
+                "max": 4304
+              }
+            }
+          ]
+        },
+        "dev": {
+          "shape": [
+            750,
+            10
+          ],
+          "nulls": {
+            "passage": 750
+          },
+          "valid": true,
+          "n": 750,
+          "per_level": [
+            56,
+            135,
+            159,
+            169,
+            231
+          ],
+          "sha256": "6d7cf0fa27c38f6c9bfa0ab2d4fee295c4fedf73b45a81b345a6ff0493aba67a",
+          "expected_n": 750,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 56,
+              "question_words": {
+                "mean": 22.93,
+                "median": 12.5,
+                "p95": 64.0,
+                "min": 2,
+                "max": 252
+              },
+              "question_chars": {
+                "mean": 166.98,
+                "median": 80.5,
+                "p95": 569.5,
+                "min": 23,
+                "max": 1931
+              },
+              "text_words": {
+                "mean": 22.93,
+                "median": 12.5,
+                "p95": 64.0,
+                "min": 2,
+                "max": 252
+              },
+              "text_chars": {
+                "mean": 165.27,
+                "median": 80.5,
+                "p95": 564.75,
+                "min": 23,
+                "max": 1858
+              }
+            },
+            {
+              "level": 1,
+              "n": 135,
+              "question_words": {
+                "mean": 26.13,
+                "median": 21.0,
+                "p95": 57.5,
+                "min": 2,
+                "max": 245
+              },
+              "question_chars": {
+                "mean": 162.75,
+                "median": 112.0,
+                "p95": 459.5,
+                "min": 16,
+                "max": 1594
+              },
+              "text_words": {
+                "mean": 26.13,
+                "median": 21.0,
+                "p95": 57.5,
+                "min": 2,
+                "max": 245
+              },
+              "text_chars": {
+                "mean": 162.26,
+                "median": 111.0,
+                "p95": 458.1,
+                "min": 16,
+                "max": 1586
+              }
+            },
+            {
+              "level": 2,
+              "n": 159,
+              "question_words": {
+                "mean": 27.76,
+                "median": 22.0,
+                "p95": 68.1,
+                "min": 2,
+                "max": 112
+              },
+              "question_chars": {
+                "mean": 166.81,
+                "median": 119.0,
+                "p95": 474.2,
+                "min": 26,
+                "max": 799
+              },
+              "text_words": {
+                "mean": 27.76,
+                "median": 22.0,
+                "p95": 68.1,
+                "min": 2,
+                "max": 112
+              },
+              "text_chars": {
+                "mean": 165.99,
+                "median": 118.0,
+                "p95": 457.8,
+                "min": 26,
+                "max": 794
+              }
+            },
+            {
+              "level": 3,
+              "n": 169,
+              "question_words": {
+                "mean": 30.37,
+                "median": 26.0,
+                "p95": 66.0,
+                "min": 4,
+                "max": 123
+              },
+              "question_chars": {
+                "mean": 182.43,
+                "median": 151.0,
+                "p95": 410.0,
+                "min": 37,
+                "max": 998
+              },
+              "text_words": {
+                "mean": 30.37,
+                "median": 26.0,
+                "p95": 66.0,
+                "min": 4,
+                "max": 123
+              },
+              "text_chars": {
+                "mean": 181.82,
+                "median": 151.0,
+                "p95": 409.4,
+                "min": 37,
+                "max": 995
+              }
+            },
+            {
+              "level": 4,
+              "n": 231,
+              "question_words": {
+                "mean": 42.1,
+                "median": 37.0,
+                "p95": 91.0,
+                "min": 2,
+                "max": 162
+              },
+              "question_chars": {
+                "mean": 263.46,
+                "median": 210.0,
+                "p95": 655.5,
+                "min": 17,
+                "max": 1206
+              },
+              "text_words": {
+                "mean": 42.1,
+                "median": 37.0,
+                "p95": 91.0,
+                "min": 2,
+                "max": 162
+              },
+              "text_chars": {
+                "mean": 262.25,
+                "median": 210.0,
+                "p95": 654.5,
+                "min": 17,
+                "max": 1198
+              }
+            }
+          ]
+        },
+        "test": {
+          "shape": [
+            5000,
+            10
+          ],
+          "nulls": {
+            "passage": 5000
+          },
+          "valid": true,
+          "n": 5000,
+          "per_level": [
+            437,
+            894,
+            1131,
+            1214,
+            1324
+          ],
+          "sha256": "d7ec98e9e24ef0d2b7c936066e85af9cad7953cd55b0759f103029880a489d0a",
+          "expected_n": 5000,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 437,
+              "question_words": {
+                "mean": 18.97,
+                "median": 14.0,
+                "p95": 52.0,
+                "min": 2,
+                "max": 252
+              },
+              "question_chars": {
+                "mean": 123.84,
+                "median": 76.0,
+                "p95": 397.0,
+                "min": 18,
+                "max": 1933
+              },
+              "text_words": {
+                "mean": 18.97,
+                "median": 14.0,
+                "p95": 52.0,
+                "min": 2,
+                "max": 252
+              },
+              "text_chars": {
+                "mean": 123.11,
+                "median": 76.0,
+                "p95": 392.2,
+                "min": 18,
+                "max": 1860
+              }
+            },
+            {
+              "level": 1,
+              "n": 894,
+              "question_words": {
+                "mean": 23.82,
+                "median": 20.0,
+                "p95": 56.35,
+                "min": 2,
+                "max": 167
+              },
+              "question_chars": {
+                "mean": 150.87,
+                "median": 104.0,
+                "p95": 421.7,
+                "min": 16,
+                "max": 1662
+              },
+              "text_words": {
+                "mean": 23.82,
+                "median": 20.0,
+                "p95": 56.35,
+                "min": 2,
+                "max": 167
+              },
+              "text_chars": {
+                "mean": 150.38,
+                "median": 104.0,
+                "p95": 421.05,
+                "min": 16,
+                "max": 1654
+              }
+            },
+            {
+              "level": 2,
+              "n": 1131,
+              "question_words": {
+                "mean": 27.4,
+                "median": 23.0,
+                "p95": 64.0,
+                "min": 2,
+                "max": 242
+              },
+              "question_chars": {
+                "mean": 169.14,
+                "median": 131.0,
+                "p95": 470.0,
+                "min": 22,
+                "max": 1817
+              },
+              "text_words": {
+                "mean": 27.4,
+                "median": 23.0,
+                "p95": 64.0,
+                "min": 2,
+                "max": 242
+              },
+              "text_chars": {
+                "mean": 168.54,
+                "median": 130.0,
+                "p95": 465.5,
+                "min": 22,
+                "max": 1750
+              }
+            },
+            {
+              "level": 3,
+              "n": 1214,
+              "question_words": {
+                "mean": 33.0,
+                "median": 28.0,
+                "p95": 76.0,
+                "min": 2,
+                "max": 218
+              },
+              "question_chars": {
+                "mean": 203.04,
+                "median": 155.0,
+                "p95": 523.0,
+                "min": 22,
+                "max": 2125
+              },
+              "text_words": {
+                "mean": 33.0,
+                "median": 28.0,
+                "p95": 76.0,
+                "min": 2,
+                "max": 218
+              },
+              "text_chars": {
+                "mean": 202.31,
+                "median": 155.0,
+                "p95": 521.0,
+                "min": 22,
+                "max": 2090
+              }
+            },
+            {
+              "level": 4,
+              "n": 1324,
+              "question_words": {
+                "mean": 39.75,
+                "median": 34.0,
+                "p95": 87.85,
+                "min": 2,
+                "max": 211
+              },
+              "question_chars": {
+                "mean": 248.41,
+                "median": 189.5,
+                "p95": 627.0,
+                "min": 24,
+                "max": 2828
+              },
+              "text_words": {
+                "mean": 39.75,
+                "median": 34.0,
+                "p95": 87.85,
+                "min": 2,
+                "max": 211
+              },
+              "text_chars": {
+                "mean": 247.37,
+                "median": 189.0,
+                "p95": 623.4,
+                "min": 24,
+                "max": 2824
+              }
+            }
+          ]
+        }
+      },
+      "shared_ids": {
+        "train:dev": 0,
+        "train:test": 0,
+        "dev:test": 0
+      },
+      "duplicates": {
+        "question": {
+          "within": {
+            "train": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            },
+            "dev": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            },
+            "test": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            },
+            "train:test": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            },
+            "dev:test": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            }
+          }
+        },
+        "text": {
+          "within": {
+            "train": {
+              "groups": 1,
+              "rows": 2,
+              "extra_rows": 1,
+              "conflicting_level_groups": 0
+            },
+            "dev": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            },
+            "test": {
+              "groups": 0,
+              "rows": 0,
+              "extra_rows": 0,
+              "conflicting_level_groups": 0
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            },
+            "train:test": {
+              "groups": 0,
+              "rows_left": 0,
+              "rows_right": 0,
+              "pairs": 0,
+              "conflicting_level_groups": 0
+            },
+            "dev:test": {
+              "groups": 1,
+              "rows_left": 1,
+              "rows_right": 1,
+              "pairs": 1,
+              "conflicting_level_groups": 1
+            }
+          }
+        }
+      },
+      "repeated_options": {
+        "train": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "asy_markup": {
+        "train": 643,
+        "dev": 64,
+        "test": 419
+      },
+      "derived_splits": {
+        "test_1k": {
+          "n": 1000,
+          "per_level": [
+            87,
+            179,
+            226,
+            243,
+            265
+          ],
+          "sha256": "1935f4d6527ca61438d2ae1109ff0617932aa42a7469c9d9becf845472bc2ce6",
+          "matches_manifest": true,
+          "exact_subset_of_parent": true
+        }
+      },
+      "review_sample_per_level": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ]
+    },
+    "scienceqa": {
+      "dataset": "scienceqa",
+      "level_names": [
+        "grade 1",
+        "grade 2",
+        "grade 3",
+        "grade 4",
+        "grade 5",
+        "grade 6",
+        "grade 7",
+        "grade 8",
+        "grade 9",
+        "grade 10",
+        "grade 11",
+        "grade 12"
+      ],
+      "splits": {
+        "train": {
+          "shape": [
+            6508,
+            10
+          ],
+          "nulls": {
+            "passage": 6508
+          },
+          "valid": true,
+          "n": 6508,
+          "per_level": [
+            50,
+            621,
+            875,
+            1008,
+            850,
+            591,
+            757,
+            557,
+            279,
+            340,
+            340,
+            240
+          ],
+          "sha256": "4fde136603496f3baada529a66f329f1b0b6c76cfae1a8c612a78ae99de2b96e",
+          "expected_n": 6508,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 50,
+              "question_words": {
+                "mean": 11.26,
+                "median": 7.0,
+                "p95": 22.55,
+                "min": 5,
+                "max": 25
+              },
+              "question_chars": {
+                "mean": 51.46,
+                "median": 34.0,
+                "p95": 98.1,
+                "min": 26,
+                "max": 106
+              },
+              "text_words": {
+                "mean": 17.44,
+                "median": 15.0,
+                "p95": 28.55,
+                "min": 11,
+                "max": 31
+              },
+              "text_chars": {
+                "mean": 75.08,
+                "median": 65.5,
+                "p95": 121.1,
+                "min": 47,
+                "max": 127
+              }
+            },
+            {
+              "level": 1,
+              "n": 621,
+              "question_words": {
+                "mean": 9.98,
+                "median": 8.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 30
+              },
+              "question_chars": {
+                "mean": 52.6,
+                "median": 40.0,
+                "p95": 97.0,
+                "min": 16,
+                "max": 158
+              },
+              "text_words": {
+                "mean": 18.35,
+                "median": 15.0,
+                "p95": 34.0,
+                "min": 7,
+                "max": 52
+              },
+              "text_chars": {
+                "mean": 95.07,
+                "median": 82.0,
+                "p95": 183.0,
+                "min": 34,
+                "max": 267
+              }
+            },
+            {
+              "level": 2,
+              "n": 875,
+              "question_words": {
+                "mean": 10.28,
+                "median": 10.0,
+                "p95": 19.0,
+                "min": 3,
+                "max": 48
+              },
+              "question_chars": {
+                "mean": 58.2,
+                "median": 49.0,
+                "p95": 102.0,
+                "min": 15,
+                "max": 247
+              },
+              "text_words": {
+                "mean": 24.03,
+                "median": 22.0,
+                "p95": 41.0,
+                "min": 7,
+                "max": 61
+              },
+              "text_chars": {
+                "mean": 130.94,
+                "median": 121.0,
+                "p95": 236.0,
+                "min": 38,
+                "max": 309
+              }
+            },
+            {
+              "level": 3,
+              "n": 1008,
+              "question_words": {
+                "mean": 11.32,
+                "median": 10.0,
+                "p95": 21.0,
+                "min": 3,
+                "max": 50
+              },
+              "question_chars": {
+                "mean": 63.17,
+                "median": 58.5,
+                "p95": 118.0,
+                "min": 21,
+                "max": 270
+              },
+              "text_words": {
+                "mean": 26.62,
+                "median": 22.0,
+                "p95": 54.0,
+                "min": 11,
+                "max": 88
+              },
+              "text_chars": {
+                "mean": 142.32,
+                "median": 114.0,
+                "p95": 286.95,
+                "min": 50,
+                "max": 506
+              }
+            },
+            {
+              "level": 4,
+              "n": 850,
+              "question_words": {
+                "mean": 9.71,
+                "median": 9.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 31
+              },
+              "question_chars": {
+                "mean": 54.65,
+                "median": 46.0,
+                "p95": 100.0,
+                "min": 16,
+                "max": 186
+              },
+              "text_words": {
+                "mean": 27.04,
+                "median": 20.0,
+                "p95": 70.65,
+                "min": 12,
+                "max": 110
+              },
+              "text_chars": {
+                "mean": 149.66,
+                "median": 108.0,
+                "p95": 412.55,
+                "min": 54,
+                "max": 623
+              }
+            },
+            {
+              "level": 5,
+              "n": 591,
+              "question_words": {
+                "mean": 15.61,
+                "median": 12.0,
+                "p95": 32.0,
+                "min": 4,
+                "max": 127
+              },
+              "question_chars": {
+                "mean": 92.26,
+                "median": 81.0,
+                "p95": 185.5,
+                "min": 20,
+                "max": 795
+              },
+              "text_words": {
+                "mean": 32.98,
+                "median": 26.0,
+                "p95": 66.0,
+                "min": 13,
+                "max": 139
+              },
+              "text_chars": {
+                "mean": 184.84,
+                "median": 153.0,
+                "p95": 373.5,
+                "min": 64,
+                "max": 882
+              }
+            },
+            {
+              "level": 6,
+              "n": 757,
+              "question_words": {
+                "mean": 15.72,
+                "median": 13.0,
+                "p95": 32.0,
+                "min": 4,
+                "max": 65
+              },
+              "question_chars": {
+                "mean": 92.16,
+                "median": 83.0,
+                "p95": 187.0,
+                "min": 18,
+                "max": 351
+              },
+              "text_words": {
+                "mean": 35.03,
+                "median": 35.0,
+                "p95": 65.2,
+                "min": 13,
+                "max": 99
+              },
+              "text_chars": {
+                "mean": 195.91,
+                "median": 205.0,
+                "p95": 359.0,
+                "min": 59,
+                "max": 532
+              }
+            },
+            {
+              "level": 7,
+              "n": 557,
+              "question_words": {
+                "mean": 17.18,
+                "median": 16.0,
+                "p95": 33.0,
+                "min": 5,
+                "max": 51
+              },
+              "question_chars": {
+                "mean": 101.28,
+                "median": 91.0,
+                "p95": 193.6,
+                "min": 20,
+                "max": 296
+              },
+              "text_words": {
+                "mean": 35.59,
+                "median": 34.0,
+                "p95": 63.2,
+                "min": 12,
+                "max": 104
+              },
+              "text_chars": {
+                "mean": 201.97,
+                "median": 200.0,
+                "p95": 363.6,
+                "min": 64,
+                "max": 590
+              }
+            },
+            {
+              "level": 8,
+              "n": 279,
+              "question_words": {
+                "mean": 20.76,
+                "median": 22.0,
+                "p95": 35.1,
+                "min": 5,
+                "max": 51
+              },
+              "question_chars": {
+                "mean": 117.4,
+                "median": 125.0,
+                "p95": 200.2,
+                "min": 34,
+                "max": 270
+              },
+              "text_words": {
+                "mean": 38.71,
+                "median": 33.0,
+                "p95": 74.0,
+                "min": 13,
+                "max": 90
+              },
+              "text_chars": {
+                "mean": 223.41,
+                "median": 186.0,
+                "p95": 449.7,
+                "min": 67,
+                "max": 520
+              }
+            },
+            {
+              "level": 9,
+              "n": 340,
+              "question_words": {
+                "mean": 23.84,
+                "median": 23.0,
+                "p95": 39.0,
+                "min": 5,
+                "max": 127
+              },
+              "question_chars": {
+                "mean": 136.53,
+                "median": 132.0,
+                "p95": 211.05,
+                "min": 34,
+                "max": 798
+              },
+              "text_words": {
+                "mean": 43.83,
+                "median": 39.0,
+                "p95": 78.0,
+                "min": 13,
+                "max": 139
+              },
+              "text_chars": {
+                "mean": 254.37,
+                "median": 220.0,
+                "p95": 459.55,
+                "min": 70,
+                "max": 885
+              }
+            },
+            {
+              "level": 10,
+              "n": 340,
+              "question_words": {
+                "mean": 29.36,
+                "median": 26.0,
+                "p95": 97.1,
+                "min": 5,
+                "max": 141
+              },
+              "question_chars": {
+                "mean": 167.8,
+                "median": 145.5,
+                "p95": 566.75,
+                "min": 30,
+                "max": 862
+              },
+              "text_words": {
+                "mean": 49.34,
+                "median": 40.0,
+                "p95": 112.05,
+                "min": 10,
+                "max": 169
+              },
+              "text_chars": {
+                "mean": 283.62,
+                "median": 226.5,
+                "p95": 674.1,
+                "min": 58,
+                "max": 1020
+              }
+            },
+            {
+              "level": 11,
+              "n": 240,
+              "question_words": {
+                "mean": 25.76,
+                "median": 26.0,
+                "p95": 41.0,
+                "min": 5,
+                "max": 116
+              },
+              "question_chars": {
+                "mean": 147.28,
+                "median": 149.0,
+                "p95": 235.05,
+                "min": 29,
+                "max": 644
+              },
+              "text_words": {
+                "mean": 42.69,
+                "median": 37.5,
+                "p95": 75.0,
+                "min": 13,
+                "max": 144
+              },
+              "text_chars": {
+                "mean": 247.35,
+                "median": 210.0,
+                "p95": 457.15,
+                "min": 71,
+                "max": 815
+              }
+            }
+          ]
+        },
+        "dev": {
+          "shape": [
+            2144,
+            10
+          ],
+          "nulls": {
+            "passage": 2144
+          },
+          "valid": true,
+          "n": 2144,
+          "per_level": [
+            22,
+            188,
+            298,
+            333,
+            282,
+            213,
+            239,
+            202,
+            90,
+            98,
+            94,
+            85
+          ],
+          "sha256": "ac25aa5c25672fe6c4c8a6287ff64fb83b7191b2060a724ef4ae60e6a4b62553",
+          "expected_n": 2144,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 22,
+              "question_words": {
+                "mean": 11.27,
+                "median": 7.0,
+                "p95": 21.0,
+                "min": 5,
+                "max": 23
+              },
+              "question_chars": {
+                "mean": 52.64,
+                "median": 34.0,
+                "p95": 96.95,
+                "min": 26,
+                "max": 107
+              },
+              "text_words": {
+                "mean": 17.64,
+                "median": 15.0,
+                "p95": 27.0,
+                "min": 11,
+                "max": 29
+              },
+              "text_chars": {
+                "mean": 76.82,
+                "median": 67.5,
+                "p95": 117.95,
+                "min": 47,
+                "max": 126
+              }
+            },
+            {
+              "level": 1,
+              "n": 188,
+              "question_words": {
+                "mean": 10.46,
+                "median": 9.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 30
+              },
+              "question_chars": {
+                "mean": 55.25,
+                "median": 49.5,
+                "p95": 96.65,
+                "min": 16,
+                "max": 152
+              },
+              "text_words": {
+                "mean": 18.77,
+                "median": 16.5,
+                "p95": 34.0,
+                "min": 7,
+                "max": 44
+              },
+              "text_chars": {
+                "mean": 97.24,
+                "median": 90.0,
+                "p95": 185.25,
+                "min": 36,
+                "max": 218
+              }
+            },
+            {
+              "level": 2,
+              "n": 298,
+              "question_words": {
+                "mean": 9.79,
+                "median": 8.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 31
+              },
+              "question_chars": {
+                "mean": 55.06,
+                "median": 44.0,
+                "p95": 98.0,
+                "min": 15,
+                "max": 182
+              },
+              "text_words": {
+                "mean": 23.59,
+                "median": 22.0,
+                "p95": 41.0,
+                "min": 7,
+                "max": 50
+              },
+              "text_chars": {
+                "mean": 127.23,
+                "median": 119.0,
+                "p95": 231.15,
+                "min": 42,
+                "max": 258
+              }
+            },
+            {
+              "level": 3,
+              "n": 333,
+              "question_words": {
+                "mean": 10.99,
+                "median": 9.0,
+                "p95": 21.0,
+                "min": 3,
+                "max": 42
+              },
+              "question_chars": {
+                "mean": 61.67,
+                "median": 47.0,
+                "p95": 112.0,
+                "min": 18,
+                "max": 234
+              },
+              "text_words": {
+                "mean": 27.68,
+                "median": 22.0,
+                "p95": 56.0,
+                "min": 12,
+                "max": 93
+              },
+              "text_chars": {
+                "mean": 148.28,
+                "median": 120.0,
+                "p95": 297.4,
+                "min": 55,
+                "max": 528
+              }
+            },
+            {
+              "level": 4,
+              "n": 282,
+              "question_words": {
+                "mean": 10.31,
+                "median": 10.0,
+                "p95": 21.0,
+                "min": 3,
+                "max": 26
+              },
+              "question_chars": {
+                "mean": 58.02,
+                "median": 49.0,
+                "p95": 118.0,
+                "min": 16,
+                "max": 157
+              },
+              "text_words": {
+                "mean": 26.48,
+                "median": 21.0,
+                "p95": 61.0,
+                "min": 12,
+                "max": 85
+              },
+              "text_chars": {
+                "mean": 146.41,
+                "median": 109.0,
+                "p95": 330.85,
+                "min": 52,
+                "max": 503
+              }
+            },
+            {
+              "level": 5,
+              "n": 213,
+              "question_words": {
+                "mean": 13.15,
+                "median": 12.0,
+                "p95": 31.4,
+                "min": 5,
+                "max": 39
+              },
+              "question_chars": {
+                "mean": 78.23,
+                "median": 76.0,
+                "p95": 170.0,
+                "min": 19,
+                "max": 213
+              },
+              "text_words": {
+                "mean": 30.52,
+                "median": 25.0,
+                "p95": 57.0,
+                "min": 13,
+                "max": 87
+              },
+              "text_chars": {
+                "mean": 171.8,
+                "median": 147.0,
+                "p95": 344.4,
+                "min": 62,
+                "max": 434
+              }
+            },
+            {
+              "level": 6,
+              "n": 239,
+              "question_words": {
+                "mean": 14.63,
+                "median": 13.0,
+                "p95": 31.0,
+                "min": 4,
+                "max": 40
+              },
+              "question_chars": {
+                "mean": 84.48,
+                "median": 82.0,
+                "p95": 170.1,
+                "min": 18,
+                "max": 228
+              },
+              "text_words": {
+                "mean": 32.89,
+                "median": 31.0,
+                "p95": 63.2,
+                "min": 11,
+                "max": 87
+              },
+              "text_chars": {
+                "mean": 182.25,
+                "median": 177.0,
+                "p95": 354.3,
+                "min": 58,
+                "max": 443
+              }
+            },
+            {
+              "level": 7,
+              "n": 202,
+              "question_words": {
+                "mean": 17.4,
+                "median": 14.5,
+                "p95": 32.0,
+                "min": 5,
+                "max": 42
+              },
+              "question_chars": {
+                "mean": 103.04,
+                "median": 86.0,
+                "p95": 192.75,
+                "min": 26,
+                "max": 238
+              },
+              "text_words": {
+                "mean": 35.1,
+                "median": 34.0,
+                "p95": 64.0,
+                "min": 12,
+                "max": 79
+              },
+              "text_chars": {
+                "mean": 199.26,
+                "median": 192.0,
+                "p95": 361.95,
+                "min": 64,
+                "max": 422
+              }
+            },
+            {
+              "level": 8,
+              "n": 90,
+              "question_words": {
+                "mean": 19.84,
+                "median": 21.5,
+                "p95": 32.55,
+                "min": 5,
+                "max": 50
+              },
+              "question_chars": {
+                "mean": 112.2,
+                "median": 119.5,
+                "p95": 188.2,
+                "min": 34,
+                "max": 251
+              },
+              "text_words": {
+                "mean": 37.97,
+                "median": 32.0,
+                "p95": 72.0,
+                "min": 13,
+                "max": 95
+              },
+              "text_chars": {
+                "mean": 217.5,
+                "median": 183.5,
+                "p95": 461.7,
+                "min": 75,
+                "max": 586
+              }
+            },
+            {
+              "level": 9,
+              "n": 98,
+              "question_words": {
+                "mean": 21.17,
+                "median": 22.0,
+                "p95": 35.15,
+                "min": 6,
+                "max": 45
+              },
+              "question_chars": {
+                "mean": 119.47,
+                "median": 127.0,
+                "p95": 192.45,
+                "min": 34,
+                "max": 253
+              },
+              "text_words": {
+                "mean": 41.78,
+                "median": 38.0,
+                "p95": 76.0,
+                "min": 13,
+                "max": 95
+              },
+              "text_chars": {
+                "mean": 239.58,
+                "median": 215.5,
+                "p95": 460.9,
+                "min": 70,
+                "max": 580
+              }
+            },
+            {
+              "level": 10,
+              "n": 94,
+              "question_words": {
+                "mean": 24.06,
+                "median": 22.0,
+                "p95": 46.5,
+                "min": 5,
+                "max": 135
+              },
+              "question_chars": {
+                "mean": 137.07,
+                "median": 120.0,
+                "p95": 249.95,
+                "min": 32,
+                "max": 714
+              },
+              "text_words": {
+                "mean": 46.6,
+                "median": 39.0,
+                "p95": 80.4,
+                "min": 24,
+                "max": 150
+              },
+              "text_chars": {
+                "mean": 269.18,
+                "median": 228.0,
+                "p95": 481.1,
+                "min": 134,
+                "max": 852
+              }
+            },
+            {
+              "level": 11,
+              "n": 85,
+              "question_words": {
+                "mean": 23.75,
+                "median": 25.0,
+                "p95": 37.8,
+                "min": 5,
+                "max": 53
+              },
+              "question_chars": {
+                "mean": 134.92,
+                "median": 143.0,
+                "p95": 221.4,
+                "min": 29,
+                "max": 294
+              },
+              "text_words": {
+                "mean": 39.41,
+                "median": 36.0,
+                "p95": 68.0,
+                "min": 13,
+                "max": 78
+              },
+              "text_chars": {
+                "mean": 224.2,
+                "median": 201.0,
+                "p95": 417.0,
+                "min": 67,
+                "max": 479
+              }
+            }
+          ]
+        },
+        "test": {
+          "shape": [
+            2224,
+            10
+          ],
+          "nulls": {
+            "passage": 2224
+          },
+          "valid": true,
+          "n": 2224,
+          "per_level": [
+            15,
+            176,
+            296,
+            312,
+            308,
+            188,
+            285,
+            217,
+            122,
+            119,
+            105,
+            81
+          ],
+          "sha256": "95565cf261125deb3676d35062a5183b7caf810574efed6ae9450b90297b0513",
+          "expected_n": 2224,
+          "count_matches_design": true,
+          "matches_manifest": true,
+          "lengths": [
+            {
+              "level": 0,
+              "n": 15,
+              "question_words": {
+                "mean": 10.67,
+                "median": 7.0,
+                "p95": 22.6,
+                "min": 5,
+                "max": 24
+              },
+              "question_chars": {
+                "mean": 49.87,
+                "median": 34.0,
+                "p95": 99.7,
+                "min": 26,
+                "max": 106
+              },
+              "text_words": {
+                "mean": 17.13,
+                "median": 15.0,
+                "p95": 28.6,
+                "min": 11,
+                "max": 30
+              },
+              "text_chars": {
+                "mean": 75.2,
+                "median": 65.0,
+                "p95": 121.2,
+                "min": 48,
+                "max": 124
+              }
+            },
+            {
+              "level": 1,
+              "n": 176,
+              "question_words": {
+                "mean": 9.73,
+                "median": 8.5,
+                "p95": 18.0,
+                "min": 3,
+                "max": 30
+              },
+              "question_chars": {
+                "mean": 51.61,
+                "median": 40.5,
+                "p95": 96.0,
+                "min": 16,
+                "max": 152
+              },
+              "text_words": {
+                "mean": 17.86,
+                "median": 15.0,
+                "p95": 34.0,
+                "min": 7,
+                "max": 44
+              },
+              "text_chars": {
+                "mean": 92.34,
+                "median": 81.5,
+                "p95": 185.75,
+                "min": 37,
+                "max": 218
+              }
+            },
+            {
+              "level": 2,
+              "n": 296,
+              "question_words": {
+                "mean": 9.91,
+                "median": 8.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 31
+              },
+              "question_chars": {
+                "mean": 56.11,
+                "median": 46.0,
+                "p95": 99.0,
+                "min": 15,
+                "max": 176
+              },
+              "text_words": {
+                "mean": 22.9,
+                "median": 22.0,
+                "p95": 41.0,
+                "min": 8,
+                "max": 46
+              },
+              "text_chars": {
+                "mean": 124.15,
+                "median": 116.0,
+                "p95": 225.75,
+                "min": 45,
+                "max": 263
+              }
+            },
+            {
+              "level": 3,
+              "n": 312,
+              "question_words": {
+                "mean": 11.6,
+                "median": 10.0,
+                "p95": 21.0,
+                "min": 3,
+                "max": 44
+              },
+              "question_chars": {
+                "mean": 64.71,
+                "median": 61.5,
+                "p95": 119.25,
+                "min": 19,
+                "max": 241
+              },
+              "text_words": {
+                "mean": 28.05,
+                "median": 22.0,
+                "p95": 54.0,
+                "min": 11,
+                "max": 98
+              },
+              "text_chars": {
+                "mean": 150.17,
+                "median": 119.0,
+                "p95": 301.45,
+                "min": 59,
+                "max": 541
+              }
+            },
+            {
+              "level": 4,
+              "n": 308,
+              "question_words": {
+                "mean": 9.99,
+                "median": 10.0,
+                "p95": 18.0,
+                "min": 3,
+                "max": 31
+              },
+              "question_chars": {
+                "mean": 56.74,
+                "median": 48.0,
+                "p95": 106.3,
+                "min": 16,
+                "max": 178
+              },
+              "text_words": {
+                "mean": 27.3,
+                "median": 21.5,
+                "p95": 63.0,
+                "min": 12,
+                "max": 98
+              },
+              "text_chars": {
+                "mean": 151.82,
+                "median": 112.0,
+                "p95": 335.15,
+                "min": 52,
+                "max": 544
+              }
+            },
+            {
+              "level": 5,
+              "n": 188,
+              "question_words": {
+                "mean": 15.63,
+                "median": 13.0,
+                "p95": 35.65,
+                "min": 5,
+                "max": 96
+              },
+              "question_chars": {
+                "mean": 92.22,
+                "median": 81.0,
+                "p95": 211.6,
+                "min": 21,
+                "max": 495
+              },
+              "text_words": {
+                "mean": 31.55,
+                "median": 25.0,
+                "p95": 63.65,
+                "min": 13,
+                "max": 107
+              },
+              "text_chars": {
+                "mean": 178.71,
+                "median": 145.0,
+                "p95": 368.8,
+                "min": 63,
+                "max": 565
+              }
+            },
+            {
+              "level": 6,
+              "n": 285,
+              "question_words": {
+                "mean": 15.12,
+                "median": 13.0,
+                "p95": 31.8,
+                "min": 5,
+                "max": 48
+              },
+              "question_chars": {
+                "mean": 87.34,
+                "median": 80.0,
+                "p95": 184.4,
+                "min": 18,
+                "max": 260
+              },
+              "text_words": {
+                "mean": 34.42,
+                "median": 34.0,
+                "p95": 63.0,
+                "min": 14,
+                "max": 87
+              },
+              "text_chars": {
+                "mean": 190.99,
+                "median": 202.0,
+                "p95": 357.0,
+                "min": 62,
+                "max": 473
+              }
+            },
+            {
+              "level": 7,
+              "n": 217,
+              "question_words": {
+                "mean": 17.35,
+                "median": 15.0,
+                "p95": 35.0,
+                "min": 5,
+                "max": 41
+              },
+              "question_chars": {
+                "mean": 102.46,
+                "median": 89.0,
+                "p95": 206.0,
+                "min": 25,
+                "max": 233
+              },
+              "text_words": {
+                "mean": 34.59,
+                "median": 31.0,
+                "p95": 64.2,
+                "min": 12,
+                "max": 79
+              },
+              "text_chars": {
+                "mean": 197.02,
+                "median": 176.0,
+                "p95": 381.8,
+                "min": 67,
+                "max": 424
+              }
+            },
+            {
+              "level": 8,
+              "n": 122,
+              "question_words": {
+                "mean": 21.17,
+                "median": 22.5,
+                "p95": 35.9,
+                "min": 5,
+                "max": 40
+              },
+              "question_chars": {
+                "mean": 118.81,
+                "median": 126.0,
+                "p95": 199.9,
+                "min": 34,
+                "max": 218
+              },
+              "text_words": {
+                "mean": 39.55,
+                "median": 34.5,
+                "p95": 74.0,
+                "min": 16,
+                "max": 85
+              },
+              "text_chars": {
+                "mean": 227.52,
+                "median": 189.5,
+                "p95": 439.75,
+                "min": 82,
+                "max": 503
+              }
+            },
+            {
+              "level": 9,
+              "n": 119,
+              "question_words": {
+                "mean": 23.17,
+                "median": 23.0,
+                "p95": 41.1,
+                "min": 5,
+                "max": 121
+              },
+              "question_chars": {
+                "mean": 131.87,
+                "median": 129.0,
+                "p95": 214.0,
+                "min": 34,
+                "max": 685
+              },
+              "text_words": {
+                "mean": 44.15,
+                "median": 39.0,
+                "p95": 82.2,
+                "min": 13,
+                "max": 132
+              },
+              "text_chars": {
+                "mean": 255.64,
+                "median": 213.0,
+                "p95": 487.3,
+                "min": 73,
+                "max": 747
+              }
+            },
+            {
+              "level": 10,
+              "n": 105,
+              "question_words": {
+                "mean": 28.83,
+                "median": 27.0,
+                "p95": 77.0,
+                "min": 5,
+                "max": 121
+              },
+              "question_chars": {
+                "mean": 162.75,
+                "median": 152.0,
+                "p95": 463.6,
+                "min": 32,
+                "max": 676
+              },
+              "text_words": {
+                "mean": 50.19,
+                "median": 41.0,
+                "p95": 94.4,
+                "min": 13,
+                "max": 137
+              },
+              "text_chars": {
+                "mean": 289.77,
+                "median": 234.0,
+                "p95": 582.6,
+                "min": 70,
+                "max": 817
+              }
+            },
+            {
+              "level": 11,
+              "n": 81,
+              "question_words": {
+                "mean": 24.2,
+                "median": 25.0,
+                "p95": 40.0,
+                "min": 5,
+                "max": 56
+              },
+              "question_chars": {
+                "mean": 138.79,
+                "median": 141.0,
+                "p95": 229.0,
+                "min": 29,
+                "max": 348
+              },
+              "text_words": {
+                "mean": 39.86,
+                "median": 36.0,
+                "p95": 73.0,
+                "min": 13,
+                "max": 80
+              },
+              "text_chars": {
+                "mean": 229.77,
+                "median": 208.0,
+                "p95": 437.0,
+                "min": 70,
+                "max": 519
+              }
+            }
+          ]
+        }
+      },
+      "shared_ids": {
+        "train:dev": 0,
+        "train:test": 0,
+        "dev:test": 0
+      },
+      "duplicates": {
+        "question": {
+          "within": {
+            "train": {
+              "groups": 371,
+              "rows": 2664,
+              "extra_rows": 2293,
+              "conflicting_level_groups": 201
+            },
+            "dev": {
+              "groups": 150,
+              "rows": 778,
+              "extra_rows": 628,
+              "conflicting_level_groups": 85
+            },
+            "test": {
+              "groups": 157,
+              "rows": 765,
+              "extra_rows": 608,
+              "conflicting_level_groups": 92
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 286,
+              "rows_left": 2339,
+              "rows_right": 898,
+              "pairs": 29794,
+              "conflicting_level_groups": 173
+            },
+            "train:test": {
+              "groups": 292,
+              "rows_left": 2336,
+              "rows_right": 889,
+              "pairs": 28516,
+              "conflicting_level_groups": 185
+            },
+            "dev:test": {
+              "groups": 198,
+              "rows_left": 786,
+              "rows_right": 757,
+              "pairs": 9717,
+              "conflicting_level_groups": 127
+            }
+          }
+        },
+        "text": {
+          "within": {
+            "train": {
+              "groups": 4,
+              "rows": 8,
+              "extra_rows": 4,
+              "conflicting_level_groups": 0
+            },
+            "dev": {
+              "groups": 1,
+              "rows": 2,
+              "extra_rows": 1,
+              "conflicting_level_groups": 0
+            },
+            "test": {
+              "groups": 1,
+              "rows": 2,
+              "extra_rows": 1,
+              "conflicting_level_groups": 0
+            }
+          },
+          "across": {
+            "train:dev": {
+              "groups": 2,
+              "rows_left": 2,
+              "rows_right": 2,
+              "pairs": 2,
+              "conflicting_level_groups": 0
+            },
+            "train:test": {
+              "groups": 5,
+              "rows_left": 5,
+              "rows_right": 5,
+              "pairs": 5,
+              "conflicting_level_groups": 0
+            },
+            "dev:test": {
+              "groups": 2,
+              "rows_left": 2,
+              "rows_right": 2,
+              "pairs": 2,
+              "conflicting_level_groups": 1
+            }
+          }
+        }
+      },
+      "repeated_options": {
+        "train": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "test_grade_ranges": {
+        "outside_3_9": 496,
+        "inside_3_9": 1728
+      },
+      "test_subjects": {
+        "language science": 1056,
+        "natural science": 1043,
+        "social science": 125
+      },
+      "nonempty_hints": {
+        "train": 2135,
+        "dev": 764,
+        "test": 789
+      },
+      "test_subject_by_grade": {
+        "1": {
+          "language science": 15
+        },
+        "2": {
+          "natural science": 91,
+          "language science": 67,
+          "social science": 18
+        },
+        "3": {
+          "natural science": 178,
+          "language science": 113,
+          "social science": 5
+        },
+        "4": {
+          "natural science": 169,
+          "social science": 42,
+          "language science": 101
+        },
+        "5": {
+          "natural science": 190,
+          "language science": 76,
+          "social science": 42
+        },
+        "6": {
+          "language science": 75,
+          "natural science": 107,
+          "social science": 6
+        },
+        "7": {
+          "language science": 95,
+          "natural science": 185,
+          "social science": 5
+        },
+        "8": {
+          "language science": 87,
+          "natural science": 123,
+          "social science": 7
+        },
+        "9": {
+          "language science": 122
+        },
+        "10": {
+          "language science": 119
+        },
+        "11": {
+          "language science": 105
+        },
+        "12": {
+          "language science": 81
+        }
+      },
+      "derived_splits": {
+        "test_1k": {
+          "n": 1000,
+          "per_level": [
+            7,
+            79,
+            133,
+            140,
+            138,
+            85,
+            128,
+            98,
+            55,
+            54,
+            47,
+            36
+          ],
+          "sha256": "268feac3afd960cc540a877f1334f2c51175fe546b9fb8a6bc1f1a9054953073",
+          "matches_manifest": true,
+          "exact_subset_of_parent": true
+        }
+      },
+      "review_sample_per_level": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ]
+    }
+  },
+  "problems": []
+}
