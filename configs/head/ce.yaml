@@ -1,0 +1,3 @@
+# Plain classification: K logits, softmax, cross-entropy. Ignores the order of the levels.
+name: ce
+target: levellens.heads.ce.CrossEntropyHead
