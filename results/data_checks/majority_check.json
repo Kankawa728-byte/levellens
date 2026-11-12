@@ -1,0 +1,22 @@
+[
+  {
+    "dataset": "race",
+    "train_split": "train",
+    "predicted_level": 1,
+    "metrics": {
+      "accuracy": 0.619992910315491,
+      "rmse": 0.6164471507635582,
+      "balanced_drps": 0.6666666666666666
+    }
+  },
+  {
+    "dataset": "arc",
+    "train_split": "train_balanced",
+    "predicted_level": 5,
+    "metrics": {
+      "accuracy": 0.40906515580736547,
+      "rmse": 2.1945722382236292,
+      "balanced_drps": 2.2857142857142856
+    }
+  }
+]
