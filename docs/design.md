@@ -34,7 +34,7 @@ Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC sp
 - RACE++ levels come from the config name, because the `all` config has no level column. The splits are passage-disjoint.
 - ARC keeps 4-option, text-only multiple-choice questions, as the published papers do. Main runs use all 3,358 training items with a class-weighted loss. The papers' balanced subset (2,293 items) is used only for replication runs and for the majority-row test.
 - MATH input is the problem text only. Solutions are used for interpretation, never as input.
-- Input format follows the published work: question plus all options by default.
+- The model input is the question plus all options. On RACE++ the public code of both published papers also puts the reading passage in front of the question, and our input does not. The check is in [related_work.md](related_work.md).
 - We ship download scripts, not data. RACE and ScienceQA are for non-commercial use only.
 
 **If ARC fails the first check.** If the ARC grade labels cannot be read, or the filtered ARC training split has 3,000 items or fewer, we use ScienceQA text-only as the trained science set, provided it has more than 3,000 training items. If the counts only differ from 3,358 / 862 / 3,530, we align our filter with the data preparation of the qde-ordinality repository and keep ARC. The lead decides on Wed 11 Nov after the check. Result of the check on Thu 12 Nov: the grade labels are read, our filter gives exactly 3,358 / 862 / 3,530 items and 2,293 in the balanced subset, and the majority baseline on our splits reproduces the published rows for RACE++ and ARC.
@@ -53,7 +53,7 @@ Sizes come from the dataset pages, checked on 6 Nov, and for the filtered ARC sp
 
 ## Published baselines
 
-Both papers use the same RACE++ splits and the same filtered ARC test split (3,530 questions) as we do. For ARC they trained on a partially balanced subset (the two most common grades cut to 500 each, 2,293 items), so the ARC column compares directly only with our balanced replication runs. Balanced DRPS is explained under Metrics. The numbers were checked against the arXiv versions on 6 Nov.
+Both papers use the same RACE++ splits and the same filtered ARC test split (3,530 questions) as we do. Their RACE++ input includes the reading passage and ours does not, so the RACE++ column is a published reference and not a comparison on the same input. For ARC they trained on a partially balanced subset (the two most common grades cut to 500 each, 2,293 items), so the ARC column compares directly only with our balanced replication runs. Balanced DRPS is explained under Metrics. The numbers were checked against the arXiv versions on 6 Nov.
 
 | Paper | RACE++ | ARC (balanced training set) |
 |---|---|---|
@@ -87,6 +87,8 @@ Frozen by the lead on Thu 12 Nov. The video reports pass or fail for each one. S
 | R6 | Every fine-tune ≤ 1 GPU-hour; the whole project ≤ 20 GPU-hours on an Ampere-class card, logged per run. On another card we report the actual hours. |
 | R7 | Demo: ≤ 1 second per question on a laptop CPU (DistilBERT, timed over 100 items). |
 | R8 | Every run starts from one config, and every table and figure is rebuilt from the results store with one command. |
+
+Note on R3, added on Fri 13 Nov: the RACE++ threshold of 0.79 is the published Spearman, and the published input includes the reading passage. Our input does not. The threshold stays as frozen, and the video states this difference next to the result.
 
 ## Scope
 
