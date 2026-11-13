@@ -27,7 +27,7 @@ One submission for the whole team. We can submit as often as we like, and only t
 | 0:00–1:00 | A · Xingyang | The teacher's problem, the "target level" wording, the research questions, our specifications |
 | 1:00–2:20 | B · Wenyue | The datasets and where the level labels come from, the data checks, the published baselines, what the audit of our worst errors found |
 | 2:20–3:40 | D · Hailing | Floors, classical and feature models with a cross-validation run on screen, global SHAP, the open LLM without training |
-| 3:40–5:30 | E | BiLSTM and the CORN head with a training cell running, transformers, Optuna, stable training on ARC, our numbers next to the published ones |
+| 3:40–5:30 | E · Jikai | BiLSTM and the CORN head with a training cell running, transformers, Optuna, stable training on ARC, our numbers next to the published ones |
 | 5:30–6:30 | C · Qiutian | How one run starts from one config, the queue of runs on the GPU, GPU-hours, the efficiency and latency table |
 | 6:30–8:50 | F · Zhifei | Cue words from LIME, transfer and extrapolation, then the live demo: score a question, edit it and score it again |
 | 8:50–9:40 | A · Xingyang | Pass or fail for each specification, limitations, future work, references |

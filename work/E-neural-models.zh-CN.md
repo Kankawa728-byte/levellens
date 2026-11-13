@@ -2,7 +2,7 @@
 
 English: [E-neural-models.md](E-neural-models.md)
 
-**负责人：** 待认领 · **搭档：** C · **大小：** Tier 1 24 小时，Tier 2 4 小时
+**负责人：** Jikai · **搭档：** C · **大小：** Tier 1 24 小时，Tier 2 4 小时
 
 训练出来的神经网络模型，以及在它们之上的改进：有序输出头、用 Optuna 做贝叶斯调参，以及在小的科学数据集上稳定训练。
 

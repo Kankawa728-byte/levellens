@@ -23,7 +23,7 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 | [B](work/B-literature-data-audit.zh-CN.md) | 文献、数据检查与人工核对 | Wenyue | 24 小时 | 4 小时 | 已分配 |
 | [C](work/C-compute-runs-efficiency.zh-CN.md) | 算力、跑实验与效率 | Qiutian | 24 小时 | 4 小时 | 已分配 |
 | [D](work/D-baselines.zh-CN.md) | 基线：传统模型、特征模型、开源大模型 | Hailing | 24 小时 | 4 小时 | 已分配 |
-| [E](work/E-neural-models.zh-CN.md) | 神经网络模型：BiLSTM 和 Transformer | **待认领** | 24 小时 | 4 小时 | [在 issue 5 认领](https://github.com/Kankawa728-byte/levellens/issues/5) |
+| [E](work/E-neural-models.zh-CN.md) | 神经网络模型：BiLSTM 和 Transformer | Jikai | 24 小时 | 4 小时 | 已分配 |
 | [F](work/F-interpretation-demo.zh-CN.md) | 模型解释、外推与演示应用 | Zhifei | 24 小时 | 4 小时 | 已分配 |
 
 - **Tier 1** 是必须完成的部分。
