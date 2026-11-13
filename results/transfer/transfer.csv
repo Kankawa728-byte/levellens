@@ -1,0 +1,7 @@
+trained_on,run_id,tested_on,split,spearman,n
+arc,arc-distilbert-ce-smoke-n400-s0,race,test_1k,0.4651194731155402,1000
+arc,arc-distilbert-ce-smoke-n400-s0,arc,test_1k,0.5713197717634453,1000
+arc,arc-distilbert-ce-smoke-n400-s0,math,test_1k,0.2463927717056751,1000
+math,math-bilstm-corn-s0,race,test_1k,0.08293017195313722,1000
+math,math-bilstm-corn-s0,arc,test_1k,0.10098750023336953,1000
+math,math-bilstm-corn-s0,math,test_1k,0.5350175628781324,1000

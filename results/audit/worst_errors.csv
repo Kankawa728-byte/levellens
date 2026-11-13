@@ -1,0 +1,11 @@
+dataset,item_id,run_id,split,true_level,true_name,predicted_level,predicted_name,abs_error,confidence,proba,predictions_sha256
+arc,Mercury_7234395,arc-bilstm-corn-s0,test,6,grade 9,0,grade 3,6,0.7951,"[0.7951, 0.1588, 0.0407, 0.0022, 0.0014, 0.0013, 0.0006]",a498bb93617a34a4f3f01322afb948fa1dd49d40d31a51af9732891c48e51b6e
+arc,TIMSS_1995_8_N2,arc-bilstm-corn-s0,test,5,grade 8,0,grade 3,5,0.8786,"[0.8786, 0.1043, 0.0159, 0.0005, 0.0003, 0.0003, 0.0001]",a498bb93617a34a4f3f01322afb948fa1dd49d40d31a51af9732891c48e51b6e
+arc,NCEOGA_2013_8_36,arc-bilstm-corn-s0,test,5,grade 8,0,grade 3,5,0.8676,"[0.8676, 0.1096, 0.0205, 0.001, 0.0006, 0.0005, 0.0003]",a498bb93617a34a4f3f01322afb948fa1dd49d40d31a51af9732891c48e51b6e
+arc,Mercury_175560,arc-bilstm-corn-s0,test,5,grade 8,0,grade 3,5,0.8629,"[0.8629, 0.1146, 0.0199, 0.0012, 0.0006, 0.0006, 0.0003]",a498bb93617a34a4f3f01322afb948fa1dd49d40d31a51af9732891c48e51b6e
+arc,Mercury_7032515,arc-bilstm-corn-s0,test,5,grade 8,0,grade 3,5,0.851,"[0.851, 0.119, 0.0266, 0.0013, 0.0008, 0.0008, 0.0004]",a498bb93617a34a4f3f01322afb948fa1dd49d40d31a51af9732891c48e51b6e
+math,math-test-prealgebra-0473,math-bilstm-corn-s0,test,4,Level 5,0,Level 1,4,0.7689,"[0.7689, 0.1858, 0.0299, 0.0087, 0.0067]",fd5203ab9b72a4d7b07ae90fe6ab61fc649c32d23518355bafb4fbd038ceb9dd
+math,math-test-precalculus-0465,math-bilstm-corn-s0,test,4,Level 5,0,Level 1,4,0.7541,"[0.7541, 0.1718, 0.0468, 0.0135, 0.0137]",fd5203ab9b72a4d7b07ae90fe6ab61fc649c32d23518355bafb4fbd038ceb9dd
+math,math-test-prealgebra-0563,math-bilstm-corn-s0,test,4,Level 5,0,Level 1,4,0.7441,"[0.7441, 0.18, 0.0485, 0.0166, 0.0108]",fd5203ab9b72a4d7b07ae90fe6ab61fc649c32d23518355bafb4fbd038ceb9dd
+math,math-test-prealgebra-0546,math-bilstm-corn-s0,test,4,Level 5,0,Level 1,4,0.7437,"[0.7437, 0.1801, 0.0486, 0.0167, 0.0109]",fd5203ab9b72a4d7b07ae90fe6ab61fc649c32d23518355bafb4fbd038ceb9dd
+math,math-test-geometry-0291,math-bilstm-corn-s0,test,4,Level 5,0,Level 1,4,0.7332,"[0.7332, 0.1893, 0.0464, 0.015, 0.016]",fd5203ab9b72a4d7b07ae90fe6ab61fc649c32d23518355bafb4fbd038ceb9dd

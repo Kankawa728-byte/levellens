@@ -1,0 +1,20 @@
+run_id,subjects,grade,n,mean_predicted_grade,sd_predicted_grade,inside
+arc-distilbert-ce-smoke-n400-s0,all subjects,1,15,4.961457615766827,0.14797111171925223,False
+arc-distilbert-ce-smoke-n400-s0,all subjects,2,176,5.3763891241032855,0.42837887645465883,False
+arc-distilbert-ce-smoke-n400-s0,all subjects,3,296,5.56403399740203,0.44251187077035165,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,4,312,5.7591973839992505,0.3675744657394993,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,5,308,5.764153810711656,0.320141660867534,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,6,188,5.947865839003867,0.3026259384566427,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,7,285,5.931894869019541,0.3728661279340904,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,8,217,5.973642150401592,0.3209993690471123,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,9,122,5.928133778554267,0.2562365497893966,True
+arc-distilbert-ce-smoke-n400-s0,all subjects,10,119,5.973698267944125,0.30002735354312504,False
+arc-distilbert-ce-smoke-n400-s0,all subjects,11,105,6.053478918676687,0.2362115456568823,False
+arc-distilbert-ce-smoke-n400-s0,all subjects,12,81,5.995332465004391,0.23722855447531033,False
+arc-distilbert-ce-smoke-n400-s0,natural science,2,91,5.3313144152250675,0.4646987581389046,False
+arc-distilbert-ce-smoke-n400-s0,natural science,3,178,5.607557938894189,0.5040271570936566,True
+arc-distilbert-ce-smoke-n400-s0,natural science,4,169,5.806799215475073,0.43984034133982264,True
+arc-distilbert-ce-smoke-n400-s0,natural science,5,190,5.778830880160803,0.348574403311548,True
+arc-distilbert-ce-smoke-n400-s0,natural science,6,107,5.98233552136393,0.31759101967968356,True
+arc-distilbert-ce-smoke-n400-s0,natural science,7,185,5.935473328124406,0.4245773160412653,True
+arc-distilbert-ce-smoke-n400-s0,natural science,8,123,6.036736829528705,0.32289216175992613,True
