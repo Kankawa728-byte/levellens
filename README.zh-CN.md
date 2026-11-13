@@ -24,7 +24,7 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 | [C](work/C-compute-runs-efficiency.zh-CN.md) | 算力、跑实验与效率 | Qiutian | 24 小时 | 4 小时 | 已分配 |
 | [D](work/D-baselines.zh-CN.md) | 基线：传统模型、特征模型、开源大模型 | Hailing | 24 小时 | 4 小时 | 已分配 |
 | [E](work/E-neural-models.zh-CN.md) | 神经网络模型：BiLSTM 和 Transformer | **待认领** | 24 小时 | 4 小时 | [在 issue 5 认领](https://github.com/Kankawa728-byte/levellens/issues/5) |
-| [F](work/F-interpretation-demo.zh-CN.md) | 模型解释、外推与演示应用 | **待认领** | 24 小时 | 4 小时 | [在 issue 6 认领](https://github.com/Kankawa728-byte/levellens/issues/6) |
+| [F](work/F-interpretation-demo.zh-CN.md) | 模型解释、外推与演示应用 | Zhifei | 24 小时 | 4 小时 | 已分配 |
 
 - **Tier 1** 是必须完成的部分。
 - **Tier 2** 原本是 Tier 1 按时完成后再加的部分。组长在 11 月 12 日（周四）已经取消它，并且砍掉了一部分 Tier 1。重排见 [docs/schedule.zh-CN.md](docs/schedule.zh-CN.md)。表里的小时数是最初的估计，没有重新计算。

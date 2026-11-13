@@ -2,7 +2,7 @@
 
 English: [F-interpretation-demo.md](F-interpretation-demo.md)
 
-**负责人：** 待认领 · **搭档：** A · **大小：** Tier 1 24 小时，Tier 2 4 小时
+**负责人：** Zhifei · **搭档：** A · **大小：** Tier 1 24 小时，Tier 2 4 小时
 
 模型学到了什么，以及老师会怎样用它们：解释单个预测、在训练数据之外做测试、结果图，以及 Streamlit 应用。
 

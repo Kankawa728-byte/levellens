@@ -2,7 +2,7 @@
 
 中文版：[F-interpretation-demo.zh-CN.md](F-interpretation-demo.zh-CN.md)
 
-**Owner:** open · **Buddy:** A · **Size:** 24 h Tier 1 + 4 h Tier 2
+**Owner:** Zhifei · **Buddy:** A · **Size:** 24 h Tier 1 + 4 h Tier 2
 
 What the models learned and how a teacher would use them: explanations of single predictions, tests beyond the training data, the result figures, and the Streamlit app.
 

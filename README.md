@@ -24,7 +24,7 @@ The work is cut into six shares of the same size. Each share has 24 hours of Tie
 | [C](work/C-compute-runs-efficiency.md) | Compute, runs and efficiency | Qiutian | 24 h | 4 h | Assigned |
 | [D](work/D-baselines.md) | Baselines: classical, feature models, open LLM | Hailing | 24 h | 4 h | Assigned |
 | [E](work/E-neural-models.md) | Neural models: BiLSTM and transformers | **open** | 24 h | 4 h | [Claim in issue 5](https://github.com/Kankawa728-byte/levellens/issues/5) |
-| [F](work/F-interpretation-demo.md) | Interpretation, extrapolation and demo app | **open** | 24 h | 4 h | [Claim in issue 6](https://github.com/Kankawa728-byte/levellens/issues/6) |
+| [F](work/F-interpretation-demo.md) | Interpretation, extrapolation and demo app | Zhifei | 24 h | 4 h | Assigned |
 
 - **Tier 1** is what we must ship.
 - **Tier 2** was what we would add if Tier 1 was on time. The lead cancelled it on Thu 12 Nov and also cut part of Tier 1. The re-plan is in [docs/schedule.md](docs/schedule.md). The hours in the table are the first estimates and were not counted again.

@@ -20,7 +20,7 @@ All times are Singapore time.
 | [C](C-compute-runs-efficiency.md) | Compute, runs and efficiency | Qiutian | 24 h | 4 h | Runs and efficiency | E |
 | [D](D-baselines.md) | Baselines: classical, feature models, open LLM | Hailing | 24 h | 4 h | Baselines | B |
 | [E](E-neural-models.md) | Neural models: BiLSTM and transformers | open | 24 h | 4 h | Neural models and tuning | C |
-| [F](F-interpretation-demo.md) | Interpretation, extrapolation and demo app | open | 24 h | 4 h | Interpretation and live demo | A |
+| [F](F-interpretation-demo.md) | Interpretation, extrapolation and demo app | Zhifei | 24 h | 4 h | Interpretation and live demo | A |
 
 Your buddy reviews your pull requests and covers for you if you are away for a day.
 
