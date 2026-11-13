@@ -9,7 +9,7 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 <!-- board:start -->
 ## 实时状态：谁在等谁
 
-这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：11 月 13 日（周五）21:56。
+这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：11 月 13 日（周五）21:57。
 
 **现在最多人在等：**Qiutian · Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前。直接或间接在等的人：所有人。
 
@@ -33,7 +33,7 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 - **做完了一项？**在自己那一份的 issue 下评论 `done C4`：[A](https://github.com/Kankawa728-byte/levellens/issues/1)、[B](https://github.com/Kankawa728-byte/levellens/issues/2)、[C](https://github.com/Kankawa728-byte/levellens/issues/3)、[D](https://github.com/Kankawa728-byte/levellens/issues/4)、[E](https://github.com/Kankawa728-byte/levellens/issues/5)、[F](https://github.com/Kankawa728-byte/levellens/issues/6)。一次报几项：`done C1 C2`。每个人都要交的三样：`done slides`、`done recording`、`done reflection`。报错了要撤回：`undo C4`。
 - 🟢 下一项任务现在就能做。🟡 下一项任务在等别人，后面有能做的。🔴 所有没做完的任务都在等别人。
 - ⏰ 表示已经过了计划时间，而且在 `main` 里找不到，也没有人报告。
-- 进了 `main` 的文件和结果行不用报告，程序自己能找到。
+- 进了 `main` 的文件和结果行不用报告，程序自己能找到。每次推送、每条评论之后，以及每 15 分钟，这张表都会重建一次。
 <!-- board:end -->
 
 ## 从这里开始
