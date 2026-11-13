@@ -12,6 +12,10 @@ remotezip>=0.12
 pytest>=8.0
 
 # Each owner adds the packages of their share under their letter.
+# A: runs the notebooks from the command line
+nbconvert>=7.16
+ipykernel>=6.29
+
 # D
 lightgbm>=4.6,<5
 cmudict>=1,<2

@@ -42,6 +42,12 @@ def scratch_dir() -> Path:
     return results_dir() / "scratch"
 
 
+def shown(path: Path | str) -> str:
+    """Return a path as the commands print it: relative to the repository when it is inside it."""
+    path = Path(path).resolve()
+    return path.relative_to(REPO_ROOT).as_posix() if path.is_relative_to(REPO_ROOT) else str(path)
+
+
 def config_dir() -> Path:
     """Folder with `train.yaml` and the `data/`, `model/` and `head/` config groups."""
     return REPO_ROOT / "configs"

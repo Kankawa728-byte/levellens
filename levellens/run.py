@@ -23,7 +23,7 @@ from levellens.config import compose, to_dict
 from levellens.data import info, load_split, stratified_subset
 from levellens.evaluate import evaluate
 from levellens.models.base import build_model
-from levellens.paths import REPO_ROOT, results_dir, scratch_dir
+from levellens.paths import REPO_ROOT, results_dir, scratch_dir, shown
 from levellens.predictor import save_for_predictor
 from levellens.results import append_run, save_predictions
 
@@ -155,16 +155,16 @@ def run(config: DictConfig) -> dict:
     if config.save_predictions:
         save_predictions(run_id, predictions, store)
     if config.save_model:
-        print(f"{run_id}: model saved to {save_for_predictor(model, run_id, dataset.name)}")
+        print(f"{run_id}: model saved to {shown(save_for_predictor(model, run_id, dataset.name))}")
 
-    shown = next((split for split in ("test", SUBSET, "dev") if split in metrics), None)
-    if shown:
+    headline = next((split for split in ("test", SUBSET, "dev") if split in metrics), None)
+    if headline:
         summary = ", ".join(
-            f"{name} {metrics[shown][name]:.3f}" for name in ("accuracy", "qwk", "rmse", "balanced_drps")
-            if metrics[shown][name] is not None
+            f"{name} {metrics[headline][name]:.3f}" for name in ("accuracy", "qwk", "rmse", "balanced_drps")
+            if metrics[headline][name] is not None
         )
-        print(f"{run_id}: {shown} {summary}; trained in {train_seconds:.1f} s")
-    print(f"{run_id}: row written to {store / 'runs.jsonl'}")
+        print(f"{run_id}: {headline} {summary}; trained in {train_seconds:.1f} s")
+    print(f"{run_id}: row written to {shown(store / 'runs.jsonl')}")
     return row
 
 
