@@ -152,7 +152,7 @@ TEXT = {
         "intro": "A program rebuilds this table from the files in the repository and from the reports in the six share issues. Last change: {stamp}.",
         "bottleneck": "**Most people wait for:** {who} · {what} · by {due}. Waiting, directly or through someone else: {names}.",
         "no_bottleneck": "**Nobody is waiting for anybody.**",
-        "columns": ["Who", "Status", "Own tasks done", "Can do now", "Waits for", "Who waits for this share"],
+        "columns": ["Who", "Can do now", "Waits for", "Who waits for this share"], "count": "{done} / {all} own tasks done",
         "common": ["Everyone hands in", "To", "By", "Still missing from"], "all_in": "✅ nobody",
         "finished": "✅ Finished", "free": "🟢 Can work", "partly": "🟡 Partly waiting", "waiting": "🔴 Waiting",
         "overdue": "⏰ {n} past the time",
@@ -173,7 +173,7 @@ TEXT = {
         "intro": "这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：{stamp}。",
         "bottleneck": "**现在最多人在等：**{who} · {what} · {due} 前。直接或间接在等的人：{names}。",
         "no_bottleneck": "**现在没有人在等别人。**",
-        "columns": ["谁", "状态", "自己的任务完成数", "现在能做", "在等谁", "谁在等这一份"],
+        "columns": ["谁", "现在能做", "在等谁", "谁在等这一份"], "count": "自己的任务完成 {done} / {all}",
         "common": ["每个人都要交", "交给谁", "什么时候", "还没交的人"], "all_in": "✅ 没有",
         "finished": "✅ 全部完成", "free": "🟢 可以做", "partly": "🟡 部分在等", "waiting": "🔴 在等别人",
         "overdue": "⏰ {n} 项已过时间",
@@ -551,14 +551,16 @@ class Board:
         mine = self.own_tasks(share)
         open_tasks = self.open_tasks(share)
         free = [task for task in open_tasks if not self.blocked(task)]
-        status = t[self.status(share)]
+        who = [
+            f"**{self.owners[lang][share]}** · [{share}]({self.pages[lang][share]})",
+            t[self.status(share)],
+            t["count"].format(done=len(mine) - len(open_tasks), all=len(mine)),
+        ]
         overdue = sum(self.late(task.due) for task in open_tasks)
         if overdue:
-            status += "<br>" + t["overdue"].format(n=overdue)
+            who.append(t["overdue"].format(n=overdue))
         cells = [
-            f"**{self.owners[lang][share]}** · [{share}]({self.pages[lang][share]})",
-            status,
-            f"{len(mine) - len(open_tasks)} / {len(mine)}",
+            "<br>".join(who),
             self.cell([self.task_line(task, lang) for task in free], lang, t["nothing"]),
             self.cell([self.handoff_line(share, line, lang, receiving=True) for line in self.waits_for(share)], lang, t["nobody"]),
             self.cell([self.handoff_line(share, line, lang, receiving=False) for line in self.waited_by(share)], lang, t["nobody"]),
