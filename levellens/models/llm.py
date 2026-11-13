@@ -65,10 +65,15 @@ PROMPTS = {
 
 
 def _snapshot_folder() -> Path:
+    """Return the folder of the downloaded checkpoint inside the cache."""
     return cache_dir() / "share-d" / "qwen3-4b-instruct-2507"
 
 
 def render_prompt(tokenizer, text, dataset, level_names, variant):
+    """Return the chat prompt for one question: the task, the ordered level labels and the question text.
+
+    `variant` is `direct` or `rubric`. `rubric` adds one sentence on what to consider.
+    """
     task, rubric = PROMPTS[dataset]
     if variant == "rubric":
         task += " " + rubric
@@ -107,9 +112,11 @@ class QwenZeroShot(Model):
 
     @property
     def n_params(self):
+        """Number of parameters of the pinned checkpoint, before quantization."""
         return MODEL_PARAMS
 
     def fit(self, train, dev, config):
+        """Load the checkpoint and choose the prompt variant by QWK on a stratified sample of dev. Nothing is trained."""
         if list(config.eval_splits) != ["test_1k"]:
             raise ValueError('D6 must run with "eval_splits=[test_1k]"; prompt selection uses dev internally')
         if config.save_model:
@@ -138,6 +145,7 @@ class QwenZeroShot(Model):
         print(f"{self.dataset_}: selected {self.prompt_variant_!r} on {len(selected_dev)} dev questions", flush=True)
 
     def _load_checkpoint(self, config):
+        """Load the tokeniser and the model from local files, and record the versions in the run config."""
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -181,6 +189,7 @@ class QwenZeroShot(Model):
             config.model.runtime.bitsandbytes = version("bitsandbytes")
 
     def _score(self, inputs, variant):
+        """Return the probabilities [n, K]: the softmax over the next-token logits of the K label letters."""
         import torch
 
         batch_size = int(self.params["batch_size"])
@@ -214,10 +223,12 @@ class QwenZeroShot(Model):
         return proba
 
     def predict_proba(self, items):
+        """Score the questions with the prompt variant chosen in `fit`."""
         return self._score(texts(items), self.prompt_variant_)
 
 
 def main(argv=None):
+    """Run the command line: download the pinned checkpoint into the cache."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--download", action="store_true", required=True, help="download the pinned official weights")
     parser.parse_args(argv)

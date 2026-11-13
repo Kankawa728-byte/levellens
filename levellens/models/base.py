@@ -25,6 +25,7 @@ class Model:
     """Base class. `params` are the settings under `params:` in the model config."""
 
     def __init__(self, num_levels: int, **params):
+        """Store the number of levels and the settings."""
         self.num_levels = num_levels
         self.params = params
 

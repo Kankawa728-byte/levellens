@@ -75,12 +75,14 @@ def tune(overrides: list[str], n_trials: int = 12, study_name: str | None = None
         train = stratified_subset(train, base.limit_train, seed=base.seed)
 
     def objective(trial: optuna.Trial) -> float:
+        """Train one trial with the settings that Optuna suggests. Return its best dev QWK."""
         config: DictConfig = compose([*overrides, *suggest(trial)])
         config.device = resolve_device(config.device)
         set_seed(config.seed)
         model = build_model(config, dataset.num_levels)
 
         def report(step: int, score: float) -> None:
+            """Report the dev QWK to Optuna, and stop the trial if the pruner says so."""
             trial.report(score, step)
             if trial.should_prune():
                 raise optuna.TrialPruned()

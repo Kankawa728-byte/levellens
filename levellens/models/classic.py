@@ -67,6 +67,7 @@ from levellens.paths import cache_dir
 
 
 def _training_levels(train, num_levels):
+    """Return the training levels as an array, after checking that they are integers in the valid range."""
     levels = np.array([item["level"] for item in train])
     if not levels.size or levels.dtype.kind not in "iu" or np.any((levels < 0) | (levels >= num_levels)):
         raise ValueError("Training needs at least one integer level in [0, num_levels)")
@@ -77,11 +78,13 @@ class StratifiedRandomBaseline(Model):
     """Draw one level per question from the training set's label frequencies."""
 
     def fit(self, train, dev, config):
+        """Count the levels of the training set and keep the seed."""
         levels = _training_levels(train, self.num_levels)
         self.weights_ = np.bincount(levels, minlength=self.num_levels).tolist()
         self.seed_ = int(config.seed)
 
     def predict_proba(self, items):
+        """Return a one-hot row per question. The draw depends only on the seed, the dataset and the question id."""
         # Each item has its own draw so reordering, batching or evaluating test_1k
         # directly cannot change the prediction for a question.
         proba = np.zeros((len(items), self.num_levels))
@@ -96,6 +99,7 @@ class SubjectPriorBaseline(Model):
     """Predict the most frequent training level for each MATH topic."""
 
     def fit(self, train, dev, config):
+        """Find the most frequent level of each MATH problem type, and the overall majority level as the fallback."""
         if config.data.name != "math" or any(item["dataset"] != "math" for item in train):
             raise ValueError("The subject prior applies only to MATH")
         levels = _training_levels(train, self.num_levels)
@@ -111,6 +115,7 @@ class SubjectPriorBaseline(Model):
         self.majority_ = max(overall, key=lambda level: (overall[level], level))
 
     def predict_proba(self, items):
+        """Return a one-hot row per question: the level of its problem type, or the majority level for an unknown type."""
         proba = np.zeros((len(items), self.num_levels))
         for index, item in enumerate(items):
             if item["dataset"] != "math":
@@ -148,6 +153,11 @@ class _TfidfClassifier(Model):
     calibrate = False
 
     def fit(self, train, dev, config):
+        """Fit TF-IDF and the classifier on the training set.
+
+        With `tune`, the setting is chosen first by five-fold QWK on the training set. With `calibrate`,
+        a sigmoid calibration is fitted on out-of-fold scores. `dev` is not used.
+        """
         x = texts(train)
         y = np.array([item["level"] for item in train])
         if not len(y) or len(np.unique(y)) < 2:
@@ -202,6 +212,7 @@ class _TfidfClassifier(Model):
             self.model_ = pipeline.fit(x, y)
 
     def predict_proba(self, items):
+        """Return the class probabilities, with a zero column for a level that the training set lacks."""
         proba = np.zeros((len(items), self.num_levels))
         if len(items):
             proba[:, self.model_.classes_] = self.model_.predict_proba(texts(items))
@@ -215,6 +226,7 @@ class TfidfLogReg(_TfidfClassifier):
     parameter = "C"
 
     def _estimator(self, seed):
+        """Return the logistic regression with the configured C."""
         return LogisticRegression(C=self.params.get("C", 1.0), max_iter=1000, random_state=seed)
 
 
@@ -225,6 +237,7 @@ class TfidfLinearSVM(_TfidfClassifier):
     calibrate = True
 
     def _estimator(self, seed):
+        """Return the linear SVM with the configured C."""
         return LinearSVC(C=self.params.get("C", 1.0), max_iter=5000, random_state=seed)
 
 
@@ -234,6 +247,7 @@ class TfidfComplementNB(_TfidfClassifier):
     parameter = "alpha"
 
     def _estimator(self, seed):
+        """Return the Complement Naive Bayes classifier with the configured alpha."""
         return ComplementNB(alpha=self.params.get("alpha", 1.0))
 
 
@@ -241,6 +255,7 @@ class R2DE(Model):
     """Estimate an ordered level with word TF-IDF and random forest regression."""
 
     def fit(self, train, dev, config):
+        """Fit word TF-IDF and a random forest regressor on the level index."""
         vectorizer = make_r2de_tfidf(
             max_features=self.params["max_terms"], min_df=self.params["min_df"],
         )
@@ -274,6 +289,7 @@ class LinguisticLightGBM(Model):
         return feature_matrix(texts(items), use_cache=use_cache)
 
     def fit(self, train, dev, config):
+        """Fit a LightGBM classifier on the surface features of the training questions."""
         from lightgbm import LGBMClassifier
         from levellens.features.linguistic import FEATURE_NAMES
 
@@ -298,6 +314,7 @@ class LinguisticLightGBM(Model):
         self.jobs_ = self.params["jobs"]
 
     def predict_proba(self, items):
+        """Return the class probabilities, with a zero column for a level that the training set lacks."""
         proba = np.zeros((len(items), self.num_levels))
         if len(items):
             observed = self.booster_.predict(self.feature_matrix(items), num_threads=self.jobs_)
@@ -307,6 +324,7 @@ class LinguisticLightGBM(Model):
         return proba
 
     def save(self, folder):
+        """Write the booster and the feature schema into `folder`."""
         from levellens.features.linguistic import FEATURE_VERSION
 
         folder.mkdir(parents=True, exist_ok=True)
@@ -321,6 +339,7 @@ class LinguisticLightGBM(Model):
 
     @classmethod
     def load(cls, folder):
+        """Return the saved model. Fail if it was trained with another feature schema."""
         from lightgbm import Booster
         from levellens.features.linguistic import FEATURE_NAMES, FEATURE_VERSION
 

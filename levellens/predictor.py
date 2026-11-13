@@ -39,6 +39,7 @@ class StubModel(Model):
     """
 
     def predict_proba(self, items) -> np.ndarray:
+        """Return made-up probabilities centred on a level that grows with the number of words."""
         levels = np.arange(self.num_levels)
         proba = np.empty((len(items), self.num_levels))
         for row, item in enumerate(items):
@@ -74,6 +75,7 @@ class Predictor:
     """Scores question texts with one model."""
 
     def __init__(self, model: Model, level_names: Sequence[str], name: str = ""):
+        """Store the model, the names of its levels and the name of the predictor."""
         self.model = model
         self.level_names = list(level_names)
         self.name = name

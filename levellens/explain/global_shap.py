@@ -76,6 +76,7 @@ def summarize(contributions):
 
 
 def explain_subject(dataset, seed):
+    """Return the global TreeSHAP summary of the saved LightGBM model of one dataset, on `test_1k`."""
     run_id = f"{dataset}-linguistic_lightgbm-none-s{seed}"
     model = Predictor.load(run_id).model
     if not isinstance(model, LinguisticLightGBM):
@@ -120,6 +121,7 @@ def captions(summary):
 
 
 def draw_figure(summary, path: Path, feature_axis_limit):
+    """Draw the group shares and the feature shares of one subject and save the figure to `path`."""
     from matplotlib.backends.backend_agg import FigureCanvasAgg
     from matplotlib.figure import Figure
     from matplotlib.ticker import PercentFormatter
@@ -171,6 +173,7 @@ def draw_figure(summary, path: Path, feature_axis_limit):
 
 
 def main(argv=None):
+    """Run the command line: write the three figures, the Chinese captions and `summary.json`."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--seed", type=int, default=0, help="seed in the saved D4 run IDs")
     args = parser.parse_args(argv)

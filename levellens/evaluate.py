@@ -86,42 +86,51 @@ def _or_none(value: float) -> float | None:
 
 
 def accuracy(s: Scored) -> float:
+    """Share of questions with the exact level."""
     return float(np.mean(s.level == s.y))
 
 
 def macro_f1(s: Scored) -> float:
+    """F1 of each level, then the plain mean over the levels."""
     return float(f1_score(s.y, s.level, average="macro", zero_division=0))
 
 
 def adjacent_accuracy(s: Scored) -> float:
+    """Share of questions predicted within one level of the true level."""
     return float(np.mean(np.abs(s.level - s.y) <= 1))
 
 
 def qwk(s: Scored) -> float | None:
+    """Quadratic weighted kappa. None when the true and the predicted levels are both constant."""
     if np.ptp(s.y) == 0 and np.ptp(s.level) == 0:
         return None  # one level only on both sides: kappa is 0/0
     return _or_none(cohen_kappa_score(s.y, s.level, weights="quadratic", labels=np.arange(s.num_levels)))
 
 
 def mae(s: Scored) -> float:
+    """Mean absolute error on the level index."""
     return float(np.mean(np.abs(s.level - s.y)))
 
 
 def rmse(s: Scored) -> float:
+    """Root mean squared error on the level index."""
     return float(np.sqrt(np.mean((s.level - s.y) ** 2)))
 
 
 def _spearman(y: np.ndarray, x: np.ndarray) -> float | None:
+    """Spearman rank correlation of two arrays. None when one of them is constant."""
     if np.ptp(y) == 0 or np.ptp(x) == 0:
         return None  # a constant has no ranks to correlate
     return _or_none(spearmanr(y, x)[0])
 
 
 def spearman(s: Scored) -> float | None:
+    """Rank correlation between the true level and the predicted level."""
     return _spearman(s.y, s.level)
 
 
 def spearman_score(s: Scored) -> float | None:
+    """Rank correlation between the true level and the continuous score."""
     return _spearman(s.y, s.score)
 
 
@@ -133,15 +142,18 @@ def _rps_per_item(s: Scored) -> np.ndarray:
 
 
 def drps(s: Scored) -> float:
+    """Discrete ranked probability score, mean over the questions."""
     return float(_rps_per_item(s).mean())
 
 
 def balanced_drps(s: Scored) -> float:
+    """Ranked probability score, averaged inside each true level first and then over the levels."""
     per_item = _rps_per_item(s)
     return float(np.mean([per_item[s.y == level].mean() for level in np.unique(s.y)]))
 
 
 def ece(s: Scored) -> float:
+    """Expected calibration error: |accuracy - confidence| per confidence bin, weighted by the size of the bin."""
     confidence = s.proba.max(axis=1)
     correct = (s.level == s.y).astype(float)
     bins = np.minimum((confidence * ECE_BINS).astype(int), ECE_BINS - 1)

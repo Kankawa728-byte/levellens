@@ -20,6 +20,7 @@ def _rank(seed: int, item_id: str) -> str:
 
 
 def _by_level(item: dict) -> Hashable:
+    """Return the level of an item: the default grouping of `stratified_subset`."""
     return item["level"]
 
 

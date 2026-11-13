@@ -36,6 +36,7 @@ class TransformerEncoder(nn.Module):
     """A Hugging Face encoder. Returns the vector of the first token ([CLS]) or the mean over the tokens."""
 
     def __init__(self, backbone: nn.Module, pooling: str):
+        """Wrap a Hugging Face encoder. `pooling` is `first` or `mean`."""
         super().__init__()
         if pooling not in ("first", "mean"):
             raise ValueError(f"pooling={pooling!r}: use first or mean")
@@ -44,6 +45,7 @@ class TransformerEncoder(nn.Module):
         self.out_features = backbone.config.hidden_size
 
     def forward(self, input_ids: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+        """Return one vector per question: the state of the first token, or the mean over the real tokens."""
         states = self.backbone(input_ids=input_ids, attention_mask=mask.long()).last_hidden_state  # [n, T, d]
         if self.pooling == "first":
             return states[:, 0]
@@ -64,6 +66,7 @@ class Transformer(NeuralModel):
     }
 
     def prepare(self, train, config) -> None:
+        """Load the tokeniser of the backbone."""
         from transformers import AutoTokenizer
 
         self.tokenizer = AutoTokenizer.from_pretrained(self.params["backbone"])
@@ -79,6 +82,7 @@ class Transformer(NeuralModel):
         return cache_dir() / "tokens" / f"{digest.hexdigest()}.pt"
 
     def encode(self, items) -> list[list[int]]:
+        """Return the token ids of each item, cut to `max_length`. Large splits are cached on disk."""
         strings = texts(items)
         use_cache = self.params["token_cache"] and len(strings) >= CACHE_FROM
         path = self._cache_file(strings) if use_cache else None
@@ -91,6 +95,7 @@ class Transformer(NeuralModel):
         return rows
 
     def build_encoder(self) -> TransformerEncoder:
+        """Return the encoder: with the pretrained weights before training, with the architecture only after `load`."""
         from transformers import AutoConfig, AutoModel
 
         if getattr(self, "_pretrained", False):
@@ -101,11 +106,13 @@ class Transformer(NeuralModel):
         return TransformerEncoder(backbone.float(), self.params["pooling"])
 
     def extra_state(self, folder: Path) -> dict:
+        """Write the tokeniser and the encoder config into `folder`."""
         self.tokenizer.save_pretrained(folder / BACKBONE_FOLDER)
         self.net.encoder.backbone.config.save_pretrained(folder / BACKBONE_FOLDER)
         return {"pad_id": self.pad_id}
 
     def restore_extra(self, folder: Path, state: dict) -> None:
+        """Load the tokeniser from `folder` and remember where the encoder config is."""
         from transformers import AutoTokenizer
 
         self._folder = folder

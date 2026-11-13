@@ -65,12 +65,14 @@ class Network(nn.Module):
     """Encoder, dropout and head: token ids in, logits out."""
 
     def __init__(self, encoder: nn.Module, head: nn.Module, dropout: float):
+        """Store the encoder, the dropout layer and the head."""
         super().__init__()
         self.encoder = encoder
         self.dropout = nn.Dropout(dropout)
         self.head = head
 
     def forward(self, input_ids: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+        """Return the logits for a batch of token ids and its mask."""
         return self.head(self.dropout(self.encoder(input_ids, mask)))
 
 
@@ -103,6 +105,7 @@ def length_buckets(rows: Sequence[Sequence[int]], batch_size: int, generator: to
 def linear_schedule(optimizer: torch.optim.Optimizer, warmup_steps: int, total_steps: int):
     """Learning rate: linear rise over `warmup_steps`, then linear fall to zero at `total_steps`."""
     def factor(step: int) -> float:
+        """Return the learning-rate factor at one step."""
         if step < warmup_steps:
             return (step + 1) / max(1, warmup_steps)
         return max(0.0, (total_steps - step) / max(1, total_steps - warmup_steps))
@@ -117,6 +120,7 @@ class NeuralModel(Model):
     pad_id = 0
 
     def __init__(self, num_levels: int, **params):
+        """Merge the settings with the defaults and reject unknown ones."""
         unknown = set(params) - set(COMMON_DEFAULTS) - set(self.DEFAULTS)
         if unknown:
             raise ValueError(f"{type(self).__name__} has no setting {sorted(unknown)}")
@@ -161,6 +165,7 @@ class NeuralModel(Model):
         return torch.autocast(device_type="cuda" if on_gpu else "cpu", dtype=torch.bfloat16, enabled=precision == "bf16")
 
     def fit(self, train, dev, config) -> None:
+        """Train the encoder and the head together, and keep the weights with the best dev QWK."""
         p = self.params
         self.device = str(config.device)
         self.head_config = OmegaConf.to_container(config.head, resolve=True)
@@ -261,15 +266,18 @@ class NeuralModel(Model):
         return proba / proba.sum(axis=1, keepdims=True)
 
     def predict_proba(self, items) -> np.ndarray:
+        """Encode the items and return their probabilities [n, K]."""
         return self._proba(self.encode(items))
 
     @property
     def n_params(self) -> int:
+        """Number of parameters of the encoder and the head. 0 before training."""
         return sum(parameter.numel() for parameter in self.net.parameters()) if self.net is not None else 0
 
     # ---- save and load ----------------------------------------------------------------------
 
     def save(self, folder: Path) -> None:
+        """Write the weights, the settings, the head config and the training history into `folder`."""
         folder = Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
         state = {

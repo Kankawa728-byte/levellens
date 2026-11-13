@@ -57,6 +57,7 @@ def explain(predictor: Predictor, text: str, num_samples: int = NUM_SAMPLES, see
         return {"words": [], "weights": np.zeros((0, num_levels)), "expected": np.zeros(0), "proba": proba}
 
     def classifier(copies: list[str]) -> np.ndarray:
+        """Score the shortened copies of the text. LIME calls this function."""
         # a copy with every word removed is empty; a full stop keeps every model's tokeniser happy
         return predictor.predict([copy if copy.strip() else "." for copy in copies])["proba"]
 

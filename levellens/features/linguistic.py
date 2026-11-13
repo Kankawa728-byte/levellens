@@ -54,11 +54,13 @@ _NEGATIONS = frozenset("no not never neither nor none nothing nobody nowhere can
 
 @lru_cache(maxsize=1)
 def _pronunciation_tools():
+    """Load the CMUdict pronunciations and the hyphenator once."""
     return cmudict.dict(), pyphen.Pyphen(lang="en_US")
 
 
 @lru_cache(maxsize=65_536)
 def _word_stats(word: str) -> tuple[int, float]:
+    """Return the syllable count and the rarity of a word. Rarity is 7 minus the Zipf frequency, at least 0."""
     pronunciations, hyphenator = _pronunciation_tools()
     entries = pronunciations.get(word)
     syllables = sum(phone[-1].isdigit() for phone in entries[0]) if entries else 1 + len(hyphenator.positions(word))
@@ -101,6 +103,7 @@ def extract_features(text: str) -> dict[str, float]:
 
 
 def _cache_path(texts: Sequence[str]) -> Path:
+    """Return the cache file of these texts. Its name depends on the texts, the feature version and the package versions."""
     dependencies = ",".join(version(name) for name in ("cmudict", "pyphen", "wordfreq"))
     digest = sha256(f"{FEATURE_VERSION}|{FEATURE_NAMES}|{dependencies}".encode("utf-8"))
     for text in texts:

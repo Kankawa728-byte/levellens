@@ -275,6 +275,7 @@ def extrapolation_figure() -> Path | None:
     ax.legend(frameon=False, loc="lower right", fontsize=8)
 
     def rho(grades: str) -> str:
+        """Format the Spearman correlation of one grade range, all subjects."""
         row = summary[(summary["subjects"] == "all subjects") & summary["grades"].str.startswith(grades)]
         value = row["spearman"].iloc[0] if len(row) else np.nan
         return "n/a" if pd.isna(value) else f"{value:+.2f}"

@@ -14,6 +14,7 @@ class Head(nn.Module):
     """
 
     def __init__(self, in_features: int, num_levels: int, out_features: int, class_weights: torch.Tensor | None = None):
+        """Build the linear layer and store the class weights."""
         super().__init__()
         self.num_levels = num_levels
         self.out_features = out_features

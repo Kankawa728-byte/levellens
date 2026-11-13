@@ -29,9 +29,11 @@ class CornHead(Head):
     """K-1 logits, one per "is the level above k?" task."""
 
     def __init__(self, in_features: int, num_levels: int, class_weights: torch.Tensor | None = None):
+        """Build a linear layer with K-1 logits, one per task."""
         super().__init__(in_features, num_levels, out_features=num_levels - 1, class_weights=class_weights)
 
     def loss(self, logits: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+        """Binary cross-entropy of every task, counted only on the questions that the task sees."""
         logits = logits.float()
         tasks = torch.arange(self.num_levels - 1, device=y.device)  # [K-1]
         target = (y[:, None] > tasks).float()  # [n, K-1]: is the level above k?
@@ -42,6 +44,7 @@ class CornHead(Head):
         return (per_entry * in_task).sum() / in_task.sum().clamp(min=1e-8)
 
     def proba(self, logits: torch.Tensor) -> torch.Tensor:
+        """Multiply the conditional probabilities along the chain, then take the difference of neighbours."""
         above = torch.cumprod(torch.sigmoid(logits.float()), dim=-1)  # [n, K-1]: P(y > k)
         ones, zeros = torch.ones_like(above[:, :1]), torch.zeros_like(above[:, :1])
         return torch.cat([ones, above], dim=-1) - torch.cat([above, zeros], dim=-1)

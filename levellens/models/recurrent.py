@@ -34,6 +34,7 @@ class BiLSTMEncoder(nn.Module):
     """Embedding, BiLSTM and attention pooling: token ids [n, T] -> question vectors [n, 2 * hidden]."""
 
     def __init__(self, vocab_size: int, hidden: int, layers: int, dropout: float, embedding_dropout: float):
+        """Build the embedding, the LSTM and the attention scorer."""
         super().__init__()
         self.embedding = nn.Embedding(vocab_size, DIM, padding_idx=0)
         self.embedding_dropout = nn.Dropout(embedding_dropout)
@@ -48,6 +49,7 @@ class BiLSTMEncoder(nn.Module):
         return torch.softmax(scores, dim=-1)
 
     def forward(self, input_ids: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+        """Return one vector per question: the attention-weighted mean of the BiLSTM states."""
         embedded = self.embedding_dropout(self.embedding(input_ids))
         # packing tells the LSTM where each question ends, so it never reads padding
         packed = pack_padded_sequence(embedded, mask.sum(dim=1).cpu(), batch_first=True, enforce_sorted=False)
@@ -79,6 +81,7 @@ class BiLSTM(NeuralModel):
     }
 
     def prepare(self, train, config) -> None:
+        """Build the vocabulary from the training words and load their GloVe vectors."""
         counts = Counter(word for text in texts(train) for word in tokenize(text))
         vectors = glove_vectors(counts) if self.params["embeddings"] == "glove" else {}
         kept = sorted(word for word, count in counts.items() if word in vectors or count >= self.params["min_count"])
@@ -89,10 +92,12 @@ class BiLSTM(NeuralModel):
         print(f"  vocabulary {len(self.vocab):,} words; GloVe covers {self.glove_coverage:.1%} of the training tokens", flush=True)
 
     def encode(self, items) -> list[list[int]]:
+        """Return the word indices of each item, cut to `max_tokens`. An unknown word becomes `<unk>`."""
         unk, limit = self.index[UNK], self.params["max_tokens"]
         return [[self.index.get(word, unk) for word in tokenize(text)[:limit]] or [unk] for text in texts(items)]
 
     def build_encoder(self) -> BiLSTMEncoder:
+        """Build the encoder and copy the GloVe vectors into its embedding layer."""
         p = self.params
         encoder = BiLSTMEncoder(len(self.vocab), p["hidden"], p["layers"], p["lstm_dropout"], p["embedding_dropout"])
         with torch.no_grad():
@@ -104,9 +109,11 @@ class BiLSTM(NeuralModel):
         return encoder
 
     def extra_state(self, folder: Path) -> dict:
+        """Write the vocabulary into `folder`."""
         (folder / VOCAB_FILE).write_text("\n".join(self.vocab), encoding="utf-8")
         return {"vocab_size": len(self.vocab)}
 
     def restore_extra(self, folder: Path, state: dict) -> None:
+        """Read the vocabulary from `folder`."""
         self.vocab = (folder / VOCAB_FILE).read_text(encoding="utf-8").split("\n")
         self.index = {word: row for row, word in enumerate(self.vocab)}

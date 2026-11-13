@@ -22,20 +22,24 @@ class Majority(Model):
     """
 
     def fit(self, train, dev, config) -> None:
+        """Find the most common level of the training set. On a tie the highest level wins."""
         counts = np.bincount([item["level"] for item in train], minlength=self.num_levels)
         self.level_ = int(self.num_levels - 1 - np.argmax(counts[::-1]))
 
     def predict_proba(self, items) -> np.ndarray:
+        """Return probability 1 for the majority level, for every question."""
         proba = np.zeros((len(items), self.num_levels))
         proba[:, self.level_] = 1.0
         return proba
 
     def save(self, folder: Path) -> None:
+        """Write the majority level into `folder`."""
         folder.mkdir(parents=True, exist_ok=True)
         (folder / "majority.json").write_text(json.dumps({"num_levels": self.num_levels, "level": self.level_}))
 
     @classmethod
     def load(cls, folder: Path) -> "Majority":
+        """Return the model that `save` wrote into `folder`."""
         state = json.loads((folder / "majority.json").read_text())
         model = cls(num_levels=state["num_levels"])
         model.level_ = state["level"]

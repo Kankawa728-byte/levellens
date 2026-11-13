@@ -12,10 +12,13 @@ class CrossEntropyHead(Head):
     """K logits. Predicting a neighbouring level costs as much as predicting a far one."""
 
     def __init__(self, in_features: int, num_levels: int, class_weights: torch.Tensor | None = None):
+        """Build a linear layer with one logit per level."""
         super().__init__(in_features, num_levels, out_features=num_levels, class_weights=class_weights)
 
     def loss(self, logits: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+        """Cross-entropy, weighted per level when class weights are given."""
         return F.cross_entropy(logits.float(), y, weight=self.class_weights)
 
     def proba(self, logits: torch.Tensor) -> torch.Tensor:
+        """Softmax over the K logits."""
         return torch.softmax(logits.float(), dim=-1)

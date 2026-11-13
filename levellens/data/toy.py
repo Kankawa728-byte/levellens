@@ -29,6 +29,7 @@ SEED = 0
 def _question(rng: random.Random, level: int) -> tuple[str, list[str]]:
     """Make one question and its four options for a level."""
     def word() -> str:
+        """Draw one word of the level or, with probability NOISE, of a neighbouring level."""
         source = level
         if rng.random() < NOISE:
             source = min(2, max(0, level + rng.choice((-1, 1))))
