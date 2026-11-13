@@ -1,0 +1,12 @@
+{
+  "run_id": "arc-distilbert-ce-smoke-n400-s0",
+  "dataset": "arc",
+  "split": "dev",
+  "n": 862,
+  "max_abs_difference": 1.4821457505753699e-08,
+  "same_predictions": true,
+  "seconds_per_question": 0.028,
+  "timed_items": 100,
+  "device": "cpu",
+  "r7_pass": true
+}

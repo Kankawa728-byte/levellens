@@ -1,0 +1,14 @@
+# DeBERTa-v3-base: the main transformer. Needs head=ce or head=corn.
+# Never fp16 (NaN losses): precision auto picks bf16 on the GPU, fp32 elsewhere.
+name: deberta-v3
+target: levellens.models.transformer.Transformer
+params:
+  backbone: microsoft/deberta-v3-base
+  max_length: 256
+  lr: 2.0e-5
+  batch_size: 16
+  epochs: 5
+  patience: 2           # early stopping on dev QWK
+  class_weights: true
+  max_minutes: 50       # R6: every fine-tune stays under 1 GPU-hour
+  precision: auto

@@ -1,0 +1,11 @@
+run_id,subjects,grades,n,spearman,mean_predicted_grade
+arc-distilbert-ce-smoke-n400-s0,all subjects,inside 3-9,1728,0.335299979184572,5.814516495232651
+arc-distilbert-ce-smoke-n400-s0,all subjects,outside 3-9,496,0.6167076741372159,5.751559798569435
+arc-distilbert-ce-smoke-n400-s0,all subjects,below 3,191,0.263329838165487,5.343802879993092
+arc-distilbert-ce-smoke-n400-s0,all subjects,above 9,305,0.04335854112612941,6.006909213153308
+arc-distilbert-ce-smoke-n400-s0,all subjects,all grades,2224,0.44205505805379114,5.800475793099128
+arc-distilbert-ce-smoke-n400-s0,natural science,inside 3-9,952,0.2938464709188565,5.838406874254193
+arc-distilbert-ce-smoke-n400-s0,natural science,outside 3-9,91,,5.3313144152250675
+arc-distilbert-ce-smoke-n400-s0,natural science,below 3,91,,5.3313144152250675
+arc-distilbert-ce-smoke-n400-s0,natural science,above 9,0,,
+arc-distilbert-ce-smoke-n400-s0,natural science,all grades,1043,0.37705587682176467,5.794163908030176

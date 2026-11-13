@@ -15,8 +15,16 @@ pytest>=8.0
 # D
 
 # E
+torch>=2.2
+transformers>=4.44
+sentencepiece>=0.2      # tokeniser of DeBERTa-v3
+protobuf>=4.25
+optuna>=3.6
 
 # F
+lime>=0.2               # local explanations (BSD 2-Clause)
+matplotlib>=3.8
+streamlit>=1.40
 
 # The levellens package itself, so that `import levellens` works from anywhere
 -e .

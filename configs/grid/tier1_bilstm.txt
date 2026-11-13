@@ -1,0 +1,12 @@
+# Tier 1, BiLSTM (task E2): one configuration, two heads, three datasets = 6 short runs.
+#
+#   python -m levellens.grid configs/grid/tier1_bilstm.txt
+#
+# The first run downloads GloVe 6B 300d (480 MB) from the Hugging Face hub, see levellens/features/glove.py.
+
+data=math model=bilstm head=ce   seed=0 owner=E save_model=true
+data=math model=bilstm head=corn seed=0 owner=E save_model=true
+data=arc  model=bilstm head=ce   seed=0 owner=E save_model=true
+data=arc  model=bilstm head=corn seed=0 owner=E save_model=true
+data=race model=bilstm head=ce   seed=0 owner=E save_model=true model.params.epochs=6 model.params.evals_per_epoch=2
+data=race model=bilstm head=corn seed=0 owner=E save_model=true model.params.epochs=6 model.params.evals_per_epoch=2

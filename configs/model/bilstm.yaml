@@ -1,0 +1,13 @@
+# Two-layer BiLSTM with GloVe 300d and attention pooling. Needs head=ce or head=corn.
+# Every setting and its default: DEFAULTS in levellens/models/recurrent.py and COMMON_DEFAULTS in levellens/models/neural.py.
+name: bilstm
+target: levellens.models.recurrent.BiLSTM
+params:
+  hidden: 256
+  layers: 2
+  embeddings: glove     # random = no download, for tests
+  lr: 1.0e-3
+  batch_size: 64
+  epochs: 20
+  patience: 4           # early stopping on dev QWK
+  class_weights: true
