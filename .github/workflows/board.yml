@@ -1,0 +1,58 @@
+# Rebuilds the status board on the home page: who has done what, and who waits for whom.
+# The board itself is made by .github/scripts/board.py; this file only says when to run it.
+#
+# It always runs the code of `main`, never the code of a pull request, and it commits the two
+# home pages only when the board has changed.
+
+name: Status board
+
+on:
+  push:
+    branches: [main]
+  issue_comment:
+    types: [created, edited, deleted]
+  pull_request_target:
+    types: [opened, reopened, closed]
+  schedule:
+    - cron: "4,19,34,49 * * * *"   # every 15 minutes
+  workflow_dispatch:
+
+permissions:
+  contents: write        # to commit the two home pages
+  issues: read           # to read the reports in the six share issues
+  pull-requests: read    # to list the open pull requests
+
+concurrency:
+  group: status-board
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Rebuild the board and push it if it changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          for attempt in 1 2 3; do
+            rm -rf repo
+            git clone --quiet --depth 1 --branch main "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+            cd repo
+            python3 .github/scripts/board.py
+            if git diff --quiet; then
+              echo "The board has not changed."
+              exit 0
+            fi
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit --quiet --all --message "Status board: update"
+            if git push --quiet origin HEAD:main; then
+              echo "The board was updated."
+              exit 0
+            fi
+            echo "main moved while the board was rebuilt. Trying again."
+            cd ..
+          done
+          exit 1
