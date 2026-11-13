@@ -1,5 +1,7 @@
 # Reproduce the Share D results
 
+中文版：[D-reproduce.zh-CN.md](D-reproduce.zh-CN.md)
+
 Run these commands from the repository root with the project dependencies installed. They use the same dataset splits and seed as the 28 Share D rows in `results/runs.jsonl`. Use a separate output directory to keep a rerun separate from the checked-in results. The examples below use Bash. In PowerShell, set the directory with `$env:LEVELLENS_RESULTS = 'results/share-d-reproduction'`.
 
 ```bash

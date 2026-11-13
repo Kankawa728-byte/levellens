@@ -182,6 +182,8 @@ def main(argv=None):
     markdown = [
         "# D5 · 三个学科的全局 TreeSHAP",
         "",
+        "English: [summary.md](summary.md)",  # the English page is written by hand; this file is the Chinese twin
+        "",
         "每个模型使用团队固定的测试子集。对每题、每个等级的原始分数求 TreeSHAP，"
         "再对题目和等级等权平均绝对值。占比描述模型的打分依据。",
     ]
