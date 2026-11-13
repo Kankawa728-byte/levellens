@@ -1,0 +1,3 @@
+name: subject_prior
+target: levellens.models.classic.SubjectPriorBaseline
+params: {}

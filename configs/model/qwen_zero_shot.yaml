@@ -1,0 +1,8 @@
+name: qwen_zero_shot
+target: levellens.models.llm.QwenZeroShot
+params:
+  model_path: null
+  quantization: none
+  batch_size: 16
+  max_prompt_tokens: 2048
+  dev_sample_size: 128

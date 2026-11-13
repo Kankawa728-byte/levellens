@@ -1,0 +1,9 @@
+name: tfidf_svm
+target: levellens.models.classic.TfidfLinearSVM
+params:
+  tune: false
+  C: 1.0
+  grid: [0.1, 1.0, 10.0]
+  min_df: 2
+  word_limit: 50000
+  char_limit: 100000
