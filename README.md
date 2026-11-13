@@ -40,7 +40,7 @@ Pull requests waiting for the lead's review: [#10](https://github.com/Kankawa728
 
 1. Read this page to the end. It takes five minutes.
 2. Open the page of your share from the table below.
-3. No share yet? Shares E and F are still open. The lead assigns them on Thu 12 Nov.
+3. Look at the live status table above. It shows what you can do now, whom you wait for and who waits for you.
 4. Send your GitHub username to the lead in the group chat. You need it to push code.
 
 ## The six shares
@@ -59,18 +59,7 @@ The work is cut into six shares of the same size. Each share has 24 hours of Tie
 - **Tier 1** is what we must ship.
 - **Tier 2** was what we would add if Tier 1 was on time. The lead cancelled it on Thu 12 Nov and also cut part of Tier 1. The re-plan is in [docs/schedule.md](docs/schedule.md). The hours in the table are the first estimates and were not counted again.
 
-Which open share suits you:
-
-- **E** is on the critical path. It suits someone who has fine-tuned a transformer before.
-- **F** suits someone who likes plots and front ends. The app uses Streamlit.
-
-## How to claim a share
-
-1. Read the pages of shares E and F.
-2. Open the issue of the share you want and write the comment "I take this", with your name. The first comment gets the share. If you have no GitHub account, tell the lead in the group chat instead.
-3. The lead writes your name in the table above.
-
-The claim deadline was Tue 10 Nov 23:59. Shares E and F were still open on Thu 12 Nov, so the lead assigns them that day.
+All six shares have had an owner since Fri 13 Nov.
 
 ## Key dates
 
