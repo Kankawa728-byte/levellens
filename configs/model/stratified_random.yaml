@@ -1,0 +1,3 @@
+name: stratified_random
+target: levellens.models.classic.StratifiedRandomBaseline
+params: {}

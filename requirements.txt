@@ -13,6 +13,13 @@ pytest>=8.0
 
 # Each owner adds the packages of their share under their letter.
 # D
+lightgbm>=4.6,<5
+cmudict>=1,<2
+pyphen>=0.17,<1
+wordfreq>=3.1,<4
+accelerate>=1.10,<2    # Qwen checkpoint loading
+# For D6, use transformers>=4.57.1,<5 and a CUDA build of PyTorch.
+# To reproduce the NF4 runs, also install bitsandbytes>=0.48,<0.50.
 
 # E
 torch>=2.2
