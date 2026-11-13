@@ -22,6 +22,9 @@ protobuf>=4.25
 optuna>=3.6
 
 # F
+lime>=0.2               # local explanations (BSD 2-Clause)
+matplotlib>=3.8
+streamlit>=1.40
 
 # The levellens package itself, so that `import levellens` works from anywhere
 -e .
