@@ -6,6 +6,36 @@ LevelLens 根据考题的文字，估计这道题面向的目标难度等级。�
 
 English: [README.md](README.md)。每个页面都有中文版，页面顶部有切换链接。中英文有出入时，以英文版为准。
 
+<!-- board:start -->
+## 实时状态：谁在等谁
+
+这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：11 月 13 日（周五）21:22。
+
+**现在最多人在等：**Qiutian · Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前。直接或间接在等的人：所有人。
+
+| 谁 | 状态 | 自己的任务完成数 | 现在能做 | 在等谁 | 谁在等这一份 |
+|---|---|---|---|---|---|
+| **Xingyang** · [A](work/A-framework-integration.zh-CN.md) | 🟡 部分在等 | 4 / 9 | A6 README、带讲解的主 notebook、检查文档字符串 · 11 月 14 日（周六）22:00<br>A5 冻结规格、审阅和合并、每天整合、决定做不做 · 11 月 15 日（周日）14:00 | **Qiutian**：Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前<br>**Hailing**：基线结果背后的代码 · 11 月 14 日（周六）22:00 前<br>**所有人**：自己的录制文件 · 11 月 14 日（周六）23:59 前 · 用于 A7、A8 | **所有人**：定稿的表格和图 · 11 月 14 日（周六）12:00 前<br>**Qiutian**：README 和主 notebook · 11 月 14 日（周六）22:00 前<br>**所有人**：拼好的视频，用于审看 · 11 月 15 日（周日）11:00 前 |
+| **Wenyue** · [B](work/B-literature-data-audit.zh-CN.md) | 🟢 可以做 | 2 / 7 | B4 slides 模板、分镜、录制说明和录制安排 · 11 月 14 日（周六）10:00<br>B7 提交清单、互评提醒 · 11 月 15 日（周日）15:00 | **Zhifei**：最严重的 15 个错误的清单 · 11 月 14 日（周六）10:00 前 · 用于 B3<br>**所有人**：slides 定稿，用于校对 · 11 月 14 日（周六）16:00 前 · 用于 B5<br>**所有人**：反思文档里自己的内容 · 11 月 15 日（周日）10:00 前 · 用于 B6 | 没有 |
+| **Qiutian** · [C](work/C-compute-runs-efficiency.zh-CN.md) | 🟢 可以做<br>⏰ 3 项已过时间 | 0 / 7 | C1 GPU 环境、硬件和软件环境信息 · 11 月 12 日（周四）23:59 ⏰<br>C2 数据集和模型权重的离线缓存、下载脚本 · 11 月 13 日（周五）10:00 ⏰<br>C3 作业模板、冒烟作业 · 11 月 13 日（周五）12:00 ⏰<br>另有 3 项 | **Hailing**：基线结果背后的代码 · 11 月 14 日（周六）22:00 前 · 用于 C7<br>**Xingyang**：README 和主 notebook · 11 月 14 日（周六）22:00 前 · 用于 C7 | **Xingyang、Jikai、Zhifei**：Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前 |
+| **Hailing** · [D](work/D-baselines.zh-CN.md) | 🟢 可以做 | 6 / 7 | 基线结果背后的代码 · 11 月 14 日（周六）22:00 | 没有 | **Xingyang、Qiutian**：基线结果背后的代码 · 11 月 14 日（周六）22:00 前 |
+| **Jikai** · [E](work/E-neural-models.zh-CN.md) | 🟢 可以做<br>⏰ 1 项已过时间 | 3 / 6 | E2 带 GloVe 和注意力池化的 BiLSTM（4 / 6 次运行） · 11 月 13 日（周五）20:00 ⏰<br>E7 在 ARC 上用 DistilBERT 做 Optuna 搜索 · 11 月 13 日（周五）23:59 | **Qiutian**：Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前 · 用于 E8 | **Zhifei**：Predictor API 后面的最终模型 · 11 月 14 日（周六）10:00 前 |
+| **Zhifei** · [F](work/F-interpretation-demo.zh-CN.md) | 🔴 在等别人 | 2 / 6 | — | **Jikai**：Predictor API 后面的最终模型 · 11 月 14 日（周六）10:00 前 · 用于 F1、F3、F4<br>**Qiutian**：Tier 1 网格的结果行（0 / 20 次运行） · 11 月 14 日（周六）10:00 前 · 用于 F1、F2、F3、F4 | **Wenyue**：最严重的 15 个错误的清单 · 11 月 14 日（周六）10:00 前 |
+
+| 每个人都要交 | 交给谁 | 什么时候 | 还没交的人 |
+|---|---|---|---|
+| slides 定稿，用于校对 | Wenyue | 11 月 14 日（周六）16:00 | 所有人 |
+| 自己的录制文件 | Xingyang | 11 月 14 日（周六）23:59 | 所有人 |
+| 反思文档里自己的内容 | Wenyue | 11 月 15 日（周日）10:00 | 所有人 |
+
+等组长审阅的 pull request：[#10](https://github.com/Kankawa728-byte/levellens/pull/10)，提交人 Hylenz。
+
+- **做完了一项？**在自己那一份的 issue 下评论 `done C4`：[A](https://github.com/Kankawa728-byte/levellens/issues/1)、[B](https://github.com/Kankawa728-byte/levellens/issues/2)、[C](https://github.com/Kankawa728-byte/levellens/issues/3)、[D](https://github.com/Kankawa728-byte/levellens/issues/4)、[E](https://github.com/Kankawa728-byte/levellens/issues/5)、[F](https://github.com/Kankawa728-byte/levellens/issues/6)。一次报几项：`done C1 C2`。每个人都要交的三样：`done slides`、`done recording`、`done reflection`。报错了要撤回：`undo C4`。
+- 🟢 下一项任务现在就能做。🟡 下一项任务在等别人，后面有能做的。🔴 所有没做完的任务都在等别人。
+- ⏰ 表示已经过了计划时间，而且在 `main` 里找不到，也没有人报告。
+- 进了 `main` 的文件和结果行不用报告，程序自己能找到。
+<!-- board:end -->
+
 ## 从这里开始
 
 1. 把本页读完，大约五分钟。
