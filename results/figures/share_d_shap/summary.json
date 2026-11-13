@@ -1,0 +1,101 @@
+[
+  {
+    "dataset": "race",
+    "run_id": "race-linguistic_lightgbm-none-s0",
+    "split": "test_1k",
+    "n_questions": 1000,
+    "n_outputs": 3,
+    "max_additivity_error": 1.687538997430238e-14,
+    "mean_abs_shap": {
+      "flesch_reading_ease": 0.4193108617567666,
+      "mean_word_rarity": 0.0769874650540607,
+      "word_count": 0.06984395296223615,
+      "character_count": 0.28536388752536646,
+      "sentence_count": 0.07887500755661578,
+      "number_count": 0.054689935138049484,
+      "negation_count": 0.04797888166253964,
+      "latex_operator_count": 0.0
+    },
+    "feature_share": {
+      "flesch_reading_ease": 0.4058960022687295,
+      "mean_word_rarity": 0.07452443315998238,
+      "word_count": 0.067609460845452,
+      "character_count": 0.27623434473681496,
+      "sentence_count": 0.07635158820359257,
+      "number_count": 0.052940259987224576,
+      "negation_count": 0.04644391079820395,
+      "latex_operator_count": 0.0
+    },
+    "group_share": {
+      "language": 0.9006158292145714,
+      "reasoning": 0.09938417078542852
+    },
+    "total_mean_abs_shap": 1.0330499916556348
+  },
+  {
+    "dataset": "arc",
+    "run_id": "arc-linguistic_lightgbm-none-s0",
+    "split": "test_1k",
+    "n_questions": 1000,
+    "n_outputs": 7,
+    "max_additivity_error": 1.865174681370263e-14,
+    "mean_abs_shap": {
+      "flesch_reading_ease": 0.619866936014826,
+      "mean_word_rarity": 0.2845421775058731,
+      "word_count": 0.22340772177277163,
+      "character_count": 0.4222220786282036,
+      "sentence_count": 0.2072776037307475,
+      "number_count": 0.13468459753893877,
+      "negation_count": 0.032769793990128145,
+      "latex_operator_count": 0.0
+    },
+    "feature_share": {
+      "flesch_reading_ease": 0.32204712418395043,
+      "mean_word_rarity": 0.1478317113733161,
+      "word_count": 0.1160697726192132,
+      "character_count": 0.2193622506523408,
+      "sentence_count": 0.10768949319734501,
+      "number_count": 0.06997435221847445,
+      "negation_count": 0.017025295755360072,
+      "latex_operator_count": 0.0
+    },
+    "group_share": {
+      "language": 0.9130003520261656,
+      "reasoning": 0.08699964797383453
+    },
+    "total_mean_abs_shap": 1.9247709091814886
+  },
+  {
+    "dataset": "math",
+    "run_id": "math-linguistic_lightgbm-none-s0",
+    "split": "test_1k",
+    "n_questions": 1000,
+    "n_outputs": 5,
+    "max_additivity_error": 1.1324274851176597e-14,
+    "mean_abs_shap": {
+      "flesch_reading_ease": 0.14400887242187135,
+      "mean_word_rarity": 0.16321921097142997,
+      "word_count": 0.23412757513821275,
+      "character_count": 0.23085775395059377,
+      "sentence_count": 0.04044372874648802,
+      "number_count": 0.08736934407414332,
+      "negation_count": 0.014446444543373843,
+      "latex_operator_count": 0.32904645878549826
+    },
+    "feature_share": {
+      "flesch_reading_ease": 0.11580750066176372,
+      "mean_word_rarity": 0.13125586336939948,
+      "word_count": 0.18827818631428858,
+      "character_count": 0.18564869680450527,
+      "sentence_count": 0.032523601253208405,
+      "number_count": 0.07025973609489591,
+      "negation_count": 0.011617385844921117,
+      "latex_operator_count": 0.26460902965701744
+    },
+    "group_share": {
+      "language": 0.6535138484031655,
+      "reasoning": 0.3464861515968345
+    },
+    "total_mean_abs_shap": 1.2435193886316114
+  }
+]
