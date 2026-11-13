@@ -89,6 +89,94 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 
 细节见 [docs/design.zh-CN.md](docs/design.zh-CN.md)。
 
+## 安装和运行
+
+你需要 git 和 Python 3.10 或更新的版本。这些步骤在 Windows 上用 Python 3.12 测试过。第 1 到第 3 步不需要 GPU，也不需要数据集。
+
+### 1. 安装
+
+```bash
+git clone https://github.com/Kankawa728-byte/levellens.git
+cd levellens
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m pytest
+```
+
+- 在 Windows 上，第四行换成 `.venv\Scripts\activate`。
+- 在 Windows 上装 CPU 版 PyTorch 时，这个环境大约占 1.6 GB 磁盘空间。
+- `python -m pytest` 用时不到一分钟。有两个测试需要下载好的数据集，做完第 4 步之前它们会被跳过。
+- 在 Windows 上，把仓库放在短路径里，例如 `C:\work\levellens`。PyTorch 里有些文件的名字很长，完整路径超过 Windows 的 260 个字符上限时，安装会报错停下。
+- 要在 GPU 上运行，需要 CUDA 版的 PyTorch。[PyTorch 安装指南](https://pytorch.org/get-started/locally/)里有适合你系统的命令。
+
+### 2. 运行小示例
+
+```bash
+python -m levellens.run data=toy model=majority
+python -m levellens.run data=toy model=tfidf_logreg
+python -m levellens.run data=toy model=bilstm head=corn model.params.embeddings=random save_model=true
+python -m levellens.results --scratch
+```
+
+- toy 数据集在内存里生成，所以什么都不用下载。每条命令在 CPU 上用时几秒。
+- 每次运行训练一个模型，打印它的指标，并向 `results/scratch/runs.jsonl` 追加一行。最后一条命令在 `results/scratch/tables/` 里生成表格。打开那个文件夹里的 `leaderboards.md`：每个模型占一行。
+- git 忽略 `results/scratch/`，所以这些试跑不会和项目的结果混在一起。
+
+主 notebook [notebooks/main.ipynb](notebooks/main.ipynb) 做同样的运行，并讲解每一步。接着它给一道新题打分，解释这次预测，再重建第 3 步的表格和图。在 Jupyter 或 VS Code 里打开它并运行全部单元格，或者从命令行运行。用时大约一分钟。
+
+```bash
+jupyter nbconvert --to notebook --execute --inplace notebooks/main.ipynb
+```
+
+### 3. 重建表格和图
+
+```bash
+python -m levellens.results
+python -m levellens.figures
+```
+
+- 两条命令都读取 `results/runs.jsonl`（每次运行占一行）和 `results/preds/` 里保存的预测。这两样都在仓库里，所以不需要数据集，也不需要模型。
+- 第一条命令写出 `results/tables/`：每个数据集的每个数据划分一个 CSV 文件，以及汇总全部表格的 `leaderboards.md`。
+- 第二条命令写出 `results/figures/`：排行榜、混淆矩阵、线索词、迁移矩阵和外推图。
+
+### 4. 在真实数据集上训练
+
+```bash
+python -m levellens.data.prepare
+python -m levellens.run data=math model=tfidf_logreg
+```
+
+- 第一条命令下载四个数据集并写出数据划分文件。大约需要 1.2 GB 磁盘空间。然后它把每个数据划分和 `levellens/data/manifest.json` 里的指纹比对，不一致就停下，所以每台机器都在同样的题目上训练和测试。
+- 在真实数据集上的运行会向 `results/runs.jsonl` 追加一行。要把你的运行和仓库里已有的结果行分开，先把环境变量 `LEVELLENS_RESULTS` 设成另一个文件夹。
+
+| 模型 | 怎么训练 | 在哪里运行 |
+|---|---|---|
+| 最低基线、传统模型、特征模型、开源大模型 | [work/D-reproduce.zh-CN.md](work/D-reproduce.zh-CN.md) 里的命令 | CPU；开源大模型需要 GPU |
+| BiLSTM | `python -m levellens.grid configs/grid/tier1_bilstm.txt` | GPU |
+| DeBERTa-v3 和 DistilBERT | `python -m levellens.grid configs/grid/tier1_transformers.txt` | GPU |
+| Optuna 搜索 | `python -m levellens.tune data=arc model=distilbert head=ce owner=E n_trials=12` | GPU |
+
+- 第一次运行 BiLSTM 时会下载 GloVe 词向量（480 MB）。Transformer 模型在第一次运行时下载权重。
+- 在网格命令后面加 `--list`，只打印其中的运行，不启动。
+
+### 5. 解释、检查和演示应用
+
+```bash
+python -m levellens.explain.errors
+python -m levellens.explain.local arc-distilbert-ce-s0
+python -m levellens.explain.transfer
+python -m levellens.export
+streamlit run app/streamlit_app.py
+```
+
+- 前四条命令需要第 4 步的数据集。第二、第三、第四条还需要保存好的模型：带 `save_model=true` 的运行会把模型保存到 `cache/models/<run id>/`。`arc-distilbert-ce-s0` 是 run id 的一个例子。
+- `levellens.explain.errors` 列出每个数据集最好的那次运行的最严重错误，用于 [docs/audit.zh-CN.md](docs/audit.zh-CN.md) 里的人工核对。
+- `levellens.explain.local` 计算一次运行的 LIME 线索词。
+- `levellens.explain.transfer` 计算迁移矩阵和 ScienceQA 外推。
+- `levellens.export` 检查每个保存的模型在加载之后给出同样的预测，并测量在 CPU 上每道题的用时。
+- 应用不需要训练好的模型。它的模型列表里始终有一个给出随意概率的占位模型，保存的模型会出现在它旁边。
+
 ## 仓库结构
 
 字母表示这个文件归哪一份工作。每个文件只有一个负责人。
@@ -98,31 +186,33 @@ levellens/                    Python 代码包
   data/                 A     race.py  arc.py  math_.py  scienceqa.py  toy.py   -> 统一格式
                               prepare.py 写出所有模型读取的数据划分文件
   features/             D     tfidf.py  linguistic.py
-                        E     glove.py  latex.py
+                        E     glove.py
   models/               A     base.py（模型约定）  floors.py（多数类，完整的例子）
                         D     classic.py  llm.py
-                        E     recurrent.py  transformer.py
-  heads/                E     ce.py  corn.py
+                        E     neural.py（训练循环）  recurrent.py  transformer.py
+  heads/                E     base.py  ce.py  corn.py
   explain/              D     global_shap.py
-                        F     local.py  errors.py
+                        F     local.py  errors.py  transfer.py
   evaluate.py           A     全部指标、bootstrap 区间
   figures.py            F     结果图和错误图
   predictor.py          A     实验和应用共用的 Predictor API
   results.py            A     runs.jsonl -> 表格
   run.py                A     python -m levellens.run data=arc model=deberta-v3 head=corn seed=0
+  grid.py  tune.py      E     运行网格文件里的每一行；Optuna 搜索
+  export.py             E     检查 Predictor 后面保存的模型
   config.py  paths.py   A     一次运行的配置；数据、缓存和结果文件夹
 configs/                A     目录结构；每个负责人添加自己模型的配置
-scripts/                C     download_data.py、stage_cache、作业模板
-notebooks/main.ipynb    A     先跑一个小的端到端示例，再重建所有表格
+scripts/                C     作业模板和下载脚本（还没有进 main）
+notebooks/main.ipynb    A     先跑一个小的端到端示例，再重建所有表格和图
 notebooks/data_checks.* B     docs/datasets.md 背后的数据检查
 app/                    F     streamlit_app.py、pages/
 tests/                  A     公共测试；每个负责人为自己的模块加测试
-results/                      runs.jsonl、表格、图
+results/                      runs.jsonl、保存的预测、表格、图
 docs/                   A、B  设计、接口、日程、协作规则、视频；B 添加数据集卡片、相关工作、人工核对
 work/                   A     六份工作
 ```
 
-代码骨架已经在 `main` 里。从 [docs/interfaces.zh-CN.md](docs/interfaces.zh-CN.md) 的“第一次运行”开始。
+模块之间的约定见 [docs/interfaces.zh-CN.md](docs/interfaces.zh-CN.md)：一道题的字段、模型约定、结果行和 Predictor。
 
 ## 规则摘要
 

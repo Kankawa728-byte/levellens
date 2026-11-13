@@ -89,6 +89,94 @@ These are the dates of the re-plan of Thu 12 Nov. The full schedule, day by day 
 
 The details are in [docs/design.md](docs/design.md).
 
+## Install and run
+
+You need git and Python 3.10 or newer. These steps were tested with Python 3.12 on Windows. Steps 1 to 3 need no GPU and no dataset.
+
+### 1. Install
+
+```bash
+git clone https://github.com/Kankawa728-byte/levellens.git
+cd levellens
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m pytest
+```
+
+- On Windows, type `.venv\Scripts\activate` in place of the fourth line.
+- The environment takes about 1.6 GB of disk with the CPU build of PyTorch on Windows.
+- `python -m pytest` takes less than a minute. Two tests need the downloaded datasets and are skipped until step 4.
+- On Windows, keep the repository in a short path such as `C:\work\levellens`. PyTorch has files with very long names, and the install stops with an error when a full path passes the Windows limit of 260 characters.
+- For runs on a GPU you need a CUDA build of PyTorch. The [PyTorch installation guide](https://pytorch.org/get-started/locally/) gives the command for your system.
+
+### 2. Run the small example
+
+```bash
+python -m levellens.run data=toy model=majority
+python -m levellens.run data=toy model=tfidf_logreg
+python -m levellens.run data=toy model=bilstm head=corn model.params.embeddings=random save_model=true
+python -m levellens.results --scratch
+```
+
+- The toy dataset is generated in memory, so nothing is downloaded. Each command takes a few seconds on a CPU.
+- Each run trains one model, prints its metrics and appends one row to `results/scratch/runs.jsonl`. The last command builds the tables in `results/scratch/tables/`. Open `leaderboards.md` in that folder: it has one line per model.
+- git ignores `results/scratch/`, so these try-outs never mix with the results of the project.
+
+The driver notebook [notebooks/main.ipynb](notebooks/main.ipynb) makes the same runs and explains each step. It then scores a new question, explains the prediction, and rebuilds the tables and figures of step 3. Open it in Jupyter or VS Code and run all cells, or run it from the command line. It takes about one minute.
+
+```bash
+jupyter nbconvert --to notebook --execute --inplace notebooks/main.ipynb
+```
+
+### 3. Rebuild the tables and figures
+
+```bash
+python -m levellens.results
+python -m levellens.figures
+```
+
+- Both commands read `results/runs.jsonl`, which holds one row per run, and the saved predictions in `results/preds/`. Both are in the repository, so no dataset and no model are needed.
+- The first command writes `results/tables/`: one CSV file per dataset and split, and `leaderboards.md` with all of them.
+- The second command writes `results/figures/`: the leaderboard, the confusion matrices, the cue words, the transfer matrix and the extrapolation figure.
+
+### 4. Train on the real datasets
+
+```bash
+python -m levellens.data.prepare
+python -m levellens.run data=math model=tfidf_logreg
+```
+
+- The first command downloads the four datasets and writes the split files. It needs about 1.2 GB of disk. It then compares every split with the fingerprints in `levellens/data/manifest.json` and stops if they differ, so every machine trains and tests on the same questions.
+- A run on a real dataset appends its row to `results/runs.jsonl`. To keep your runs apart from the rows in the repository, set the environment variable `LEVELLENS_RESULTS` to another folder first.
+
+| Models | How to train them | Runs on |
+|---|---|---|
+| Floors, classical models, feature model, open LLM | The commands in [work/D-reproduce.md](work/D-reproduce.md) | CPU; the open LLM needs a GPU |
+| BiLSTM | `python -m levellens.grid configs/grid/tier1_bilstm.txt` | GPU |
+| DeBERTa-v3 and DistilBERT | `python -m levellens.grid configs/grid/tier1_transformers.txt` | GPU |
+| Optuna search | `python -m levellens.tune data=arc model=distilbert head=ce owner=E n_trials=12` | GPU |
+
+- The first BiLSTM run downloads the GloVe word vectors (480 MB). The transformers download their weights on the first run.
+- Add `--list` to a grid command to print its runs without starting them.
+
+### 5. Explanations, checks and the demo app
+
+```bash
+python -m levellens.explain.errors
+python -m levellens.explain.local arc-distilbert-ce-s0
+python -m levellens.explain.transfer
+python -m levellens.export
+streamlit run app/streamlit_app.py
+```
+
+- The first four commands need the datasets of step 4. The second, third and fourth also need a saved model: a run with `save_model=true` saves its model in `cache/models/<run id>/`. `arc-distilbert-ce-s0` is an example of a run id.
+- `levellens.explain.errors` lists the worst errors of the best run of every dataset, for the human audit in [docs/audit.md](docs/audit.md).
+- `levellens.explain.local` computes the LIME cue words of one run.
+- `levellens.explain.transfer` computes the transfer matrix and the ScienceQA extrapolation.
+- `levellens.export` checks that every saved model gives the same predictions after it is loaded, and measures the time per question on the CPU.
+- The app needs no trained model. Its model list always holds a stand-in with made-up probabilities, and the saved models appear next to it.
+
 ## Repository layout
 
 The letter is the share that owns the file. Each file has one owner.
@@ -98,31 +186,33 @@ levellens/                    the Python package
   data/                 A     race.py  arc.py  math_.py  scienceqa.py  toy.py   -> one schema
                               prepare.py writes the split files that every model loads
   features/             D     tfidf.py  linguistic.py
-                        E     glove.py  latex.py
+                        E     glove.py
   models/               A     base.py (the model contract)  floors.py (majority, the worked example)
                         D     classic.py  llm.py
-                        E     recurrent.py  transformer.py
-  heads/                E     ce.py  corn.py
+                        E     neural.py (the training loop)  recurrent.py  transformer.py
+  heads/                E     base.py  ce.py  corn.py
   explain/              D     global_shap.py
-                        F     local.py  errors.py
+                        F     local.py  errors.py  transfer.py
   evaluate.py           A     all metrics, bootstrap intervals
   figures.py            F     result and error figures
   predictor.py          A     one Predictor API for the experiments and the app
   results.py            A     runs.jsonl -> tables
   run.py                A     python -m levellens.run data=arc model=deberta-v3 head=corn seed=0
+  grid.py  tune.py      E     run the lines of a grid file; Optuna search
+  export.py             E     check the saved models behind the Predictor
   config.py  paths.py   A     the config of a run; the data, cache and results folders
 configs/                A     layout; every owner adds the configs of their own models
-scripts/                C     download_data.py, stage_cache, job templates
-notebooks/main.ipynb    A     small end-to-end run, then rebuilds every table
+scripts/                C     job templates and download scripts (not in main yet)
+notebooks/main.ipynb    A     small end-to-end run, then rebuilds every table and figure
 notebooks/data_checks.* B     data checks behind docs/datasets.md
 app/                    F     streamlit_app.py, pages/
 tests/                  A     shared tests; every owner adds tests for their own modules
-results/                      runs.jsonl, tables, figures
+results/                      runs.jsonl, saved predictions, tables, figures
 docs/                   A, B  design, interfaces, schedule, workflow, video; B adds datasets, related work, audit
 work/                   A     the six shares
 ```
 
-The code skeleton is in `main`. Start with "First run" in [docs/interfaces.md](docs/interfaces.md).
+The contracts between the modules are in [docs/interfaces.md](docs/interfaces.md): the fields of an item, the model contract, the result row and the Predictor.
 
 ## Rules in short
 
