@@ -171,7 +171,58 @@ Task C5. After the grid, these are in `main`:
 Model weights are not committed, as the rules in [workflow.md](workflow.md) say. The DistilBERT
 checkpoint for the demo (share F) is handed over outside the repository.
 
-## 6. Reproducibility notes
+## 6. Efficiency and latency
+
+Task C6. The table is [results/tables/efficiency.md](../results/tables/efficiency.md), rebuilt by
+`python scripts/efficiency.py` from `runs.jsonl` and the latency reports. One line per model, one
+line per run, and the verdict on the two specifications this share owns.
+
+| | Measured | Limit | |
+|---|---|---|---|
+| **R6**, per fine-tune | 0.19 hours, the longest of 28 | 1 GPU-hour | pass |
+| **R6**, whole project | 0.89 GPU-hours | 20 GPU-hours | pass |
+| **R7**, one question on a CPU | 0.028 to 0.058 seconds over 4 saved DistilBERT models | 1 second | pass |
+
+The project limit counts GPU-hours only. On top of them the project spent 0.45 CPU-hours for the
+classical baselines and the feature model, and 0.41 hours on a laptop GPU for the first BiLSTM rows;
+the efficiency table lists the three kinds apart, because an hour of each is not the same thing.
+Read the GPU figure as what the project cost on this card, not as an Ampere figure: see section 1.
+
+The 20 transformer runs took 51 minutes of GPU time altogether, which is why 0.89 is so far inside
+the budget. The longest fine-tune of the whole project is not a transformer at all but the first
+BiLSTM run on MATH, on a laptop GPU.
+
+Latency, one question at a time, as the app scores a pasted question:
+
+| Model | On a CPU | On the GPU | In batches of 32 on the GPU |
+|---|---|---|---|
+| DistilBERT | 0.046 to 0.058 s | 0.003 s | 0.0003 s |
+| DeBERTa-v3 | not measured | 0.014 to 0.015 s | 0.0006 to 0.0011 s |
+
+- The CPU numbers come from `python -m levellens.export`, which is also the check of task E8. R7 asks
+  for a laptop CPU; these were measured on a compute node, so they are a server CPU. The one laptop
+  measurement in the repository, 0.028 s for the DistilBERT smoke model, was made by another share
+  and is in the same table. Both are more than an order of magnitude inside the limit, so the
+  verdict does not depend on which machine is meant.
+- The GPU numbers are `python scripts/latency.py --device cuda`. DeBERTa-v3 answers one question in
+  15 milliseconds, so the demo would feel instant on a GPU and still well under a second on a CPU.
+
+### One thing for share E, task E8
+
+`levellens.export` reports **same predictions False** for every saved model: the largest difference
+between the Predictor's probabilities and the ones the training run stored is 6.2e-03 to 2.4e-02,
+against the tolerance of 1e-03 in `levellens/export.py`.
+
+Saving and loading are not at fault. The same check with the model on the GPU, the precision the
+runs trained in, gives a largest difference of **3.0e-08** on all six models tested. The difference
+is bfloat16 against fp32: bfloat16 has an 8-bit mantissa, so the two agree to about the second or
+third decimal, not the fourth as the comment on `TOLERANCE` says. `scripts/measure.sbatch` runs both
+checks, the GPU one first.
+
+Whether to compare at the training precision or to widen the tolerance is share E's call;
+share C changed neither.
+
+## 7. Reproducibility notes
 
 Task C7. What someone needs to get the same numbers.
 
