@@ -6,6 +6,8 @@
 #   scripts/submit.sh run data=arc model=distilbert head=ce         one run (GPU)
 #   scripts/submit.sh grid configs/grid/tier1_transformers.txt 1-5  five runs in one job (GPU)
 #   scripts/submit.sh tune data=arc model=distilbert head=ce n_trials=12   Optuna search (GPU)
+#   scripts/submit.sh -r results measure cpu   seconds per question, and the efficiency table
+#   scripts/submit.sh clean                   follow the README in a new environment (C7)
 #
 #   -t TIME      wall-clock limit; the default comes from scripts/site.env
 #   -g GRES      the GPU request, for example gpu:1; the default comes from scripts/site.env
@@ -48,7 +50,11 @@ case $KIND in
   run)   SCRIPT=scripts/job.sbatch;   NEEDS_GPU=1; TIME=${TIME:-${LEVELLENS_JOB_TIME:-01:00:00}} ;;
   grid)  SCRIPT=scripts/grid.sbatch;  NEEDS_GPU=1; TIME=${TIME:-${LEVELLENS_GRID_TIME:-06:00:00}} ;;
   tune)  SCRIPT=scripts/tune.sbatch;  NEEDS_GPU=1; TIME=${TIME:-${LEVELLENS_TUNE_TIME:-06:00:00}} ;;
-  *)     echo "First argument: setup, fetch, run, grid or tune."; echo; usage; exit 2 ;;
+  # measure cpu is a CPU job and measure gpu is a GPU job; the mode is its first argument.
+  clean) SCRIPT=scripts/clean_check.sbatch; NEEDS_GPU=0; TIME=${TIME:-03:00:00} ;;
+  measure) SCRIPT=scripts/measure.sbatch; TIME=${TIME:-02:00:00}
+           [ "${1:-}" = gpu ] && NEEDS_GPU=1 || NEEDS_GPU=0 ;;
+  *)     echo "First argument: setup, fetch, run, grid, tune, measure or clean."; echo; usage; exit 2 ;;
 esac
 
 OPTIONS=(--time="$TIME" --job-name="${NAME:-levellens-$KIND}")
