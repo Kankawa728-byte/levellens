@@ -32,7 +32,8 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--list", action="store_true", help="print the numbered commands and stop")
     parser.add_argument("--only", metavar="N,N", help="run these lines only, counted from 1, for example 3 or 3,7")
     parser.add_argument("extra", nargs="*", help="overrides added to every run, for example device=cuda:1")
-    args = parser.parse_args(argv)
+    # Allow overrides after --list/--only, as shown in the share E tests and GPU hand-off commands.
+    args = parser.parse_intermixed_args(argv)
 
     runs = read_grid(args.grid)
     chosen = [int(number) for number in args.only.split(",")] if args.only else range(1, len(runs) + 1)

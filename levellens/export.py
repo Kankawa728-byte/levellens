@@ -1,6 +1,6 @@
 """Check the saved models behind the Predictor API (task E8).
 
-    python -m levellens.export                              # the best saved model of every dataset, by dev QWK
+    python -m levellens.export                              # best saved model per dataset, plus ARC DistilBERT for the demo
     python -m levellens.export arc-distilbert-ce-s0 ...     # these runs
 
 A run with `save_model=true` writes its model to `<LEVELLENS_CACHE>/models/<run_id>/`, and
@@ -16,6 +16,7 @@ to `results/export/<run_id>.json`:
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 
@@ -32,20 +33,35 @@ R7_SECONDS = 1.0
 
 
 def best_saved_runs() -> list[str]:
-    """Return, for every dataset, the run with the best dev QWK among the runs whose model is saved here."""
+    """Return the best saved run per dataset and the best saved ARC DistilBERT for the demo."""
     best: dict[str, dict] = {}
+    demo: dict | None = None
     for row in load_rows():
         score = (row["metrics"].get("dev") or {}).get("qwk")
         if score is None or not (model_folder(row["run_id"]) / CARD).exists():
             continue
         if row["dataset"] not in best or score > best[row["dataset"]]["metrics"]["dev"]["qwk"]:
             best[row["dataset"]] = row
-    return [row["run_id"] for row in best.values()]
+        if row["dataset"] == "arc" and row["model"] == "distilbert":
+            if demo is None or score > demo["metrics"]["dev"]["qwk"]:
+                demo = row
+    run_ids = [row["run_id"] for row in best.values()]
+    if demo is not None and demo["run_id"] not in run_ids:
+        run_ids.append(demo["run_id"])
+    return run_ids
 
 
 def check(run_id: str) -> dict:
     """Compare the Predictor with the stored predictions of a run and time it on the CPU."""
-    predictor = Predictor.load(run_id)  # on the CPU unless LEVELLENS_DEVICE is set
+    previous_device = os.environ.get("LEVELLENS_DEVICE")
+    os.environ["LEVELLENS_DEVICE"] = "cpu"
+    try:
+        predictor = Predictor.load(run_id)
+    finally:
+        if previous_device is None:
+            os.environ.pop("LEVELLENS_DEVICE", None)
+        else:
+            os.environ["LEVELLENS_DEVICE"] = previous_device
     dataset = json.loads((model_folder(run_id) / CARD).read_text(encoding="utf-8"))["dataset"]
     stored = load_predictions(run_id)
     split = "test" if "test" in stored else next(iter(stored))
