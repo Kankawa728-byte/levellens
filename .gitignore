@@ -45,3 +45,7 @@ Thumbs.db
 
 # Try-out runs on the toy dataset
 results/scratch/
+
+# Site settings of the machine that runs the jobs (share C): paths and account names
+# stay out of the public repository.
+/scripts/site.env

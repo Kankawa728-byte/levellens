@@ -1,0 +1,94 @@
+# C2: copy the read-only caches to the local disk of the compute node, then point the run at them.
+#
+#   source scripts/stage_cache            # in a job script, after the environment is activated
+#   source scripts/stage_cache /dev/shm/levellens-mine
+#
+# Shared storage is one network hop away from every read. The split files never change while a job
+# runs, so they are copied once into node-local storage and read from there. Nothing is copied back.
+#
+# What it stages:
+#   $LEVELLENS_DATA/processed    the split files. Always, when there is room
+#   $HF_HOME                    the model weights. Only when LEVELLENS_STAGE_WEIGHTS=1, because a
+#                               run reads each weight file once and the cache can be 10 GB
+#
+# What it never stages, because runs write there and the files must outlive the job:
+#   $LEVELLENS_CACHE   the tokenised splits, the saved models and the Optuna study
+#   $LEVELLENS_RESULTS the result rows, the predictions and the tables
+#
+# Settings, all optional:
+#   LEVELLENS_STAGE_ROOT      where to stage. Default: $SLURM_TMPDIR, else $TMPDIR, else /tmp.
+#                             Set it to a folder that is really on the node, for example /dev/shm;
+#                             a $TMPDIR that points back at shared storage gains nothing
+#   LEVELLENS_STAGE_WEIGHTS   1 to stage the Hugging Face cache as well
+#   LEVELLENS_STAGE_MAX_MB    largest copy, in MB. Default 4000. A folder above it is left in place,
+#                             which matters on a RAM disk such as /dev/shm
+#
+# The script is safe to source anywhere: when there is no local folder, not enough space or nothing
+# to stage, it leaves every variable as it was and says so, and the job reads from shared storage.
+# Sourcing it twice stages nothing a second time. The staged copy is removed when the job ends.
+
+if [ -n "${LEVELLENS_STAGED:-}" ]; then
+  echo "[stage] already staged into $LEVELLENS_STAGED"
+else
+  _stage_parent="${1:-${LEVELLENS_STAGE_ROOT:-${SLURM_TMPDIR:-${TMPDIR:-/tmp}}}}"
+  _stage_root="$_stage_parent/levellens-stage-${SLURM_JOB_ID:-$$}"
+  _stage_max_mb=$(( ${LEVELLENS_STAGE_MAX_MB:-4000} ))
+  _stage_sources=""
+  [ -d "${LEVELLENS_DATA:-/nonexistent}/processed" ] && _stage_sources="data"
+  if [ "${LEVELLENS_STAGE_WEIGHTS:-0}" = 1 ] && [ -d "${HF_HOME:-/nonexistent}" ]; then
+    _stage_sources="$_stage_sources hf"
+  fi
+
+  if [ -z "$_stage_sources" ]; then
+    echo "[stage] nothing to stage; reading from shared storage." \
+         "Run scripts/download_data.py when the splits are missing."
+  elif ! mkdir -p "$_stage_root" 2>/dev/null; then
+    echo "[stage] cannot create $_stage_root; reading from shared storage"
+  else
+    _stage_t0=$(date +%s)
+    _stage_free_mb=$(df -Pm "$_stage_parent" 2>/dev/null | awk 'NR==2 {print $4}')
+    _stage_any=0
+    for _stage_part in $_stage_sources; do
+      case $_stage_part in
+        data) _stage_from=$LEVELLENS_DATA/processed; _stage_to=$_stage_root/data ;;
+        hf)   _stage_from=$HF_HOME;                  _stage_to=$_stage_root/hf   ;;
+      esac
+      _stage_size_mb=$(du -sm "$_stage_from" 2>/dev/null | cut -f1)
+      _stage_size_mb=${_stage_size_mb:-0}
+      if [ "$_stage_size_mb" -gt "$_stage_max_mb" ]; then
+        echo "[stage] $_stage_part is ${_stage_size_mb} MB, over the limit of ${_stage_max_mb} MB;" \
+             "reading it from shared storage"
+        continue
+      fi
+      if [ -n "$_stage_free_mb" ] && [ "$_stage_free_mb" -lt $(( _stage_size_mb + 200 )) ]; then
+        echo "[stage] $_stage_parent has ${_stage_free_mb} MB free, $_stage_part needs ${_stage_size_mb} MB;" \
+             "reading it from shared storage"
+        continue
+      fi
+      mkdir -p "$(dirname "$_stage_to")"
+      if cp -r "$_stage_from" "$_stage_to"; then
+        case $_stage_part in
+          data) export LEVELLENS_DATA=$_stage_root/data_root
+                mkdir -p "$LEVELLENS_DATA" && mv "$_stage_to" "$LEVELLENS_DATA/processed"
+                echo "[stage] splits  -> $LEVELLENS_DATA/processed (${_stage_size_mb} MB)" ;;
+          hf)   export HF_HOME=$_stage_to
+                echo "[stage] weights -> $HF_HOME (${_stage_size_mb} MB)" ;;
+        esac
+        _stage_any=1
+        _stage_free_mb=$(( ${_stage_free_mb:-0} - _stage_size_mb ))
+      else
+        echo "[stage] could not copy $_stage_part; reading it from shared storage"
+      fi
+    done
+    if [ "$_stage_any" = 1 ]; then
+      export LEVELLENS_STAGED="$_stage_root"
+      trap 'rm -rf "'"$_stage_root"'"' EXIT TERM INT
+      echo "[stage] done in $(( $(date +%s) - _stage_t0 )) s"
+    else
+      rmdir "$_stage_root" 2>/dev/null
+      echo "[stage] nothing was staged; the job reads from shared storage"
+    fi
+  fi
+  unset _stage_parent _stage_root _stage_max_mb _stage_sources _stage_part _stage_from _stage_to \
+        _stage_size_mb _stage_free_mb _stage_any _stage_t0
+fi

@@ -1,0 +1,18 @@
+# Smoke job (task C3, owner C): one tiny run of each model family that needs a GPU.
+#
+#   scripts/submit.sh -r results/smoke grid configs/grid/smoke_gpu.txt
+#
+# It answers one question: can this GPU node train, score and write a row for every family, with
+# the weights read from the offline cache? Nothing here is a result of the project, so the rows go
+# to a results store of their own. `-r results/smoke` does that, and git ignores the folder.
+#
+# Order: DistilBERT first, because it is the fastest and the one the demo uses. Then the BiLSTM,
+# which also proves that the GloVe vectors are in the cache. Then the open LLM, which proves that
+# the 8 GB checkpoint loads and that the label letters are single tokens on this machine.
+#
+# About twelve minutes in total on one modern card. If a line fails, `levellens.grid` carries on
+# with the next one and names the failed lines at the end.
+
+data=arc model=distilbert      head=ce   seed=0 owner=C variant=smoke limit_train=400 model.params.epochs=1 model.params.max_minutes=10
+data=arc model=bilstm          head=corn seed=0 owner=C variant=smoke limit_train=400 model.params.epochs=2 model.params.max_minutes=10
+data=arc model=qwen_zero_shot  head=none seed=0 owner=C variant=smoke eval_splits=[test_1k] model.params.dev_sample_size=20
