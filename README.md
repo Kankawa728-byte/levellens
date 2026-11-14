@@ -202,7 +202,8 @@ levellens/                    the Python package
   export.py             E     check the saved models behind the Predictor
   config.py  paths.py   A     the config of a run; the data, cache and results folders
 configs/                A     layout; every owner adds the configs of their own models
-scripts/                C     job templates and download scripts (not in main yet)
+scripts/                C     job templates, download and staging scripts, efficiency table
+                              submit.sh -> setup.sbatch  fetch.sbatch  job.sbatch  grid.sbatch
 notebooks/main.ipynb    A     small end-to-end run, then rebuilds every table and figure
 notebooks/data_checks.* B     data checks behind docs/datasets.md
 app/                    F     streamlit_app.py, pages/
@@ -237,3 +238,4 @@ The full rules are in [docs/workflow.md](docs/workflow.md).
 | [docs/datasets.md](docs/datasets.md) | Dataset cards: counts per level, lengths, exact repeats, licences |
 | [docs/related_work.md](docs/related_work.md) | Published baselines, checked against the papers and their code |
 | [docs/audit.md](docs/audit.md) | Human audit of the 15 worst errors: rules and worksheet |
+| [docs/compute.md](docs/compute.md) | The machine, the run log, the efficiency table and the reproducibility notes |

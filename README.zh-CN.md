@@ -202,7 +202,8 @@ levellens/                    Python 代码包
   export.py             E     检查 Predictor 后面保存的模型
   config.py  paths.py   A     一次运行的配置；数据、缓存和结果文件夹
 configs/                A     目录结构；每个负责人添加自己模型的配置
-scripts/                C     作业模板和下载脚本（还没有进 main）
+scripts/                C     作业模板、下载与暂存脚本、效率表
+                              submit.sh -> setup.sbatch  fetch.sbatch  job.sbatch  grid.sbatch
 notebooks/main.ipynb    A     先跑一个小的端到端示例，再重建所有表格和图
 notebooks/data_checks.* B     docs/datasets.md 背后的数据检查
 app/                    F     streamlit_app.py、pages/
@@ -237,3 +238,4 @@ work/                   A     六份工作
 | [docs/datasets.zh-CN.md](docs/datasets.zh-CN.md) | 数据集卡片：各等级题数、长度、完全重复、许可证 |
 | [docs/related_work.zh-CN.md](docs/related_work.zh-CN.md) | 已发表的基线结果，已对照论文和公开代码核对 |
 | [docs/audit.zh-CN.md](docs/audit.zh-CN.md) | 15 个最严重错误的人工核对：规则和记录表 |
+| [docs/compute.zh-CN.md](docs/compute.zh-CN.md) | 机器、运行记录、效率表和复现性说明 |
