@@ -9,7 +9,7 @@ Group project of Table 38, six members. Hard deadline: **Sun 15 Nov 2026, 23:59*
 <!-- board:start -->
 ## Live status: who waits for whom
 
-A program rebuilds this table from the files in the repository and from the reports in the six share issues. Last change: Sat 14 Nov 18:10.
+A program rebuilds this table from the files in the repository and from the reports in the six share issues. Last change: Sat 14 Nov 18:22.
 
 **Most people wait for:** Qiutian · result rows of the Tier 1 grid (0 / 20 runs) · by Sat 14 Nov 10:00. Waiting, directly or through someone else: everyone.
 
@@ -28,7 +28,7 @@ A program rebuilds this table from the files in the repository and from the repo
 | Own recording | Xingyang | Sat 14 Nov 23:59 | everyone |
 | Lines for the reflection document | Wenyue | Sun 15 Nov 10:00 | everyone |
 
-Pull requests waiting for the lead's review: [#12](https://github.com/Kankawa728-byte/levellens/pull/12) by Ericaa001.
+Pull requests waiting for the lead's review: none.
 
 - **Finished something?** Comment `done C4` on the issue of your share: [A](https://github.com/Kankawa728-byte/levellens/issues/1), [B](https://github.com/Kankawa728-byte/levellens/issues/2), [C](https://github.com/Kankawa728-byte/levellens/issues/3), [D](https://github.com/Kankawa728-byte/levellens/issues/4), [E](https://github.com/Kankawa728-byte/levellens/issues/5), [F](https://github.com/Kankawa728-byte/levellens/issues/6). Several at once: `done C1 C2`. What everyone hands in: `done slides`, `done recording`, `done reflection`. To take one back: `undo C4`.
 - 🟢 the next task can be done now. 🟡 the next task waits for someone, a later one can be done. 🔴 every open task waits for someone.
