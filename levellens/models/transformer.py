@@ -19,6 +19,7 @@ What this file adds to the shared loop in `levellens/models/neural.py`:
 from __future__ import annotations
 
 import hashlib
+import os
 from pathlib import Path
 
 import torch
@@ -91,7 +92,11 @@ class Transformer(NeuralModel):
         rows = self.tokenizer(strings, truncation=True, max_length=self.params["max_length"], padding=False)["input_ids"]
         if path is not None:
             path.parent.mkdir(parents=True, exist_ok=True)
-            torch.save(rows, path)
+            # Two jobs of a grid can tokenise the same split at the same time. Each writes a file of
+            # its own and moves it into place, so a reader never sees a half-written cache file.
+            temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+            torch.save(rows, temporary)
+            os.replace(temporary, path)
         return rows
 
     def build_encoder(self) -> TransformerEncoder:
