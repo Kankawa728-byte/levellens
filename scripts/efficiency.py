@@ -20,7 +20,9 @@ What goes in:
   of R6 is checked for every fine-tune, whichever device it ran on; the project limit counts the
   GPU-hours only.
 - `export/<run_id>.json`, written by `python -m levellens.export`, gives the seconds per question
-  on the CPU of the saved models. That is the measurement R7 asks for.
+  on the CPU of the saved models. That is the measurement R7 asks for. Where several models were
+  timed, the slowest decides the verdict and the slowest fills the column: a limit is met only if
+  every measurement meets it.
 - `latency/<run_id>__<device>.json`, written by `python scripts/latency.py`, gives the seconds per
   question on any other device, for example DeBERTa-v3 on the GPU.
 
@@ -164,8 +166,10 @@ def model_table(runs: list[dict], measured: dict[tuple[str, str], float]) -> lis
             "longest_train_seconds": round(max(trains), 1),
             "max_run_hours": round(max(run["compute_hours"] for run in group), 3),
             "total_hours": round(sum(run["compute_hours"] for run in group), 3),
-            "cpu_seconds_per_question": round(min(cpu), 4) if cpu else "",
-            "gpu_seconds_per_question": round(min(gpu), 4) if gpu else "",
+            # The slowest of the measurements, not the fastest: a limit is met only if every
+            # measurement meets it.
+            "cpu_seconds_per_question": round(max(cpu), 4) if cpu else "",
+            "gpu_seconds_per_question": round(max(gpu), 4) if gpu else "",
         })
     return table
 
@@ -193,8 +197,11 @@ def verdicts(runs: list[dict], measured: dict[tuple[str, str], float]) -> dict:
         "R7": {
             "model": R7_MODEL,
             "seconds_per_question": {run_id: seconds for run_id, seconds in sorted(r7.items())},
-            "best": round(min(r7.values()), 4) if r7 else None,
-            "pass": bool(r7) and min(r7.values()) <= R7_SECONDS,
+            # The slowest measurement decides, so the verdict does not rest on the best machine or
+            # the smallest model that happened to be timed.
+            "slowest": round(max(r7.values()), 4) if r7 else None,
+            "fastest": round(min(r7.values()), 4) if r7 else None,
+            "pass": bool(r7) and max(r7.values()) <= R7_SECONDS,
             "measured": bool(r7),
         },
     }
@@ -250,9 +257,13 @@ def report(models: list[dict], runs: list[dict], checks: dict) -> str:
     if not r7["measured"]:
         lines.append(f"- **R7**: not measured yet. Run `python -m levellens.export` on a saved {R7_MODEL} model.")
     else:
+        measurements = len(r7["seconds_per_question"])
+        spread = (f"{r7['slowest']:.3f} seconds per question" if measurements == 1 else
+                  f"{r7['fastest']:.3f} to {r7['slowest']:.3f} seconds per question over "
+                  f"{measurements} saved models")
         lines.append(
-            f"- **R7 {'pass' if r7['pass'] else 'FAIL'}**: {r7['best']:.3f} seconds per question on the CPU "
-            f"({R7_MODEL}, one question at a time), against a limit of {R7_SECONDS:.0f} second."
+            f"- **R7 {'pass' if r7['pass'] else 'FAIL'}**: {spread} on the CPU ({R7_MODEL}, one question at "
+            f"a time), against a limit of {R7_SECONDS:.0f} second. The slowest measurement decides."
         )
     lines += ["", "## One line per model", "", _markdown(models, MODEL_COLUMNS, MODEL_TITLES),
               "", "## One line per run", "", "R6 is checked per run, so every run is listed. The column R6 is "

@@ -128,13 +128,28 @@ def test_r7_uses_the_cpu_measurement_of_distilbert(tmp_path):
     measured = efficiency.latencies(store)
     checks = efficiency.verdicts(runs, measured)
     assert checks["R7"]["pass"] is True
-    assert checks["R7"]["best"] == 0.4
+    assert checks["R7"]["slowest"] == 0.4
 
     models = efficiency.model_table(runs, measured)
     by_name = {one["model"]: one for one in models}
     assert by_name["distilbert"]["cpu_seconds_per_question"] == 0.4
     assert by_name["distilbert"]["gpu_seconds_per_question"] == ""
     assert by_name["deberta-v3"]["gpu_seconds_per_question"] == 0.02
+
+
+def test_r7_and_the_table_take_the_slowest_measurement(tmp_path):
+    """A limit is met only if every measurement meets it, so one slow model decides."""
+    store = write_store(
+        tmp_path / "results", [row("arc-distilbert-ce-s0", "distilbert")],
+        export=[{"run_id": "arc-distilbert-ce-s0", "device": "cpu", "seconds_per_question": 0.2},
+                {"run_id": "arc-distilbert-ce-s0", "device": "cpu", "seconds_per_question": 1.4}],
+    )
+    runs = efficiency.run_table(efficiency.load_rows(store))
+    measured = efficiency.latencies(store)
+    checks = efficiency.verdicts(runs, measured)
+    assert checks["R7"]["slowest"] == 1.4
+    assert checks["R7"]["fastest"] == 1.4   # one file per run and device: the newest file wins
+    assert checks["R7"]["pass"] is False
 
 
 def test_r7_fails_over_one_second(tmp_path):
