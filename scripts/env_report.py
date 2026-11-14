@@ -86,7 +86,10 @@ def collect() -> dict:
         "host_kind": "GPU node" if nvidia_smi() else "CPU node",
         "slurm_job": os.environ.get("SLURM_JOB_ID", ""),
         "slurm_gpus": os.environ.get("SLURM_JOB_GRES", os.environ.get("SLURM_GPUS_ON_NODE", "")),
-        "cpus": os.environ.get("SLURM_CPUS_PER_TASK", str(os.cpu_count())),
+        # What the scheduler gave this job, which is not what the node has. Schedulers that hand out
+        # whole GPUs set the cores themselves, and then SLURM_CPUS_PER_TASK is not set at all.
+        "cpus": (os.environ.get("SLURM_CPUS_PER_TASK") or os.environ.get("SLURM_CPUS_ON_NODE")
+                 or f"{os.cpu_count()} (the whole node; the scheduler did not say)"),
         "platform": platform.platform(),
         "python": sys.version.split()[0],
         "python_executable": sys.executable,

@@ -1,7 +1,11 @@
 # C2: copy the read-only caches to the local disk of the compute node, then point the run at them.
 #
-#   source scripts/stage_cache            # in a job script, after the environment is activated
-#   source scripts/stage_cache /dev/shm/levellens-mine
+#   source scripts/stage_cache                                   # in a job script
+#   LEVELLENS_STAGE_ROOT=/dev/shm source scripts/stage_cache      # a folder of your choosing
+#
+# Where to stage comes from LEVELLENS_STAGE_ROOT, never from an argument: a sourced script sees the
+# positional parameters of the script that sourced it, so `source scripts/stage_cache` inside a job
+# would read the job's own first argument as the folder to stage into.
 #
 # Shared storage is one network hop away from every read. The split files never change while a job
 # runs, so they are copied once into node-local storage and read from there. Nothing is copied back.
@@ -30,7 +34,7 @@
 if [ -n "${LEVELLENS_STAGED:-}" ]; then
   echo "[stage] already staged into $LEVELLENS_STAGED"
 else
-  _stage_parent="${1:-${LEVELLENS_STAGE_ROOT:-${SLURM_TMPDIR:-${TMPDIR:-/tmp}}}}"
+  _stage_parent="${LEVELLENS_STAGE_ROOT:-${SLURM_TMPDIR:-${TMPDIR:-/tmp}}}"
   _stage_root="$_stage_parent/levellens-stage-${SLURM_JOB_ID:-$$}"
   _stage_max_mb=$(( ${LEVELLENS_STAGE_MAX_MB:-4000} ))
   _stage_sources=""

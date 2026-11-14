@@ -20,7 +20,36 @@ GPU 运行：学校的共享 GPU 集群，调度器是 Slurm。登录节点只�
 `results/runs.jsonl` 里每一行的 `device` 字段说明这次运行用的是哪一类机器，效率表按类分别统计小时数。
 
 <!-- machine:start -->
-还没填。在跑作业的机器上执行 `python scripts/env_report.py` 就会打印这张表；每个作业日志的开头都是它。
+下面的版本是 2026 年 11 月 14 日 smoke 作业开头 `python scripts/env_report.py` 打印的内容。
+每个作业日志都以这张表开头，所以每次运行都能追到它跑在哪台机器上。
+
+| 什么 | 值 |
+|---|---|
+| GPU | NVIDIA GeForce RTX 5090，32,607 MiB，计算能力 12.0 |
+| 驱动 | 595.71.05 |
+| 操作系统 | Linux 6.8.0，glibc 2.39 |
+| Python | 3.12.9，项目目录上的虚拟环境 |
+| PyTorch | 2.11.0+cu128，按 CUDA 12.8 构建。能看到 GPU，支持 bfloat16 |
+| transformers | 4.57.6 |
+| tokenizers | 0.22.2 |
+| datasets | 5.2.0 |
+| numpy | 2.5.4 |
+| pandas | 3.1.1 |
+| scikit-learn | 1.9.1 |
+| optuna | 5.0.0 |
+| lightgbm | 4.7.0 |
+
+关于版本的两点说明：
+
+- **这张卡不是 Ampere。** R6 要求的是 Ampere 级别的卡上 20 GPU 小时，并允许换卡但要如实报告实际
+  小时数，效率表就是这么做的。集群的 Ampere 卡当时全被占满。这张卡更新更快，所以我们的小时数
+  **低于**同样的运行在 Ampere 卡上的开销：在这里通过 20 小时的预算，并不能证明在 Ampere 上也能通过，
+  而且低多少没有测。这个数字应读作这个项目在这张卡上的实际开销（这是 R6 允许的），而不是 Ampere 的数字。
+- **transformers 钉在 4.57.6**，不是最新版。`requirements.txt` 给的是下界，所以 pip 会装 5.23.0，
+  而 `levellens/models/llm.py` 是按 `>=4.57.1,<5` 写的，分工 D 的结果行也是用 4.57.6 产出的。
+  这个钉住写在 `scripts/site.env` 的 `LEVELLENS_PIP_EXTRA` 里，这样各分工的数字来自同一个版本，
+  `requirements.txt` 也保持组长写的样子。Blackwell 的卡需要 cu128 构建的 PyTorch，
+  对应 `LEVELLENS_TORCH_INDEX`。
 <!-- machine:end -->
 
 ## 2. 一次运行是怎么到 GPU 上的
@@ -93,7 +122,24 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 `logs/submissions.tsv`，`python scripts/runlog.py` 向调度器查询状态并打印这张表。
 
 <!-- runlog:start -->
-还没填。
+`scripts/submit.sh` 把每次提交写入 `logs/submissions.tsv`，
+`python scripts/runlog.py` 向调度器查询状态并打印这张表。
+
+| Submitted | Kind | Job | What | State | Elapsed |
+|---|---|---|---|---|---|
+| 2026-11-14 08:07:24 | setup | 1738348 | levellens-setup | FAILED (1:0) | 00:00:14 |
+| 2026-11-14 08:07:30 | fetch | 1738349 | --all | CANCELLED | 00:00:00 |
+| 2026-11-14 08:10:57 | setup | 1738361 | levellens-setup | COMPLETED | 00:06:37 |
+| 2026-11-14 08:10:57 | fetch | 1738362 | --all | COMPLETED | 00:03:18 |
+| 2026-11-14 08:22:25 | setup | 1738385 | levellens-setup | COMPLETED | 00:01:44 |
+| 2026-11-14 08:22:25 | fetch | 1738386 | --check | COMPLETED | 00:00:12 |
+| 2026-11-14 08:22:25 | grid | 1738387 | configs/grid/smoke_gpu.txt | COMPLETED | 00:04:14 |
+
+第一个 setup 作业把 PyTorch 装到了错误的位置而失败；会导致这种情况的三条路径写在第 3 节，都已修好。
+第二个 setup 作业建好了环境并跑了测试：111 通过，2 跳过（就是需要数据划分的那两个）。fetch 作业下载了
+四个数据集、两个 encoder、GloVe 和 8 GB 的开放 LLM，它的离线检查在关掉 hub 的情况下加载了每一个划分和
+每一个模型。第三个 setup 作业钉住了 transformers 版本，紧随其后的 fetch 在该版本下重跑了离线检查。
+smoke 作业为三个需要 GPU 的模型族各自完成了训练、打分和写行，在一张卡上用了四分钟。
 <!-- runlog:end -->
 
 ## 5. 交回给其他分工的东西

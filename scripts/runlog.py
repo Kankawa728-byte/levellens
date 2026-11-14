@@ -64,7 +64,9 @@ def rows(path: Path = LOG, unfinished_only: bool = False) -> list[dict[str, str]
     table = []
     for entry in entries:
         state = states.get(entry["job_id"], {})
-        name = state.get("State", "")
+        # sacct writes "CANCELLED by 12345", the numeric id of whoever cancelled it. This table goes
+        # into a page of a public repository, so the id is dropped.
+        name = state.get("State", "").split(" by ")[0]
         if state.get("ExitCode", "0:0") not in ("0:0", "") and name.startswith("FAILED"):
             name = f"{name} ({state['ExitCode']})"
         if unfinished_only and not any(name.startswith(open_state) for open_state in UNFINISHED):

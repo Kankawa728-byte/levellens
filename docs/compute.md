@@ -23,8 +23,38 @@ members' own laptops. The `device` field of every row in `results/runs.jsonl` sa
 kind a run used, and the efficiency table counts the hours per kind.
 
 <!-- machine:start -->
-Not filled in yet. `python scripts/env_report.py` prints this table on the machine that runs the
-jobs; every job log starts with it.
+The versions below are what `python scripts/env_report.py` printed at the start of the smoke job on
+14 Nov 2026. Every job log starts with this table, so each run can be traced to the machine it ran on.
+
+| What | Value |
+|---|---|
+| GPU | NVIDIA GeForce RTX 5090, 32,607 MiB, compute capability 12.0 |
+| Driver | 595.71.05 |
+| Operating system | Linux 6.8.0, glibc 2.39 |
+| Python | 3.12.9, in a virtual environment on the project directory |
+| PyTorch | 2.11.0+cu128, built for CUDA 12.8. Sees the GPU, bfloat16 supported |
+| transformers | 4.57.6 |
+| tokenizers | 0.22.2 |
+| datasets | 5.2.0 |
+| numpy | 2.5.4 |
+| pandas | 3.1.1 |
+| scikit-learn | 1.9.1 |
+| optuna | 5.0.0 |
+| lightgbm | 4.7.0 |
+
+Two notes on the versions:
+
+- **The card is not Ampere.** R6 asks for 20 GPU-hours on an Ampere-class card and allows another
+  card if the actual hours are reported, which is what the efficiency table does. The Ampere cards
+  of the cluster were fully booked. This card is newer and faster, so our hours are **lower** than
+  the same runs would cost on an Ampere card: passing the 20-hour budget here does not prove that
+  it would be passed on Ampere, and how much lower is not measured. Read the number as what the
+  project actually cost on this card, which is what R6 allows, and not as an Ampere figure.
+- **transformers is pinned to 4.57.6**, not the newest release. `requirements.txt` gives lower
+  bounds, so pip installs 5.23.0, while `levellens/models/llm.py` is written for `>=4.57.1,<5` and
+  share D's rows were produced with 4.57.6. The pin is `LEVELLENS_PIP_EXTRA` in `scripts/site.env`,
+  so every share's numbers come from the same version and `requirements.txt` stays as the lead
+  wrote it. A Blackwell card needs a cu128 build of PyTorch, which is `LEVELLENS_TORCH_INDEX`.
 <!-- machine:end -->
 
 ## 2. How a run gets to the GPU
@@ -104,7 +134,26 @@ submission to `logs/submissions.tsv`, and `python scripts/runlog.py` asks the sc
 state and prints this table.
 
 <!-- runlog:start -->
-Not filled in yet.
+`scripts/submit.sh` writes every submission to `logs/submissions.tsv`, and
+`python scripts/runlog.py` asks the scheduler for the state and prints this table.
+
+| Submitted | Kind | Job | What | State | Elapsed |
+|---|---|---|---|---|---|
+| 2026-11-14 08:07:24 | setup | 1738348 | levellens-setup | FAILED (1:0) | 00:00:14 |
+| 2026-11-14 08:07:30 | fetch | 1738349 | --all | CANCELLED | 00:00:00 |
+| 2026-11-14 08:10:57 | setup | 1738361 | levellens-setup | COMPLETED | 00:06:37 |
+| 2026-11-14 08:10:57 | fetch | 1738362 | --all | COMPLETED | 00:03:18 |
+| 2026-11-14 08:22:25 | setup | 1738385 | levellens-setup | COMPLETED | 00:01:44 |
+| 2026-11-14 08:22:25 | fetch | 1738386 | --check | COMPLETED | 00:00:12 |
+| 2026-11-14 08:22:25 | grid | 1738387 | configs/grid/smoke_gpu.txt | COMPLETED | 00:04:14 |
+
+The first setup job failed after installing PyTorch into the wrong place; the three ways that can
+happen are in section 3 and are fixed. The second setup job built the environment and ran the
+tests: 111 passed, 2 skipped, the two that need the splits. The fetch job downloaded the four
+datasets, the two encoders, GloVe and the 8 GB open LLM, and its offline check loaded every split
+and every model with the hub switched off. The third setup job pinned transformers, and the fetch
+after it repeated the offline check under that version. The smoke job trained, scored and wrote a
+row for each of the three families that need a GPU, in four minutes on one card.
 <!-- runlog:end -->
 
 ## 5. What goes back to the other shares
