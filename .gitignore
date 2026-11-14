@@ -46,6 +46,11 @@ Thumbs.db
 # Try-out runs on the toy dataset
 results/scratch/
 
+# The smoke job and the per-job results stores of the GPU jobs (share C). Their rows are merged
+# into results/runs.jsonl by scripts/collect.py; the stores themselves are not results.
+/results/smoke/
+/results/jobs/
+
 # Site settings of the machine that runs the jobs (share C): paths and account names
 # stay out of the public repository.
 /scripts/site.env
