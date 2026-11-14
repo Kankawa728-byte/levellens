@@ -42,6 +42,14 @@ If the video is too long, we cut content. We do not cut a speaker.
 - Say "target level". Never claim difficulty measured on students.
 - Every number on a slide comes from a table built from `results/runs.jsonl`.
 
+How to use the template:
+
+- The template is one deck in storyboard order. Open it in the desktop version of PowerPoint. The fonts are inside the file, so you install nothing.
+- Find the section of your part. Replace the draft text on your slides. Delete the red Draft tag when a slide is final.
+- The storyboard is in the deck. One hidden slide lists every slide with its speaker and its seconds. The notes of each slide give its seconds and the points to make.
+- One message for each slide. The title states the message, in sentence case, with no full stop.
+- Figures have a white background, 200 dpi or more, and no title inside the figure.
+
 ## Recording
 
 - Timed dry run online: Sat 14 Nov 16:30.
@@ -51,6 +59,51 @@ If the video is too long, we cut content. We do not cut a speaker.
 - Speak in your own words. Small slips are fine.
 - Name the file `part<number>_<share>.mp4`, for example `part3_D.mp4`. Recordings go to the shared drive, not to this repository.
 - The lead joins the parts by Sun 15 Nov 11:00. Everyone watches the full video at 12:00 and signs off by 14:00.
+
+### Before you record
+
+1. Make sure that your slides are proofread and that no slide has a Draft tag.
+2. Close chat, mail and every program that shows notifications. Turn on "Do not disturb".
+3. Hide what is private: matriculation number, email, access tokens, the bookmarks bar, and folder names that show your full name.
+4. Make the text large: 16 pt or more in the terminal and the editor, or a zoom of 150% in the notebook and the browser.
+5. For a part with code, set `LEVELLENS_RESULTS` to a scratch folder first. Then the run that you record adds no row to `results/runs.jsonl`.
+6. Run the code once before you record. The first run downloads the models and is slow. Go through your slides once in the slide show, with every click.
+7. Record ten seconds as a test and listen to them. A headset microphone is better than the microphone of a laptop.
+
+### Settings
+
+- 1920 × 1080, 30 frames per second, MP4 with H.264, sound at 48 kHz.
+- Use any program that records the screen and the microphone, for example OBS Studio or the local recording of a meeting program.
+- One file for each part. The lead has two files, `part1_A.mp4` and `part7_A.mp4`.
+
+### While you record
+
+1. Leave one second of silence at the start and one at the end. The lead needs them to join the parts.
+2. Say your name and what you did in your first sentence.
+3. Follow the seconds in the notes of each slide.
+4. Some slides show their content in steps. The notes of the slide say how many clicks it needs and what each click shows. Stop talking for half a second while a slide changes.
+5. For a slide marked "Live", show the slide for about two seconds. Then switch to the window in which the code or the app runs.
+6. After a slip, stop, wait one second and say the sentence again. The lead cuts the first attempt.
+
+### After you record
+
+1. Watch the file once. Check the length, the sound, and that nothing private is on the screen.
+2. Name the file and put it on the shared drive.
+3. Comment `done recording` on the issue of your share.
+
+## Recording schedule
+
+All recordings are due on Sat 14 Nov at 23:59. A part that needs nothing first can be recorded at once.
+
+| File | Speaker | Length | Live part | Needs first |
+|---|---|---|---|---|
+| `part1_A.mp4` | A · Xingyang | 1:00 | none | nothing |
+| `part2_B.mp4` | B · Wenyue | 1:20 | none | the audit counts, from the final models |
+| `part3_D.mp4` | D · Hailing | 1:20 | a five-fold search | nothing |
+| `part4_E.mp4` | E · Jikai | 1:50 | a training cell | the final transformer rows |
+| `part5_C.mp4` | C · Qiutian | 1:00 | the queue of runs on the GPU | the efficiency table |
+| `part6_F.mp4` | F · Zhifei | 2:20 | the Streamlit app | the final models and the final figures |
+| `part7_A.mp4` | A · Xingyang | 0:50 | none | pass or fail for each specification |
 
 ## Reflection document
 
