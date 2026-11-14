@@ -11,7 +11,11 @@
 # from the saved folder alone, gives the probabilities the training run stored, and it times one
 # question at a time on the CPU. That timing is what specification R7 asks for.
 #
-# gpu runs `python scripts/latency.py --device cuda`, the other half of C6.
+# gpu runs the same reload check with the model on the GPU, which is the precision the run trained
+# in, and then `python scripts/latency.py --device cuda`, the other half of C6.
+#
+# Both modes write `export/<run id>.json`, so run gpu first and cpu last: the file that stays is
+# then the one with the CPU timing that R7 asks for.
 #
 # Pass `-r results` so that the reports land in the results store of the repository, next to the
 # rows they describe, and not in the scratch store of the machine.
@@ -32,9 +36,15 @@ case $MODE in
     rc=$? ;;
   gpu)
     python scripts/env_report.py --require-gpu || exit 1
-    echo "##### latency start $(date '+%F %T'): ${*:-the best saved model of every dataset}"
-    python scripts/latency.py --device cuda "$@"
-    rc=$? ;;
+    # The reload check at the precision the run trained in. On the CPU a saved model is scored in
+    # fp32 while the run scored it in bfloat16 on the GPU, and bfloat16 has an 8-bit mantissa, so
+    # the two differ by more than the tolerance of levellens.export. Running it here compares
+    # bfloat16 with bfloat16 and so tests the saving and loading, not the precision.
+    echo "##### reload check on the GPU $(date '+%F %T'): ${*:-the best saved model of every dataset}"
+    LEVELLENS_DEVICE=cuda python -m levellens.export "$@"
+    rc=$?
+    echo "##### latency start $(date '+%F %T')"
+    python scripts/latency.py --device cuda "$@" || rc=$? ;;
   *)
     echo "JOB FAILED: first argument must be cpu or gpu"; exit 2 ;;
 esac
