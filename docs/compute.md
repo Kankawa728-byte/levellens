@@ -134,9 +134,6 @@ submission to `logs/submissions.tsv`, and `python scripts/runlog.py` asks the sc
 state and prints this table.
 
 <!-- runlog:start -->
-`scripts/submit.sh` writes every submission to `logs/submissions.tsv`, and
-`python scripts/runlog.py` asks the scheduler for the state and prints this table.
-
 | Submitted | Kind | Job | What | State | Elapsed |
 |---|---|---|---|---|---|
 | 2026-11-14 08:07:24 | setup | 1738348 | levellens-setup | FAILED (1:0) | 00:00:14 |
@@ -146,30 +143,61 @@ state and prints this table.
 | 2026-11-14 08:22:25 | setup | 1738385 | levellens-setup | COMPLETED | 00:01:44 |
 | 2026-11-14 08:22:25 | fetch | 1738386 | --check | COMPLETED | 00:00:12 |
 | 2026-11-14 08:22:25 | grid | 1738387 | configs/grid/smoke_gpu.txt | COMPLETED | 00:04:14 |
+| 2026-11-14 19:07:01 | grid | 1739442 | configs/grid/tier1_transformers.txt 1-10 | COMPLETED | 00:38:47 |
+| 2026-11-14 19:07:01 | grid | 1739443 | configs/grid/tier1_transformers.txt 11-20 | COMPLETED | 00:11:52 |
+| 2026-11-14 19:07:01 | grid | 1739444 | configs/grid/tier1_bilstm.txt 5-6 | COMPLETED | 00:02:30 |
+| 2026-11-14 19:07:01 | tune | 1739445 | data=arc model=distilbert head=ce owner=E n_trials=12 | COMPLETED | 00:03:23 |
+| 2026-11-14 19:49:51 | measure | 1739497 | gpu race-deberta-v3-ce-s0 arc-deberta-v3-ce-s0 math-deberta-v3-ce-s0 arc-distilbert-corn-s0 | COMPLETED | 00:00:54 |
+| 2026-11-14 19:49:51 | measure | 1739498 | cpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 | COMPLETED | 00:13:57 |
+| 2026-11-14 20:06:36 | measure | 1739513 | gpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 race-deberta-v3-ce-s0 arc-deberta-v3-ce-s0 math-deberta-v3-ce-s0 | COMPLETED | 00:01:04 |
+| 2026-11-14 20:06:36 | measure | 1739514 | cpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 | COMPLETED | 00:13:40 |
+| 2026-11-14 20:24:26 | clean | 1739543 | levellens-clean | COMPLETED | 00:12:57 |
 
-The first setup job failed after installing PyTorch into the wrong place; the three ways that can
-happen are in section 3 and are fixed. The second setup job built the environment and ran the
-tests: 111 passed, 2 skipped, the two that need the splits. The fetch job downloaded the four
-datasets, the two encoders, GloVe and the 8 GB open LLM, and its offline check loaded every split
-and every model with the hub switched off. The third setup job pinned transformers, and the fetch
-after it repeated the offline check under that version. The smoke job trained, scored and wrote a
-row for each of the three families that need a GPU, in four minutes on one card.
+How to read it:
+
+- The first setup job failed after installing PyTorch into the wrong place; the three ways that can
+  happen are in section 3 and are fixed. The fetch job after it never ran, because it was to start
+  only if the setup succeeded.
+- The second setup job built the environment and ran the tests. The fetch job downloaded the four
+  datasets, the two encoders, GloVe and the 8 GB open LLM, and its offline check loaded every split
+  and every model with the hub switched off.
+- The third setup job pinned transformers to 4.57.6, and the fetch after it repeated the offline
+  check under that version.
+- The smoke job trained, scored and wrote a row for each of the three families that need a GPU, in
+  four minutes on one card.
+- `t1-tr-a` and `t1-tr-b` are the 20 transformer runs, ten each; `t1-bilstm` the two RACE++ BiLSTM
+  runs that were still missing; `levellens-tune` the Optuna search with the best setting retrained.
+  All four completed with no failed run, two at a time, in 56 minutes of wall-clock time.
+- The `measure` jobs are task C6. The gpu one checks the saved models at the precision they trained
+  in and times them on the GPU; the cpu one times them on a CPU, which is specification R7. They
+  were run twice: the first pair measured, the second pair added the reload check on the GPU after
+  the CPU check had failed on a precision difference, see section 6.
+- `levellens-clean` is task C7, section 7.
+
+No Tier 1 run failed, so there is no documented failure to report for task C4.
 <!-- runlog:end -->
 
 ## 5. What goes back to the other shares
 
-Task C5. After the grid, these are in `main`:
+Task C5, done on 14 Nov. These are in the branch of this share:
 
 | What | Where | For |
 |---|---|---|
-| Result rows | `results/runs.jsonl`, one line per run | A: tables; F: figures |
-| Predictions | `results/preds/<run_id>.npz` | F: confusion matrices, bootstrap intervals, error audit |
-| Saved models | `<LEVELLENS_CACHE>/models/<run_id>/`, not committed | E: `levellens.export`; F: the app |
-| Efficiency table | `results/tables/efficiency.{md,csv}`, `efficiency_runs.csv` | A: pass or fail for R6 and R7 |
+| 23 new result rows | `results/runs.jsonl`, 56 rows in all | A: tables; F: figures |
+| 23 prediction files | `results/preds/<run_id>.npz` | F: confusion matrices, bootstrap intervals, error audit |
+| Optuna trial table | `results/optuna/arc-distilbert.csv` and `.json` | E: task E7 |
+| Latency reports | `results/export/`, `results/latency/` | A: pass or fail for R7 |
+| Efficiency table | `results/tables/efficiency.{md,csv}`, `efficiency_runs.csv` | A: pass or fail for R6 |
+| Rebuilt tables and figures | `results/tables/`, `results/figures/` | A, B, F: slides |
+| 23 saved models, 9.8 GB | the project directory, not committed | E: `levellens.export`; F: the app |
 | Job logs | `logs/`, not committed | whoever has to read why a run failed |
 
+Every row went in through `levellens.results.append_run`, by way of `scripts/collect.py`: each job
+wrote to a results store of its own, so no two jobs ever appended to the same `runs.jsonl`.
+
 Model weights are not committed, as the rules in [workflow.md](workflow.md) say. The DistilBERT
-checkpoint for the demo (share F) is handed over outside the repository.
+checkpoint for the demo, `arc-distilbert-corn-s0`, is the fastest of the saved models at 0.003
+seconds per question on the GPU and 0.056 on a CPU; it is handed to share F outside the repository.
 
 ## 6. Efficiency and latency
 
@@ -254,5 +282,32 @@ the run actually used.
 **Clean-environment run.**
 
 <!-- clean:start -->
-Not filled in yet.
+Run on 14 Nov as `scripts/submit.sh clean`, job 1739543, on the branch at commit `e23164f`.
+`scripts/clean_check.sbatch` clones the branch into an empty folder, builds a new virtual
+environment from `requirements.txt` and then runs the commands of the README, steps 1 to 3, with
+every cache and temporary folder inside the throw-away directory and with all `LEVELLENS_*`
+variables unset, so it runs as a new reader of the README would.
+
+It took 13 minutes, and everything in the README worked:
+
+| Step | Result |
+|---|---|
+| 1. Install and `python -m pytest` | 112 passed, 2 skipped. The two skipped are the ones marked `data`, which need the downloaded datasets |
+| 2. The small end-to-end example | The four commands ran; three rows in `results/scratch/runs.jsonl` and the leaderboard built |
+| 3. `levellens.results` and `levellens.figures` | **Every table and every figure came out identical to the committed ones, byte for byte** |
+
+The third line is specification R8 on the compute side, and it holds more strongly than expected:
+this new environment installed the **newest** release of everything, PyTorch 2.15.0+cu132 and
+transformers 5.23.0, while the runs were made with PyTorch 2.11.0+cu128 and transformers 4.57.6.
+The tables still matched, because rebuilding them re-runs no model: `levellens.results` and
+`levellens.figures` read `runs.jsonl` and the saved predictions, both of which are in the
+repository. So anyone can rebuild every number of the report from a fresh clone, on any machine,
+with no GPU, no dataset and no particular version of PyTorch.
+
+Two things a new reader should know, neither of them a failure of the README:
+
+- The README says to clone from GitHub. This job clones the local branch instead, because the branch
+  was not pushed yet when it ran. Everything else is the README as written.
+- On this cluster `python` comes from a module, so the job loads it before step 1. A laptop needs
+  nothing of the kind.
 <!-- clean:end -->

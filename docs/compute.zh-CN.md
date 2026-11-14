@@ -122,9 +122,6 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 `logs/submissions.tsv`，`python scripts/runlog.py` 向调度器查询状态并打印这张表。
 
 <!-- runlog:start -->
-`scripts/submit.sh` 把每次提交写入 `logs/submissions.tsv`，
-`python scripts/runlog.py` 向调度器查询状态并打印这张表。
-
 | Submitted | Kind | Job | What | State | Elapsed |
 |---|---|---|---|---|---|
 | 2026-11-14 08:07:24 | setup | 1738348 | levellens-setup | FAILED (1:0) | 00:00:14 |
@@ -134,28 +131,56 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 | 2026-11-14 08:22:25 | setup | 1738385 | levellens-setup | COMPLETED | 00:01:44 |
 | 2026-11-14 08:22:25 | fetch | 1738386 | --check | COMPLETED | 00:00:12 |
 | 2026-11-14 08:22:25 | grid | 1738387 | configs/grid/smoke_gpu.txt | COMPLETED | 00:04:14 |
+| 2026-11-14 19:07:01 | grid | 1739442 | configs/grid/tier1_transformers.txt 1-10 | COMPLETED | 00:38:47 |
+| 2026-11-14 19:07:01 | grid | 1739443 | configs/grid/tier1_transformers.txt 11-20 | COMPLETED | 00:11:52 |
+| 2026-11-14 19:07:01 | grid | 1739444 | configs/grid/tier1_bilstm.txt 5-6 | COMPLETED | 00:02:30 |
+| 2026-11-14 19:07:01 | tune | 1739445 | data=arc model=distilbert head=ce owner=E n_trials=12 | COMPLETED | 00:03:23 |
+| 2026-11-14 19:49:51 | measure | 1739497 | gpu race-deberta-v3-ce-s0 arc-deberta-v3-ce-s0 math-deberta-v3-ce-s0 arc-distilbert-corn-s0 | COMPLETED | 00:00:54 |
+| 2026-11-14 19:49:51 | measure | 1739498 | cpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 | COMPLETED | 00:13:57 |
+| 2026-11-14 20:06:36 | measure | 1739513 | gpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 race-deberta-v3-ce-s0 arc-deberta-v3-ce-s0 math-deberta-v3-ce-s0 | COMPLETED | 00:01:04 |
+| 2026-11-14 20:06:36 | measure | 1739514 | cpu race-distilbert-ce-s0 arc-distilbert-corn-s0 math-distilbert-corn-s0 | COMPLETED | 00:13:40 |
+| 2026-11-14 20:24:26 | clean | 1739543 | levellens-clean | COMPLETED | 00:12:57 |
 
-第一个 setup 作业把 PyTorch 装到了错误的位置而失败；会导致这种情况的三条路径写在第 3 节，都已修好。
-第二个 setup 作业建好了环境并跑了测试：111 通过，2 跳过（就是需要数据划分的那两个）。fetch 作业下载了
-四个数据集、两个 encoder、GloVe 和 8 GB 的开放 LLM，它的离线检查在关掉 hub 的情况下加载了每一个划分和
-每一个模型。第三个 setup 作业钉住了 transformers 版本，紧随其后的 fetch 在该版本下重跑了离线检查。
-smoke 作业为三个需要 GPU 的模型族各自完成了训练、打分和写行，在一张卡上用了四分钟。
+怎么读这张表：
+
+- 第一个 setup 作业把 PyTorch 装到了错误的位置而失败；会导致这种情况的三条路径写在第 3 节，都已修好。
+  它后面那个 fetch 作业没有运行，因为它被设定为只在 setup 成功时才启动。
+- 第二个 setup 作业建好了环境并跑了测试。紧随的 fetch 作业下载了四个数据集、两个 encoder、GloVe
+  和 8 GB 的开放 LLM，它的离线检查在关掉 hub 的情况下加载了每一个划分和每一个模型。
+- 第三个 setup 作业把 transformers 钉到 4.57.6，之后的 fetch 在该版本下重跑了离线检查。
+- smoke 作业为三个需要 GPU 的模型族各自完成了训练、打分和写行，在一张卡上用了四分钟。
+- `t1-tr-a` 和 `t1-tr-b` 是那 20 个 transformer 运行，各十个；`t1-bilstm` 是还缺的两个 RACE++
+  BiLSTM 运行；`levellens-tune` 是 Optuna 搜索加最佳设置的重训。四个作业全部完成、没有失败的运行，
+  两两并行，墙上时间 56 分钟。
+- `measure` 作业是任务 C6。gpu 那个在模型训练时的精度下做重载检查并在 GPU 上计时；cpu 那个在 CPU 上
+  计时，也就是规格 R7。它们跑了两轮：第一轮完成测量，第二轮在 CPU 检查因精度差异失败之后补上了
+  GPU 上的重载检查，见第 6 节。
+- `levellens-clean` 是任务 C7，见第 7 节。
+
+没有任何 Tier 1 运行失败，所以任务 C4 没有需要记录的失败。
 <!-- runlog:end -->
 
 ## 5. 交回给其他分工的东西
 
-任务 C5。网格跑完后，以下内容都在 `main` 里：
+任务 C5，11 月 14 日完成。以下内容都在这个分工的分支里：
 
 | 什么 | 在哪 | 给谁 |
 |---|---|---|
-| 结果行 | `results/runs.jsonl`，每次运行一行 | A：表格；F：图 |
-| 预测 | `results/preds/<run_id>.npz` | F：混淆矩阵、bootstrap 区间、错误审查 |
-| 保存的模型 | `<LEVELLENS_CACHE>/models/<run_id>/`，不入库 | E：`levellens.export`；F：演示应用 |
-| 效率表 | `results/tables/efficiency.{md,csv}`、`efficiency_runs.csv` | A：R6 和 R7 的通过与否 |
+| 23 行新结果 | `results/runs.jsonl`，共 56 行 | A：表格；F：图 |
+| 23 个预测文件 | `results/preds/<run_id>.npz` | F：混淆矩阵、bootstrap 区间、错误审查 |
+| Optuna 试验表 | `results/optuna/arc-distilbert.csv` 和 `.json` | E：任务 E7 |
+| 延迟报告 | `results/export/`、`results/latency/` | A：R7 的通过与否 |
+| 效率表 | `results/tables/efficiency.{md,csv}`、`efficiency_runs.csv` | A：R6 的通过与否 |
+| 重建的表格和图 | `results/tables/`、`results/figures/` | A、B、F：slides |
+| 23 个保存的模型，9.8 GB | 项目目录，不入库 | E：`levellens.export`；F：演示应用 |
 | 作业日志 | `logs/`，不入库 | 需要查某次运行为什么失败的人 |
 
+每一行都是通过 `levellens.results.append_run` 写入的，经由 `scripts/collect.py`：每个作业写到自己的
+结果目录，所以从来没有两个作业同时往同一个 `runs.jsonl` 追加。
+
 按 [workflow.zh-CN.md](workflow.zh-CN.md) 的规则，模型权重不入库。演示用的 DistilBERT 检查点
-（分工 F）在仓库之外交接。
+`arc-distilbert-corn-s0` 是所有保存模型里最快的，GPU 上每题 0.003 秒、CPU 上 0.056 秒；
+它在仓库之外交给分工 F。
 
 ## 6. 效率与延迟
 
@@ -231,5 +256,28 @@ smoke 作业为三个需要 GPU 的模型族各自完成了训练、打分和写
 **干净环境的复跑。**
 
 <!-- clean:start -->
-还没填。
+11 月 14 日以 `scripts/submit.sh clean` 运行，作业 1739543，分支位于提交 `e23164f`。
+`scripts/clean_check.sbatch` 把分支克隆到一个空文件夹，按 `requirements.txt` 建一个全新的虚拟环境，
+然后执行 README 第 1 到 3 步的命令，所有缓存和临时目录都放在这个一次性目录里，并且把全部
+`LEVELLENS_*` 变量清空，这样它就像一个刚读到 README 的人那样运行。
+
+一共 13 分钟，README 里的每一步都可用：
+
+| 步骤 | 结果 |
+|---|---|
+| 1. 安装与 `python -m pytest` | 112 通过，2 跳过。跳过的两个标了 `data`，需要下载好的数据集 |
+| 2. 小的端到端例子 | 四条命令都跑通；`results/scratch/runs.jsonl` 里三行，排行榜已生成 |
+| 3. `levellens.results` 和 `levellens.figures` | **每一张表和每一张图都与入库的逐字节一致** |
+
+第三行就是算力这一侧的规格 R8，而且它成立得比预期更强：这个新环境装的是**最新版本**的一切，
+PyTorch 2.15.0+cu132 和 transformers 5.23.0，而那些运行是用 PyTorch 2.11.0+cu128 和
+transformers 4.57.6 做的。表格依然一致，因为重建表格不重跑任何模型：`levellens.results` 和
+`levellens.figures` 读的是 `runs.jsonl` 和保存下来的预测，两者都在仓库里。所以任何人都可以从一个
+全新克隆重建报告里的每一个数字，在任何机器上，不需要 GPU、不需要数据集、也不需要特定版本的 PyTorch。
+
+有两点新读者需要知道，但都不是 README 的问题：
+
+- README 说从 GitHub 克隆。这个作业克隆的是本地分支，因为它运行时分支还没推上去。其余都与
+  README 写的一致。
+- 在这个集群上 `python` 来自一个 module，所以作业在第 1 步之前先加载它。笔记本上不需要这一步。
 <!-- clean:end -->
