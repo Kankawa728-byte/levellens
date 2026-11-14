@@ -51,6 +51,15 @@ if [ -n "${LEVELLENS_TORCH_INDEX:-}" ]; then
 fi
 python -m pip install -r requirements.txt || { echo "SETUP FAILED: requirements.txt"; exit 1; }
 
+# requirements.txt gives lower bounds, so pip takes the newest release of everything. Where a
+# result was produced with one version, LEVELLENS_PIP_EXTRA pins that version for this machine,
+# without changing the shared requirements.txt.
+if [ -n "${LEVELLENS_PIP_EXTRA:-}" ]; then
+  echo "##### versions pinned for this machine: $LEVELLENS_PIP_EXTRA"
+  # shellcheck disable=SC2086
+  python -m pip install $LEVELLENS_PIP_EXTRA || { echo "SETUP FAILED: the pinned versions"; exit 1; }
+fi
+
 echo "##### versions"
 python scripts/env_report.py --json "logs/env-setup-${SLURM_JOB_ID:-local}.json"
 echo "##### tests"
