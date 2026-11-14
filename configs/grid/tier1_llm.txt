@@ -1,0 +1,17 @@
+# Tier 1, the open LLM (task D6, run by C): zero-shot scoring of the three fixed 1,000-question
+# test subsets. No training; the three runs only load the checkpoint, choose the prompt on a
+# stratified dev sample and score test_1k.
+#
+#   scripts/submit.sh grid configs/grid/tier1_llm.txt
+#
+# Share D has already scored these three subsets on an 8 GB laptop GPU with NF4 quantization; those
+# are the rows with `variant=nf4` in results/runs.jsonl. The lines below are the same runs without
+# quantization, for a card with at least 16 GB. They get no variant, so they stand next to the NF4
+# rows in the leaderboards instead of replacing them, and the pair shows what the quantization cost.
+#
+# `eval_splits=[test_1k]` is required: levellens/models/llm.py refuses to run with anything else,
+# because the prompt is chosen on dev inside the run.
+
+data=race model=qwen_zero_shot head=none seed=0 owner=D eval_splits=[test_1k]
+data=arc  model=qwen_zero_shot head=none seed=0 owner=D eval_splits=[test_1k]
+data=math model=qwen_zero_shot head=none seed=0 owner=D eval_splits=[test_1k]
