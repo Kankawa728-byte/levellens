@@ -1,0 +1,21 @@
+{
+  "study": "arc-distilbert",
+  "trials": 12,
+  "pruned": 8,
+  "best_trial": 0,
+  "best_dev_qwk": 0.6756471726487365,
+  "best_params": {
+    "head": "corn",
+    "lr": 4.0064836619643966e-05,
+    "batch_size": 32,
+    "weight_decay": 0.04375872112626925,
+    "warmup_ratio": 0.17835460015641597,
+    "dropout": 0.2890988281503088
+  },
+  "base": [
+    "data=arc",
+    "model=distilbert",
+    "head=ce",
+    "owner=E"
+  ]
+}

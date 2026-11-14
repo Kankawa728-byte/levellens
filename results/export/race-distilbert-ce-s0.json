@@ -1,0 +1,12 @@
+{
+  "run_id": "race-distilbert-ce-s0",
+  "dataset": "race",
+  "split": "test",
+  "n": 5642,
+  "max_abs_difference": 0.006213450334634385,
+  "same_predictions": false,
+  "seconds_per_question": 0.0465,
+  "timed_items": 100,
+  "device": "cpu",
+  "r7_pass": true
+}

@@ -1,0 +1,12 @@
+{
+  "run_id": "math-distilbert-corn-s0",
+  "dataset": "math",
+  "split": "test",
+  "n": 5000,
+  "max_abs_difference": 0.02439945936203003,
+  "same_predictions": false,
+  "seconds_per_question": 0.0576,
+  "timed_items": 100,
+  "device": "cpu",
+  "r7_pass": true
+}

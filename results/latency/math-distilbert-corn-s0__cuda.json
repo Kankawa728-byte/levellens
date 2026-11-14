@@ -1,0 +1,12 @@
+{
+  "run_id": "math-distilbert-corn-s0",
+  "dataset": "math",
+  "split": "test",
+  "device": "cuda",
+  "timed_items": 100,
+  "warmup_items": 3,
+  "batch_size": 32,
+  "seconds_per_question": 0.0033,
+  "batched_seconds_per_question": 0.00032,
+  "questions_per_second_batched": 3108.1
+}

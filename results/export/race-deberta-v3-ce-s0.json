@@ -1,0 +1,12 @@
+{
+  "run_id": "race-deberta-v3-ce-s0",
+  "dataset": "race",
+  "split": "test",
+  "n": 5642,
+  "max_abs_difference": 2.9797826539557093e-08,
+  "same_predictions": true,
+  "seconds_per_question": 0.0138,
+  "timed_items": 100,
+  "device": "cuda",
+  "r7_pass": true
+}

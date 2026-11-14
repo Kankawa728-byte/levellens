@@ -1,0 +1,12 @@
+{
+  "run_id": "race-deberta-v3-ce-s0",
+  "dataset": "race",
+  "split": "test",
+  "device": "cuda",
+  "timed_items": 100,
+  "warmup_items": 3,
+  "batch_size": 32,
+  "seconds_per_question": 0.0157,
+  "batched_seconds_per_question": 0.00058,
+  "questions_per_second_batched": 1727.9
+}

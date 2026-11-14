@@ -1,0 +1,13 @@
+model,family,runs,n_params,device_kind,mean_train_seconds,longest_train_seconds,max_run_hours,total_hours,cpu_seconds_per_question,gpu_seconds_per_question
+r2de,classical,3,0,CPU,1.5,4.1,0.001,0.001,,
+tfidf_cnb,classical,3,0,CPU,38.9,72.2,0.021,0.034,,
+tfidf_logreg,classical,6,0,CPU,152.6,408.5,0.114,0.259,,
+tfidf_svm,classical,3,0,CPU,154.7,320.0,0.089,0.131,,
+linguistic_lightgbm,feature,3,0,CPU,3.1,5.9,0.002,0.003,,
+majority,floor,3,0,CPU,0.0,0.0,0.0,0.0,,
+stratified_random,floor,3,0,CPU,0.0,0.0,0.0,0.0,,
+subject_prior,floor,1,0,CPU,0.0,0.0,0.0,0.0,,
+qwen_zero_shot,open LLM,3,4022468096,GPU,37.7,45.6,0.034,0.085,,
+bilstm,recurrent,6,14687868,"Apple GPU, GPU",265.3,669.1,0.187,0.446,,
+deberta-v3,transformer,10,183836935,GPU,199.5,621.5,0.173,0.559,,0.0157
+distilbert,transformer,12,66368263,"CPU, GPU",65.9,171.3,0.048,0.226,0.0576,0.0034
