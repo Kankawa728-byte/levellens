@@ -14,8 +14,9 @@ so running the command twice changes nothing. A row of a `run_id` that the targe
 another `started` time is appended, and then it is the newest row of that run: a repeated run wins
 over the one it repeats, which is the rule in `levellens.results`.
 
-Copied along with the rows, when the source store has them: `preds/`, `export/`, `latency/` and
-`optuna/`.
+Copied along with the rows, when the source store has them: `preds/`, `export/` and `latency/`,
+which hold one file per run, and the whole of `optuna/`, whose files are named after the study and
+not after a run.
 """
 
 from __future__ import annotations
@@ -31,7 +32,8 @@ sys.path.insert(0, str(REPO_ROOT))
 from levellens.paths import results_dir  # noqa: E402
 from levellens.results import append_run, load_rows, runs_file  # noqa: E402
 
-COPIED = ("preds", "export", "latency", "optuna")
+COPIED = ("preds", "export", "latency")   # one file per run, named after the run id
+MIRRORED = ("optuna",)                    # named after the study, not the run: copied whole
 
 
 def collect(source: Path, target: Path, dry_run: bool = False) -> tuple[int, int]:
@@ -58,6 +60,15 @@ def collect(source: Path, target: Path, dry_run: bool = False) -> tuple[int, int
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(path, destination)
                 print(f"    {'would copy' if dry_run else 'copy'} {folder}/{path.name}")
+    for folder in MIRRORED:
+        for path in sorted((source / folder).glob("*")):
+            if not path.is_file():
+                continue
+            destination = target / folder / path.name
+            if not dry_run:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, destination)
+            print(f"  {'would copy' if dry_run else 'copy'} {folder}/{path.name}")
     print(f"{source}: {appended} rows appended, {skipped} already there")
     return appended, skipped
 
