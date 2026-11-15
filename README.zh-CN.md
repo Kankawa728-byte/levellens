@@ -9,13 +9,13 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 <!-- board:start -->
 ## 实时状态：谁在等谁
 
-这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：11 月 15 日（周日）19:40。
+这张表由程序根据仓库里的文件和六个分工 issue 里的报告自动重建。上次变化：11 月 15 日（周日）22:06。
 
 **现在没有人在等别人。**
 
 | 谁 | 现在能做 | 在等谁 | 谁在等这一份 |
 |---|---|---|---|
-| **Xingyang** · [A](work/A-framework-integration.zh-CN.md)<br>🟡 部分在等<br>自己的任务完成 6 / 9<br>⏰ 3 项已过时间 | A5 冻结规格、审阅和合并、每天整合、决定做不做 · 11 月 15 日（周日）14:00 ⏰ | **所有人**：自己的录制文件 · 11 月 14 日（周六）23:59 前 ⏰ · 用于 A7、A8 | **所有人**：拼好的视频，用于审看 · 11 月 15 日（周日）11:00 前 ⏰ |
+| **Xingyang** · [A](work/A-framework-integration.zh-CN.md)<br>🟡 部分在等<br>自己的任务完成 6 / 9<br>⏰ 3 项已过时间 | A5 冻结规格、审阅和合并、每天整合、决定做不做 · 11 月 15 日（周日）14:00 ⏰ | **Qiutian、Hailing、Jikai、Zhifei**：自己的录制文件 · 11 月 14 日（周六）23:59 前 ⏰ · 用于 A7、A8 | **所有人**：拼好的视频，用于审看 · 11 月 15 日（周日）11:00 前 ⏰ |
 | **Wenyue** · [B](work/B-literature-data-audit.zh-CN.md)<br>🟡 部分在等<br>自己的任务完成 4 / 7<br>⏰ 3 项已过时间 | B7 提交清单、互评提醒 · 11 月 15 日（周日）15:00 ⏰ | **Xingyang、Qiutian、Hailing、Zhifei**：slides 定稿，用于校对 · 11 月 14 日（周六）16:00 前 ⏰ · 用于 B5<br>**Xingyang、Qiutian、Hailing、Zhifei**：反思文档里自己的内容 · 11 月 15 日（周日）10:00 前 ⏰ · 用于 B6 | 没有 |
 | **Qiutian** · [C](work/C-compute-runs-efficiency.zh-CN.md)<br>✅ 全部完成<br>自己的任务完成 7 / 7 | — | 没有 | 没有 |
 | **Hailing** · [D](work/D-baselines.zh-CN.md)<br>✅ 全部完成<br>自己的任务完成 7 / 7 | — | 没有 | 没有 |
@@ -25,7 +25,7 @@ English: [README.md](README.md)。每个页面都有中文版，页面顶部有�
 | 每个人都要交 | 交给谁 | 什么时候 | 还没交的人 |
 |---|---|---|---|
 | slides 定稿，用于校对 | Wenyue | 11 月 14 日（周六）16:00 ⏰ | Xingyang、Qiutian、Hailing、Zhifei |
-| 自己的录制文件 | Xingyang | 11 月 14 日（周六）23:59 ⏰ | 所有人 |
+| 自己的录制文件 | Xingyang | 11 月 14 日（周六）23:59 ⏰ | Xingyang、Qiutian、Hailing、Jikai、Zhifei |
 | 反思文档里自己的内容 | Wenyue | 11 月 15 日（周日）10:00 ⏰ | Xingyang、Wenyue、Qiutian、Hailing、Zhifei |
 
 等组长审阅的 pull request：没有。

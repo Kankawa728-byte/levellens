@@ -9,13 +9,13 @@ Group project of Table 38, six members. Hard deadline: **Sun 15 Nov 2026, 23:59*
 <!-- board:start -->
 ## Live status: who waits for whom
 
-A program rebuilds this table from the files in the repository and from the reports in the six share issues. Last change: Sun 15 Nov 19:40.
+A program rebuilds this table from the files in the repository and from the reports in the six share issues. Last change: Sun 15 Nov 22:06.
 
 **Nobody is waiting for anybody.**
 
 | Who | Can do now | Waits for | Who waits for this share |
 |---|---|---|---|
-| **Xingyang** · [A](work/A-framework-integration.md)<br>🟡 Partly waiting<br>6 / 9 own tasks done<br>⏰ 3 past the time | A5 Specification freeze, reviews and merges, daily integration, go or no-go calls · Sun 15 Nov 14:00 ⏰ | **everyone**: own recording · by Sat 14 Nov 23:59 ⏰ · for A7, A8 | **everyone**: joined video for the review · by Sun 15 Nov 11:00 ⏰ |
+| **Xingyang** · [A](work/A-framework-integration.md)<br>🟡 Partly waiting<br>6 / 9 own tasks done<br>⏰ 3 past the time | A5 Specification freeze, reviews and merges, daily integration, go or no-go calls · Sun 15 Nov 14:00 ⏰ | **Qiutian, Hailing, Jikai, Zhifei**: own recording · by Sat 14 Nov 23:59 ⏰ · for A7, A8 | **everyone**: joined video for the review · by Sun 15 Nov 11:00 ⏰ |
 | **Wenyue** · [B](work/B-literature-data-audit.md)<br>🟡 Partly waiting<br>4 / 7 own tasks done<br>⏰ 3 past the time | B7 Submission checklist, peer-evaluation reminders · Sun 15 Nov 15:00 ⏰ | **Xingyang, Qiutian, Hailing, Zhifei**: final slides for proofreading · by Sat 14 Nov 16:00 ⏰ · for B5<br>**Xingyang, Qiutian, Hailing, Zhifei**: lines for the reflection document · by Sun 15 Nov 10:00 ⏰ · for B6 | nobody |
 | **Qiutian** · [C](work/C-compute-runs-efficiency.md)<br>✅ Finished<br>7 / 7 own tasks done | — | nobody | nobody |
 | **Hailing** · [D](work/D-baselines.md)<br>✅ Finished<br>7 / 7 own tasks done | — | nobody | nobody |
@@ -25,7 +25,7 @@ A program rebuilds this table from the files in the repository and from the repo
 | Everyone hands in | To | By | Still missing from |
 |---|---|---|---|
 | Final slides for proofreading | Wenyue | Sat 14 Nov 16:00 ⏰ | Xingyang, Qiutian, Hailing, Zhifei |
-| Own recording | Xingyang | Sat 14 Nov 23:59 ⏰ | everyone |
+| Own recording | Xingyang | Sat 14 Nov 23:59 ⏰ | Xingyang, Qiutian, Hailing, Jikai, Zhifei |
 | Lines for the reflection document | Wenyue | Sun 15 Nov 10:00 ⏰ | Xingyang, Wenyue, Qiutian, Hailing, Zhifei |
 
 Pull requests waiting for the lead's review: none.
