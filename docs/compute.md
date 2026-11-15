@@ -231,9 +231,11 @@ Latency, one question at a time, as the app scores a pasted question:
 - The CPU numbers come from `python -m levellens.export`, which also checks task E8. R7 requires a
   laptop CPU, so only the four DistilBERT checkpoints measured on Jikai's Intel i5-11400H laptop
   count: ARC, MATH, RACE++ CORN and the ARC Optuna retrain. Each report times 100 questions one at a
-  time, using normal CPU fp32 inference. Earlier compute-cluster reports for the DistilBERT smoke
-  and RACE++ cross-entropy checkpoints are retained in `results/export/cluster_legacy/`, outside
-  the R7 table. The two DeBERTa-v3 CORN CPU measurements are included for context, not the R7 verdict.
+  time, using normal CPU fp32 inference. Two earlier reports are retained in
+  `results/export/earlier/`, outside the R7 table: the report of the DistilBERT smoke model, a trial
+  model measured on a team member's own laptop on 13 Nov, and the report of the RACE++
+  cross-entropy model, measured on a compute node of the cluster. The two DeBERTa-v3 CORN CPU
+  measurements are included for context, not the R7 verdict.
 - The GPU numbers are `python scripts/latency.py --device cuda`. DeBERTa-v3 answers one question in
   15 milliseconds, so the demo would feel instant on a GPU and still well under a second on a CPU.
 

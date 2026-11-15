@@ -210,9 +210,10 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 
 - CPU 数字来自 `python -m levellens.export`，它同时检查任务 E8。R7 要求笔记本 CPU，因此只计入
   Jikai 的 Intel i5-11400H 笔记本测得的四个 DistilBERT checkpoint：ARC、MATH、RACE++ 的 CORN
-  模型及 ARC Optuna 重训模型。每份报告均按正常 CPU fp32 推理逐题计时 100 道题。此前在计算集群上
-  测得的 DistilBERT smoke 与 RACE++ 交叉熵模型报告保存在 `results/export/cluster_legacy/`，
-  不进入 R7 汇总。两个 DeBERTa-v3 CORN CPU 结果仅供参考，不参与 R7 判定。
+  模型及 ARC Optuna 重训模型。每份报告均按正常 CPU fp32 推理逐题计时 100 道题。另有两份较早的报告
+  保存在 `results/export/earlier/`，不进入 R7 汇总：DistilBERT smoke 模型的报告（试跑模型，
+  11 月 13 日在一位组员自己的笔记本上测得）和 RACE++ 交叉熵模型的报告（在集群的计算节点上测得）。
+  两个 DeBERTa-v3 CORN CPU 结果仅供参考，不参与 R7 判定。
 - GPU 的数字来自 `python scripts/latency.py --device cuda`。DeBERTa-v3 回答一道题是 15 毫秒，
   所以演示在 GPU 上会是即时的，在 CPU 上也仍远低于一秒。
 
