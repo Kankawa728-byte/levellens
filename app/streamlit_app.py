@@ -24,6 +24,7 @@ import streamlit as st
 
 from levellens.data import format_text, info
 from levellens.explain.local import explain
+from levellens.export import demo_run
 from levellens.paths import cache_dir
 from levellens.predictor import CARD, Predictor
 
@@ -129,8 +130,9 @@ def calibrate() -> None:
     st.caption("Estimate the level a question is written for, see which words drive it, and try an edit.")
 
     cards = saved_models()
-    # transformers first: the demo model is the fine-tuned DistilBERT
-    ordered = sorted(cards, key=lambda run_id: ("Transformer" not in cards[run_id]["target"], run_id))
+    # the demo model first (the best saved ARC DistilBERT), then the other transformers
+    demo = demo_run()
+    ordered = sorted(cards, key=lambda run_id: (run_id != demo, "Transformer" not in cards[run_id]["target"], run_id))
     choices = {run_id: cards[run_id]["dataset"] for run_id in ordered}
     choices.update({f"stub · {dataset}": dataset for dataset in STUB_DATASETS})
     with st.sidebar:
