@@ -9,5 +9,5 @@ stratified_random,floor,3,0,CPU,0.0,0.0,0.0,0.0,,
 subject_prior,floor,1,0,CPU,0.0,0.0,0.0,0.0,,
 qwen_zero_shot,open LLM,3,4022468096,GPU,37.7,45.6,0.034,0.085,,
 bilstm,recurrent,6,14687868,"Apple GPU, GPU",265.3,669.1,0.187,0.446,,
-deberta-v3,transformer,10,183836935,GPU,199.5,621.5,0.173,0.559,,0.0157
-distilbert,transformer,12,66368263,"CPU, GPU",65.9,171.3,0.048,0.226,0.0465,0.0034
+deberta-v3,transformer,10,183836935,GPU,199.5,621.5,0.173,0.559,0.1411,0.0157
+distilbert,transformer,12,66368263,"CPU, GPU",65.9,171.3,0.048,0.226,0.0331,0.0034

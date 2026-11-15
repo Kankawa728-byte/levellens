@@ -7,8 +7,11 @@ A run with `save_model=true` writes its model to `<LEVELLENS_CACHE>/models/<run_
 `Predictor.load("<run_id>")` loads it. For each run this command checks two things and writes them
 to `results/export/<run_id>.json`:
 
-1. Same predictions: the Predictor, loaded from the folder alone, gives the probabilities that the
-   training run stored in `results/preds/<run_id>.npz` (largest difference below TOLERANCE).
+1. Same predictions: the Predictor, loaded from the folder alone, gives probabilities within
+   TOLERANCE of `results/preds/<run_id>.npz`. GPU-trained transformers use bf16 for this comparison.
+   Use the training run's transformers 4.57.6 and tokenizers 0.22.2. The newer
+   5.23.0/0.23.3 combination changed 18 of 5,642 RACE++ test tokenisations;
+   the report records the local versions.
 2. Latency: seconds per question on the CPU, one question at a time, mean over 100 test questions
    (specification R7: at most 1 second for DistilBERT on a laptop CPU).
 """
@@ -19,6 +22,7 @@ import json
 import os
 import sys
 import time
+from importlib.metadata import PackageNotFoundError, version
 
 import numpy as np
 
@@ -27,10 +31,9 @@ from levellens.paths import results_dir
 from levellens.predictor import CARD, Predictor, model_folder
 from levellens.results import load_predictions, load_rows
 
-# The stored probabilities were scored with GPU bf16 autocast, while this laptop CPU
-# check uses fp32. The three DistilBERT checkpoints differ by 0.006–0.024 in
-# probability despite identical weights and zero difference at matched GPU precision.
-# Allow that measured precision gap; keep reporting the actual maximum difference.
+# The training GPU (RTX 5090) used bf16 autocast. CPU bf16 still uses different
+# kernels, so its probabilities can differ slightly. Keep this cross-device
+# tolerance explicit, report the actual gap, and time the normal fp32 CPU path.
 TOLERANCE = 3e-2
 TIMED_ITEMS = 100
 R7_SECONDS = 1.0
@@ -70,6 +73,30 @@ def runs_to_check() -> list[str]:
     return run_ids + [demo] if demo is not None and demo not in run_ids else run_ids
 
 
+def reference_precision(run_id: str) -> str:
+    """Use the precision of this project's GPU scores for the saved-model comparison."""
+    row = next((row for row in load_rows() if row["run_id"] == run_id), None)
+    if row is None or not str(row.get("device", "")).startswith("cuda"):
+        return "default"
+    params = row.get("config", {}).get("model", {}).get("params", {})
+    # On the team's bf16-capable RTX 5090, auto resolves to bf16. Old CPU and
+    # Apple GPU runs retain their own saved-model inference precision.
+    uses_bf16 = (row.get("model") in {"distilbert", "deberta-v3"}
+                 and params.get("precision", "auto") in {"auto", "bf16"})
+    return "bf16" if uses_bf16 else "default"
+
+
+def runtime_versions() -> dict[str, str | None]:
+    """Record the libraries that can change GPU/CPU numerics or tokenisation."""
+    found = {}
+    for package in ("torch", "transformers", "tokenizers"):
+        try:
+            found[package] = version(package)
+        except PackageNotFoundError:
+            found[package] = None
+    return found
+
+
 def check(run_id: str) -> dict:
     """Compare the Predictor with the stored predictions of a run and time it on the CPU."""
     previous_device = os.environ.get("LEVELLENS_DEVICE")
@@ -86,7 +113,25 @@ def check(run_id: str) -> dict:
     split = "test" if "test" in stored else next(iter(stored))
     items = {item["id"]: item for item in load_split(dataset, split)}
     ordered = [items[item_id] for item_id in stored[split]["ids"]]
-    difference = float(np.abs(predictor.predict(ordered)["proba"] - stored[split]["output"]).max())
+    precision = reference_precision(run_id) if hasattr(predictor.model, "params") else "default"
+    params = getattr(predictor.model, "params", None)
+    original_precision = params.get("precision", "auto") if precision == "bf16" else None
+    original_token_cache = params.get("token_cache") if isinstance(params, dict) else None
+    if precision == "bf16":
+        params["precision"] = "bf16"
+    if original_token_cache is not None:
+        # Cache keys omit the tokenizer library version. A cache created under
+        # Transformers 5 can hide the tokenisation used by the training run.
+        params["token_cache"] = False
+    try:
+        current = predictor.predict(ordered)["proba"]
+    finally:
+        if precision == "bf16":
+            params["precision"] = original_precision
+        if original_token_cache is not None:
+            params["token_cache"] = original_token_cache
+    difference = float(np.abs(current - stored[split]["output"]).max())
+    label_agreement = float(np.mean(current.argmax(axis=1) == stored[split]["output"].argmax(axis=1)))
 
     clock = time.perf_counter()
     for item in ordered[:TIMED_ITEMS]:
@@ -96,6 +141,8 @@ def check(run_id: str) -> dict:
     report = {
         "run_id": run_id, "dataset": dataset, "split": split, "n": len(ordered),
         "max_abs_difference": difference, "probability_tolerance": TOLERANCE,
+        "comparison_precision": precision, "label_agreement": round(label_agreement, 4),
+        "runtime_versions": runtime_versions(),
         "same_predictions": difference < TOLERANCE,
         "seconds_per_question": round(seconds, 4), "timed_items": min(TIMED_ITEMS, len(ordered)),
         "device": str(getattr(predictor.model, "device", "cpu")), "r7_pass": seconds <= R7_SECONDS,
@@ -114,7 +161,8 @@ def main(argv: list[str] | None = None) -> None:
     for run_id in run_ids:
         report = check(run_id)
         print(f"{run_id}: same predictions {report['same_predictions']} (max difference {report['max_abs_difference']:.1e} "
-              f"on {report['n']} {report['split']} items); {report['seconds_per_question']:.3f} s per question on {report['device']}")
+              f"on {report['n']} {report['split']} items, {report['comparison_precision']} comparison); "
+              f"{report['seconds_per_question']:.3f} s per question on {report['device']}")
 
 
 if __name__ == "__main__":

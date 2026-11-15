@@ -1,0 +1,20 @@
+{
+  "run_id": "race-deberta-v3-corn-s0",
+  "dataset": "race",
+  "split": "test",
+  "n": 5642,
+  "max_abs_difference": 0.019070700339721913,
+  "probability_tolerance": 0.03,
+  "comparison_precision": "bf16",
+  "label_agreement": 0.9986,
+  "runtime_versions": {
+    "torch": "2.15.0",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2"
+  },
+  "same_predictions": true,
+  "seconds_per_question": 0.1267,
+  "timed_items": 100,
+  "device": "cpu",
+  "r7_pass": true
+}

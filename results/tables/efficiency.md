@@ -6,7 +6,7 @@ Built from `runs.jsonl`, `export/` and `latency/` by `python scripts/efficiency.
 
 - **R6 pass**: 28 fine-tunes. The longest is `math-bilstm-ce-s0` at 0.19 hours, against a limit of 1 hour per run.
 - **R6, whole project**: 0.89 GPU-hours, against a limit of 20. Plus 0.45 CPU-hours and 0.41 hours on another accelerator, which the limit does not count.
-- **R7 pass**: 0.026 to 0.046 seconds per question over 5 saved models on the CPU (distilbert, one question at a time), against a limit of 1 second. The slowest measurement decides.
+- **R7 pass**: 0.028 to 0.033 seconds per question over 4 saved models on the CPU (distilbert, one question at a time), against a limit of 1 second. The slowest measurement decides.
 
 ## One line per model
 
@@ -22,8 +22,8 @@ Built from `runs.jsonl`, `export/` and `latency/` by `python scripts/efficiency.
 | subject_prior | floor | 1 | 0 | CPU | 0.0 | 0.0 | 0.0 | 0.0 |  |  |
 | qwen_zero_shot | open LLM | 3 | 4,022,468,096 | GPU | 37.7 | 45.6 | 0.034 | 0.085 |  |  |
 | bilstm | recurrent | 6 | 14,687,868 | Apple GPU, GPU | 265.3 | 669.1 | 0.187 | 0.446 |  |  |
-| deberta-v3 | transformer | 10 | 183,836,935 | GPU | 199.5 | 621.5 | 0.173 | 0.559 |  | 0.0157 |
-| distilbert | transformer | 12 | 66,368,263 | CPU, GPU | 65.9 | 171.3 | 0.048 | 0.226 | 0.0465 | 0.0034 |
+| deberta-v3 | transformer | 10 | 183,836,935 | GPU | 199.5 | 621.5 | 0.173 | 0.559 | 0.1411 | 0.0157 |
+| distilbert | transformer | 12 | 66,368,263 | CPU, GPU | 65.9 | 171.3 | 0.048 | 0.226 | 0.0331 | 0.0034 |
 
 ## One line per run
 

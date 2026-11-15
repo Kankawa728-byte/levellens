@@ -210,7 +210,7 @@ line per run, and the verdict on the two specifications this share owns.
 |---|---|---|---|
 | **R6**, per fine-tune | 0.19 hours, the longest of 28 | 1 GPU-hour | pass |
 | **R6**, whole project | 0.89 GPU-hours | 20 GPU-hours | pass |
-| **R7**, one question on a CPU | 0.026 to 0.046 seconds over 5 saved DistilBERT models | 1 second | pass |
+| **R7**, one question on a laptop CPU | 0.0275 to 0.0331 seconds over 4 saved DistilBERT models | 1 second | pass |
 
 The project limit counts GPU-hours only. On top of them the project spent 0.45 CPU-hours for the
 classical baselines and the feature model, and 0.41 hours on a laptop GPU for the first BiLSTM rows;
@@ -225,22 +225,19 @@ Latency, one question at a time, as the app scores a pasted question:
 
 | Model | On a CPU | On the GPU | In batches of 32 on the GPU |
 |---|---|---|---|
-| DistilBERT | 0.026 to 0.034 s on a laptop, 0.046 to 0.058 s on a compute node | 0.003 s | 0.0003 s |
-| DeBERTa-v3 | not measured | 0.014 to 0.015 s | 0.0006 to 0.0011 s |
+| DistilBERT | 0.0275 to 0.0331 s on Jikai's laptop | 0.003 s | 0.0003 s |
+| DeBERTa-v3 | 0.1267 to 0.1411 s on Jikai's laptop | 0.014 to 0.015 s | 0.0006 to 0.0011 s |
 
-- The CPU numbers come from `python -m levellens.export`, which is also the check of task E8. R7 asks
-  for a laptop CPU. Share C measured on a compute node on 14 Nov, which is a server CPU: 0.046 to
-  0.058 s for three DistilBERT models. On 15 Nov share E repeated the check on a laptop for the
-  three DistilBERT CORN models: 0.026 to 0.034 s. For the two runs measured twice, the laptop report
-  replaced the compute-node report (0.056 and 0.058 s); the compute-node report of
-  `race-distilbert-ce-s0` (0.046 s) is still in `results/export/`. With the laptop measurement of
-  the DistilBERT smoke model, 0.028 s, these are the five reports behind R7. All of them are more
-  than an order of magnitude inside the limit, so the verdict does not depend on which machine is
-  meant.
+- The CPU numbers come from `python -m levellens.export`, which also checks task E8. R7 requires a
+  laptop CPU, so only the four DistilBERT checkpoints measured on Jikai's Intel i5-11400H laptop
+  count: ARC, MATH, RACE++ CORN and the ARC Optuna retrain. Each report times 100 questions one at a
+  time, using normal CPU fp32 inference. Earlier compute-cluster reports for the DistilBERT smoke
+  and RACE++ cross-entropy checkpoints are retained in `results/export/cluster_legacy/`, outside
+  the R7 table. The two DeBERTa-v3 CORN CPU measurements are included for context, not the R7 verdict.
 - The GPU numbers are `python scripts/latency.py --device cuda`. DeBERTa-v3 answers one question in
   15 milliseconds, so the demo would feel instant on a GPU and still well under a second on a CPU.
 
-### One thing for share E, task E8
+### Share E, task E8: saved-model check
 
 On 14 Nov `levellens.export` reported **same predictions False** for every saved model: the largest
 difference between the Predictor's probabilities and the ones the training run stored was 6.2e-03 to
@@ -252,10 +249,14 @@ is bfloat16 against fp32: bfloat16 has an 8-bit mantissa, so the two agree to ab
 third decimal, not the fourth as the comment on `TOLERANCE` said. `scripts/measure.sbatch` runs both
 checks, the GPU one first.
 
-Whether to compare at the training precision or to widen the tolerance was share E's call;
-share C changed neither. Share E widened it on 15 Nov: `TOLERANCE` is now 0.03, and every report
-written since then names the tolerance it was checked against. A report written before that was
-checked against 1e-03, so it can say False for a difference that the new tolerance accepts.
+Share E's final laptop check compares the saved model with the stored probabilities at bf16,
+matching the GPU run's scoring precision, while keeping the latency measurement at normal CPU fp32.
+Cross-device bf16 kernels still differ, so `TOLERANCE` remains 0.03 and every report records its
+actual maximum difference, comparison precision, label agreement, library versions, and CPU latency.
+All six supplied checkpoints pass this probability check: the largest gap is 0.0216 among the four
+DistilBERT reports and 0.0191 among the two DeBERTa-v3 reports. To reproduce the comparison, use
+Transformers 4.57.6 and tokenizers 0.22.2, the training versions. Newer versions changed the token
+IDs of 18 RACE++ test questions; the export check bypasses old token caches during comparison.
 
 ## 7. Reproducibility notes
 

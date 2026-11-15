@@ -100,7 +100,7 @@ def test_check_forces_cpu_and_restores_device_setting(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize("difference, expected", [(0.024, True), (0.031, False)])
 def test_check_allows_only_documented_mixed_precision_gap(tmp_path, monkeypatch, difference, expected):
-    """GPU bf16 versus CPU fp32 can differ, but a larger gap still fails export verification."""
+    """Cross-device bf16 can differ, but a larger gap still fails export verification."""
     folder = tmp_path / "models" / "arc-demo"
     folder.mkdir(parents=True)
     (folder / export.CARD).write_text(json.dumps({"dataset": "arc"}), encoding="utf-8")
@@ -125,3 +125,39 @@ def test_check_allows_only_documented_mixed_precision_gap(tmp_path, monkeypatch,
     report = export.check("arc-demo")
     assert report["same_predictions"] is expected
     assert report["probability_tolerance"] == export.TOLERANCE
+
+
+def test_gpu_bf16_reference_does_not_change_cpu_timing_precision(tmp_path, monkeypatch):
+    """Compare with the training autocast, then time the predictor as deployed on the CPU."""
+    folder = tmp_path / "models" / "arc-demo"
+    folder.mkdir(parents=True)
+    (folder / export.CARD).write_text(json.dumps({"dataset": "arc"}), encoding="utf-8")
+    monkeypatch.setattr(export, "model_folder", lambda _: folder)
+    monkeypatch.setattr(export, "results_dir", lambda: tmp_path / "results")
+    monkeypatch.setattr(export, "load_split", lambda dataset, split: [{"id": "q1", "text": "One"}])
+    monkeypatch.setattr(export, "load_predictions", lambda _: {
+        "test": {"ids": ["q1"], "output": np.array([[0.3, 0.7]])}
+    })
+    monkeypatch.setattr(export, "load_rows", lambda: [{
+        "run_id": "arc-demo", "device": "cuda (NVIDIA GeForce RTX 5090)", "model": "distilbert",
+        "config": {"model": {"params": {"precision": "auto"}}},
+    }])
+    seen = []
+
+    class FakePredictor:
+        model = type("Model", (), {"device": "cpu", "params": {"precision": "auto", "token_cache": True}})()
+
+        @classmethod
+        def load(cls, name):
+            return cls()
+
+        def predict(self, items):
+            seen.append((self.model.params["precision"], self.model.params["token_cache"]))
+            return {"proba": np.array([[0.3, 0.7]])}
+
+    monkeypatch.setattr(export, "Predictor", FakePredictor)
+    report = export.check("arc-demo")
+    assert seen == [("bf16", False), ("auto", True)]
+    assert report["comparison_precision"] == "bf16"
+    assert FakePredictor.model.params["precision"] == "auto"
+    assert FakePredictor.model.params["token_cache"] is True

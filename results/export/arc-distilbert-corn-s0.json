@@ -3,10 +3,17 @@
   "dataset": "arc",
   "split": "test",
   "n": 3530,
-  "max_abs_difference": 0.006840554005268784,
+  "max_abs_difference": 0.005120810475428228,
   "probability_tolerance": 0.03,
+  "comparison_precision": "bf16",
+  "label_agreement": 0.9983,
+  "runtime_versions": {
+    "torch": "2.15.0",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2"
+  },
   "same_predictions": true,
-  "seconds_per_question": 0.0337,
+  "seconds_per_question": 0.0331,
   "timed_items": 100,
   "device": "cpu",
   "r7_pass": true

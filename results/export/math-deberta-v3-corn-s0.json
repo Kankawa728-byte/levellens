@@ -1,0 +1,20 @@
+{
+  "run_id": "math-deberta-v3-corn-s0",
+  "dataset": "math",
+  "split": "test",
+  "n": 5000,
+  "max_abs_difference": 0.0152710518786221,
+  "probability_tolerance": 0.03,
+  "comparison_precision": "bf16",
+  "label_agreement": 0.9948,
+  "runtime_versions": {
+    "torch": "2.15.0",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2"
+  },
+  "same_predictions": true,
+  "seconds_per_question": 0.1411,
+  "timed_items": 100,
+  "device": "cpu",
+  "r7_pass": true
+}

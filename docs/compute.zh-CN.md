@@ -192,7 +192,7 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 |---|---|---|---|
 | **R6**，每次微调 | 0.19 小时，28 次里最长的 | 1 GPU 小时 | 通过 |
 | **R6**，整个项目 | 0.89 GPU 小时 | 20 GPU 小时 | 通过 |
-| **R7**，CPU 上一道题 | 5 个已保存 DistilBERT 模型，0.026 到 0.046 秒 | 1 秒 | 通过 |
+| **R7**，笔记本 CPU 上一道题 | 4 个已保存 DistilBERT 模型，0.0275 到 0.0331 秒 | 1 秒 | 通过 |
 
 项目上限只计 GPU 小时。除此之外，项目还花了 0.45 CPU 小时（经典基线和特征模型）和 0.41 小时的
 笔记本 GPU（最早的几行 BiLSTM）；效率表把这三类分开列，因为三者的一小时不是一回事。
@@ -205,20 +205,18 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 
 | 模型 | CPU 上 | GPU 上 | GPU 上按 32 批 |
 |---|---|---|---|
-| DistilBERT | 笔记本上 0.026 到 0.034 秒，计算节点上 0.046 到 0.058 秒 | 0.003 秒 | 0.0003 秒 |
-| DeBERTa-v3 | 未测 | 0.014 到 0.015 秒 | 0.0006 到 0.0011 秒 |
+| DistilBERT | Jikai 笔记本上 0.0275 到 0.0331 秒 | 0.003 秒 | 0.0003 秒 |
+| DeBERTa-v3 | Jikai 笔记本上 0.1267 到 0.1411 秒 | 0.014 到 0.015 秒 | 0.0006 到 0.0011 秒 |
 
-- CPU 的数字来自 `python -m levellens.export`，它同时也是任务 E8 的检查。R7 要求的是笔记本 CPU。
-  分工 C 在 11 月 14 日是在计算节点上测的，属于服务器 CPU：三个 DistilBERT 模型是 0.046 到
-  0.058 秒。11 月 15 日分工 E 在笔记本上对三个 DistilBERT CORN 模型重做了这项检查：0.026 到 0.034 秒。
-  测过两次的那两个运行，笔记本的报告替换了计算节点的报告（0.056 和 0.058 秒）；
-  `race-distilbert-ce-s0` 在计算节点上的报告（0.046 秒）仍在 `results/export/` 里。加上
-  DistilBERT smoke 模型的笔记本测量 0.028 秒，这些就是 R7 依据的五份报告。它们都比上限小一个
-  数量级以上，所以判定不取决于究竟指哪台机器。
+- CPU 数字来自 `python -m levellens.export`，它同时检查任务 E8。R7 要求笔记本 CPU，因此只计入
+  Jikai 的 Intel i5-11400H 笔记本测得的四个 DistilBERT checkpoint：ARC、MATH、RACE++ 的 CORN
+  模型及 ARC Optuna 重训模型。每份报告均按正常 CPU fp32 推理逐题计时 100 道题。此前在计算集群上
+  测得的 DistilBERT smoke 与 RACE++ 交叉熵模型报告保存在 `results/export/cluster_legacy/`，
+  不进入 R7 汇总。两个 DeBERTa-v3 CORN CPU 结果仅供参考，不参与 R7 判定。
 - GPU 的数字来自 `python scripts/latency.py --device cuda`。DeBERTa-v3 回答一道题是 15 毫秒，
   所以演示在 GPU 上会是即时的，在 CPU 上也仍远低于一秒。
 
-### 有一件事要交给分工 E（任务 E8）
+### 分工 E 的任务 E8：保存模型检查
 
 11 月 14 日，`levellens.export` 对每一个已保存模型都报 **same predictions False**：Predictor 的概率
 与训练时存下的概率之间最大差异为 6.2e-03 到 2.4e-02，而 `levellens/export.py` 当时的容差是 1e-03。
@@ -228,9 +226,12 @@ GloVe 6B 300d，以及 `levellens/models/llm.py` 里钉住版本号的 Qwen3-4B-
 在第二到第三位小数一致，而不是 `TOLERANCE` 当时的注释所说的第四位。`scripts/measure.sbatch` 会把两个
 检查都跑，GPU 那个先跑。
 
-是改成在训练精度下比较，还是把容差放宽，这由分工 E 决定；分工 C 两者都没有动。分工 E 在
-11 月 15 日放宽了容差：`TOLERANCE` 现在是 0.03，此后写出的每份报告都注明它用的容差。在那之前写出的
-报告是按 1e-03 检查的，所以对新容差能接受的差异，它仍可能写 False。
+分工 E 最终在笔记本上以训练打分时的 bf16 精度比较保存模型与原始概率，延迟则继续按正常 CPU fp32
+推理计时。不同设备的 bf16 内核仍有细微差异，因此保留 0.03 的 `TOLERANCE`；每份报告记录实际最大差、
+比较精度、标签一致率、库版本及 CPU 延迟。六个收到的 checkpoint 均通过概率检查：四个 DistilBERT
+报告中的最大差为 0.0216，两个 DeBERTa-v3 报告中的最大差为 0.0191。复现时应使用训练所用的
+Transformers 4.57.6 与 tokenizers 0.22.2。较新版本改变了 18 道 RACE++ 测试题的 token ID；
+导出检查在比较阶段绕过旧 token 缓存。
 
 ## 7. 复现性说明
 
